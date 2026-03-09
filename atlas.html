@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas · Formes Littéraires</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c1220;--ocean:#152638;--land:#4a4238;--land-border:rgba(8,14,26,0.6);
+  --highlight:#d4a849;--highlight-hover:#f0cc60;--highlight-glow:rgba(212,168,73,0.35);
+  --gold:#c9a227;--gold-light:#e8d078;--cream:#e8dcc8;
+  --text-dim:#7a6e5f;--text-faint:rgba(122,110,95,0.5);
+  --border-subtle:rgba(201,162,39,0.18);--border-gold:rgba(201,162,39,0.4);
+  --card-bg:rgba(15,25,45,0.7);--city-color:#e06040;--city-hover:#ff8866;
+}
+body{background:var(--bg);color:var(--cream);font-family:'EB Garamond',serif;min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(30,60,100,0.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(80,50,20,0.06) 0%,transparent 50%)}
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 44px;border-bottom:1px solid var(--border-subtle);background:rgba(12,18,32,0.97);position:sticky;top:0;z-index:200;backdrop-filter:blur(14px)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-diamond{color:var(--gold);font-size:.52rem}
+.nav-brand-text{font-family:'Cinzel',serif;font-size:.73rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light)}
+.nav-links{display:flex;gap:36px}
+.nav-link{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .22s;padding-bottom:2px;border-bottom:1px solid transparent}
+.nav-link:hover{color:var(--gold-light);border-bottom-color:rgba(201,162,39,.3)}
+.nav-link.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+@media(max-width:640px){.site-nav{padding:12px 20px}.nav-links{gap:16px}.nav-link{font-size:.6rem}}
+header{text-align:center;padding:28px 20px 4px}
+.header-ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:12px}
+.header-line{flex:1;max-width:160px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.header-line.right{background:linear-gradient(to left,transparent,var(--gold))}
+.header-diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);opacity:.7}
+.title-main{font-family:'Cinzel Decorative',serif;font-size:clamp(1.05rem,2.4vw,1.85rem);color:var(--gold-light);letter-spacing:.03em;text-shadow:0 0 50px rgba(201,162,39,.2),0 2px 8px rgba(0,0,0,.6)}
+.title-sub{font-family:'Cinzel',serif;font-size:clamp(.5rem,.95vw,.66rem);letter-spacing:.35em;text-transform:uppercase;color:var(--text-dim);margin-top:7px}
+.section-label{text-align:center;font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--text-faint);padding:18px 20px 8px}
+.btn-row{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:4px 20px 10px}
+.lit-btn,.proj-btn{background:transparent;border:1px solid var(--border-subtle);color:var(--text-dim);font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;padding:8px 20px;cursor:pointer;transition:all .28s;outline:none}
+.lit-btn:hover,.proj-btn:hover{color:var(--gold-light);border-color:rgba(201,162,39,.55);background:rgba(201,162,39,.05)}
+.lit-btn.active,.proj-btn.active{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.lit-btn{font-size:.82rem;padding:10px 26px}
+.thin-divider{max-width:700px;margin:6px auto;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.12),transparent)}
+.form-desc{text-align:center;font-style:italic;color:var(--text-dim);font-size:1.02rem;padding:4px 30px 14px;max-width:800px;margin:0 auto;min-height:28px;line-height:1.6}
+.map-wrapper{display:flex;justify-content:center;padding:0 16px;position:relative}
+#main-map{width:100%;max-width:1080px;display:none;cursor:default;overflow:hidden}
+#main-map.is-globe{cursor:grab}
+#main-map.is-globe:active{cursor:grabbing}
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px}
+.loading-spinner{width:32px;height:32px;border:2px solid rgba(201,162,39,.15);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+.globe-hint{text-align:center;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,162,39,.4);padding-bottom:2px;display:none}
+.globe-hint.visible{display:block}
+.proj-info-bar{text-align:center;padding:8px 24px 2px;font-style:italic;color:var(--text-faint);font-size:.82rem;min-height:28px}
+.zoom-controls{position:absolute;right:24px;top:12px;display:flex;flex-direction:column;gap:4px;z-index:10}
+.zoom-btn{width:32px;height:32px;background:rgba(15,25,45,.85);border:1px solid var(--border-subtle);color:var(--text-dim);font-family:'Cinzel',serif;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(8px)}
+.zoom-btn:hover{border-color:var(--border-gold);color:var(--gold-light);background:rgba(201,162,39,.08)}
+.zoom-btn.reset{font-size:.55rem;letter-spacing:.05em}
+.timeline-section{max-width:860px;margin:10px auto 0;padding:0 30px}
+.timeline-year-display{text-align:center;padding-bottom:10px}
+.timeline-year{font-family:'Cinzel Decorative',serif;font-size:1.4rem;color:var(--gold-light);text-shadow:0 0 30px rgba(201,162,39,.2)}
+.timeline-controls{display:flex;align-items:center;gap:12px}
+.timeline-arrow{background:transparent;border:1px solid var(--border-subtle);color:var(--text-dim);font-size:1rem;width:36px;height:36px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.timeline-arrow:hover{border-color:var(--border-gold);color:var(--gold-light);background:rgba(201,162,39,.06)}
+.timeline-arrow:disabled{opacity:.25;cursor:default}
+.timeline-track-wrapper{flex:1;position:relative;height:44px}
+.timeline-track{position:absolute;top:14px;left:0;right:0;height:2px;background:rgba(201,162,39,.15)}
+.timeline-track-fill{position:absolute;top:14px;left:0;height:2px;background:linear-gradient(to right,var(--gold),var(--highlight));transition:width .3s}
+.timeline-marker{position:absolute;top:8px;width:12px;height:12px;border-radius:50%;border:2px solid rgba(201,162,39,.3);background:var(--bg);transform:translateX(-6px);cursor:pointer;transition:all .25s;z-index:2}
+.timeline-marker:hover{border-color:var(--gold);background:rgba(201,162,39,.15);transform:translateX(-6px) scale(1.3)}
+.timeline-marker.active{background:var(--gold);border-color:var(--gold-light);box-shadow:0 0 12px var(--highlight-glow);transform:translateX(-6px) scale(1.2)}
+.timeline-marker-year{position:absolute;top:28px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.05em;color:var(--text-faint);white-space:nowrap}
+.timeline-marker.active .timeline-marker-year{color:var(--gold)}
+.event-card{max-width:860px;margin:14px auto 0;padding:0 30px 20px}
+.event-card-inner{background:var(--card-bg);border:1px solid var(--border-subtle);padding:18px 24px;position:relative;overflow:hidden}
+.event-card-inner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,162,39,.03) 0%,transparent 60%);pointer-events:none}
+.event-entries{display:flex;flex-direction:column;gap:12px}
+.event-entry{display:flex;gap:14px;align-items:flex-start}
+.event-flag{font-size:1.6rem;line-height:1;flex-shrink:0;margin-top:2px}
+.event-title{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--gold-light);letter-spacing:.06em;margin-bottom:4px}
+.event-detail{font-size:1.02rem;color:var(--cream);line-height:1.6;opacity:.88}
+.event-city-tag{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;color:var(--city-color);margin-left:4px}
+.ornament-divider{display:flex;align-items:center;gap:16px;padding:20px 40px;max-width:900px;margin:0 auto}
+.divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.2),transparent)}
+.divider-text{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:0 auto;padding:0 20px 50px}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.gallery-grid{grid-template-columns:1fr}}
+.gallery-card{background:var(--card-bg);border:1px solid var(--border-subtle);padding:12px;cursor:pointer;transition:border-color .28s,transform .28s,box-shadow .28s;position:relative;overflow:hidden}
+.gallery-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,162,39,.04) 0%,transparent 60%);pointer-events:none}
+.gallery-card:hover{border-color:rgba(201,162,39,.5);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.gallery-card.active{border-color:rgba(201,162,39,.75)}
+.gallery-card.active::after{content:'▸ ACTIVE';position:absolute;top:7px;right:9px;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;color:var(--gold)}
+.gallery-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.gallery-card svg{width:100%;display:block}
+.sphere-fill{fill:var(--ocean)}
+.graticule{fill:none;stroke:rgba(100,155,200,.08);stroke-width:.4}
+.country{fill:var(--land);stroke:var(--land-border);stroke-width:.4;transition:fill .15s}
+.country:hover{fill:#5a5248}
+.country.lit-active{fill:var(--highlight);stroke:rgba(180,140,40,.6);stroke-width:.6}
+.country.lit-active:hover{fill:var(--highlight-hover)}
+.sphere-border{fill:none;stroke:rgba(201,162,39,.3);stroke-width:.8}
+.gallery-card .country{transition:none;pointer-events:none}
+.city-dot{fill:var(--city-color);stroke:rgba(0,0,0,.5);stroke-width:.8;cursor:pointer;filter:drop-shadow(0 0 3px rgba(224,96,64,.4))}
+.city-dot:hover{fill:var(--city-hover)}
+.city-label{font-family:'Cinzel',serif;font-size:9px;fill:var(--cream);pointer-events:none;text-anchor:middle;dominant-baseline:text-before-edge;opacity:.9}
+#tooltip{position:fixed;pointer-events:none;background:rgba(10,16,30,.97);border:1px solid rgba(201,162,39,.38);padding:14px 18px 16px;min-width:240px;max-width:340px;opacity:0;transform:translateY(6px) scale(.98);transition:opacity .18s,transform .18s;z-index:9999;backdrop-filter:blur(12px);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+#tooltip.visible{opacity:1;transform:translateY(0) scale(1)}
+.tip-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid rgba(201,162,39,.25)}
+.tip-flag{font-size:2rem;line-height:1;flex-shrink:0}
+.tip-name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--gold-light);line-height:1.25}
+.tip-subtitle{font-style:italic;font-size:.78rem;color:var(--text-dim);margin-top:2px}
+.tip-rows{display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.tip-lbl{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);align-self:center}
+.tip-val{font-size:.95rem;color:var(--cream)}
+.tip-lit-section{margin-top:10px;padding-top:9px;border-top:1px solid rgba(201,162,39,.18)}
+.tip-lit-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.tip-lit-event{margin-bottom:6px}
+.tip-lit-year{font-family:'Cinzel',serif;font-size:.78rem;color:var(--gold-light)}
+.tip-lit-text{font-size:.9rem;color:var(--cream);opacity:.85;line-height:1.4}
+.tip-city-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:var(--city-color);border:1px solid rgba(224,96,64,.3);padding:1px 6px;margin-left:6px}
+footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(122,110,95,.35)}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html"><span class="nav-diamond">◆</span><span class="nav-brand-text">Atlas · Formes Littéraires</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Accueil</a>
+    <a href="atlas.html" class="nav-link active">Atlas</a>
+    <a href="trees.html" class="nav-link">Arborescences</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </div>
+</nav>
+<header>
+  <div class="header-ornament">
+    <div class="header-line"></div><div class="header-diamond"></div>
+    <div class="header-diamond" style="opacity:.4;transform:rotate(45deg) scale(.65)"></div>
+    <div class="header-diamond"></div><div class="header-line right"></div>
+  </div>
+  <div class="title-main">Atlas mondial des formes littéraires</div>
+  <div class="title-sub">Circulation et diffusion des formes à travers le monde</div>
+</header>
+<div class="section-label">Forme littéraire</div>
+<div class="btn-row" id="lit-nav"></div>
+<p class="form-desc" id="form-desc"></p>
+<div class="thin-divider"></div>
+<div class="section-label">Projection cartographique</div>
+<div class="btn-row" id="proj-nav"></div>
+<div class="map-wrapper">
+  <div class="loading-screen" id="loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Chargement des données cartographiques…</div>
+  </div>
+  <svg id="main-map" viewBox="0 0 960 520" preserveAspectRatio="xMidYMid meet"></svg>
+  <div class="zoom-controls" id="zoom-controls" style="display:none">
+    <button class="zoom-btn" id="z-in">+</button>
+    <button class="zoom-btn" id="z-out">−</button>
+    <button class="zoom-btn reset" id="z-reset">⟳</button>
+  </div>
+</div>
+<p class="globe-hint" id="globe-hint">Cliquez et faites glisser pour faire pivoter le globe</p>
+<p class="proj-info-bar" id="proj-info"></p>
+<div class="timeline-section">
+  <div class="timeline-year-display"><div class="timeline-year" id="timeline-year"></div></div>
+  <div class="timeline-controls">
+    <button class="timeline-arrow" id="tl-prev">&#9666;</button>
+    <div class="timeline-track-wrapper" id="tl-track-wrapper">
+      <div class="timeline-track"></div>
+      <div class="timeline-track-fill" id="tl-fill"></div>
+    </div>
+    <button class="timeline-arrow" id="tl-next">&#9656;</button>
+  </div>
+</div>
+<div class="event-card"><div class="event-card-inner" id="event-card-inner"></div></div>
+<div class="ornament-divider"><div class="divider-line"></div><span class="divider-text">Comparaison des projections</span><div class="divider-line"></div></div>
+<div class="gallery-grid" id="gallery"></div>
+<div id="tooltip">
+  <div class="tip-header"><span class="tip-flag" id="t-flag"></span><div><div class="tip-name" id="t-name"></div><div class="tip-subtitle" id="t-sub"></div></div></div>
+  <div id="tip-body"></div>
+</div>
+<footer>Sources : Natural Earth · D3.js · TopoJSON · AWMC GeoData</footer>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+    <script src="donnees.js"></script>
+<script>
+/* ════════════════════════════════════════════════════════
+   PAYS — dictionnaire complet (~185 pays, clés ISO 3166-1 numérique à 3 chiffres)
+   ════════════════════════════════════════════════════════ */
+const PROJ_CONFIG={
+  naturalEarth1:{label:"Natural Earth",desc:"Projection Natural Earth — équilibre entre forme et surface.",make(w,h,p){return d3.geoNaturalEarth1().fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
+  equirectangular:{label:"Équirectangulaire",desc:"Projection équirectangulaire — latitude/longitude en coordonnées directes.",make(w,h,p){return d3.geoEquirectangular().fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
+  orthographic:{label:"Orthographique",desc:"Vue depuis l'espace. Faites glisser pour pivoter le globe.",make(w,h,p){return d3.geoOrthographic().clipAngle(90).rotate([-10,-25]).fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
+  azimuthalEqualArea:{label:"Polaire",desc:"Projection azimutale centrée sur le Pôle Nord.",make(w,h,p){return d3.geoAzimuthalEqualArea().rotate([0,-90]).clipAngle(150).fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}}
+};
+
+let COUNTRIES=[],currentProj="naturalEarth1",currentForm="ecritures",currentDateIdx=0;
+let highlightedMap={},cityList=[],mainProj=null,mainPath=null,mainZoom=null;
+let currentTransform=d3.zoomIdentity;
+const GRAT=d3.geoGraticule(),MW=960,MH=520,MPAD=28,GW=360,GH=190,GPAD=10;
+
+function cid(d){return String(d.id).padStart(3,"0");}
+function getPays(d){const r=String(d.id),p=r.padStart(3,"0");return PAYS[r]||PAYS[p]||null;}
+function getForm(){return LITERARY_FORMS[currentForm];}
+
+function computeHighlighted(){
+  const form=getForm(),maxYear=form.timeline[currentDateIdx].year;
+  const map={};const cities=[];
+  for(const entry of form.timeline){
+    if(entry.year>maxYear)break;
+    for(const evt of entry.events){
+      const id=evt.countryId;
+      if(!map[id])map[id]=[];
+      map[id].push({...evt,year:entry.year});
+      if(evt.city){const cn=resolveCityName(evt.city,entry.year);cities.push({...evt.city,_resolvedNom:cn.nom,_resolvedLocal:cn.local,countryId:id,year:entry.year,title:evt.title,detail:evt.detail});}
+    }
+  }
+  highlightedMap=map;cityList=cities;
+}
+
+function isHighlighted(d){return!!highlightedMap[cid(d)];}
+
+function computeAutoBounds(){
+  const form=getForm();
+  const entry=form.timeline[currentDateIdx];
+  if(!entry)return null;
+  const currentIds=new Set();
+  for(const evt of entry.events){if(evt.countryId)currentIds.add(evt.countryId);}
+  if(currentIds.size===0)return null;
+  const features=COUNTRIES.filter(d=>currentIds.has(cid(d)));
+  if(features.length===0)return null;
+  return{type:"FeatureCollection",features};
+}
+
+function autoZoom(svg,proj,path,animate){
+  const fc=computeAutoBounds();
+  if(!fc||!mainZoom)return;
+  const bounds=path.bounds(fc);
+  const dx=bounds[1][0]-bounds[0][0];
+  const dy=bounds[1][1]-bounds[0][1];
+  const cx=(bounds[0][0]+bounds[1][0])/2;
+  const cy=(bounds[0][1]+bounds[1][1])/2;
+  const pad=60;
+  const scale=Math.min(MW/(dx+pad*2),MH/(dy+pad*2),8);
+  const clampedScale=Math.max(1,Math.min(scale,8));
+  const tx=MW/2-cx*clampedScale;
+  const ty=MH/2-cy*clampedScale;
+  const t=d3.zoomIdentity.translate(tx,ty).scale(clampedScale);
+  if(animate){svg.transition().duration(700).call(mainZoom.transform,t);}
+  else{svg.call(mainZoom.transform,t);}
+}
+
+function mergeCities(cities){
+  const map={};
+  for(const c of cities){
+    const key=c.lat.toFixed(3)+","+c.lon.toFixed(3);
+    if(!map[key])map[key]={...c,events:[]};
+    map[key].events.push({year:c.year,title:c.title,detail:c.detail,resolvedNom:c._resolvedNom,resolvedLocal:c._resolvedLocal});
+    map[key]._resolvedNom=c._resolvedNom;map[key]._resolvedLocal=c._resolvedLocal;
+  }
+  return Object.values(map);
+}
+
+function buildMap(svgEl,projName,w,h,pad,interactive){
+  const svg=d3.select(svgEl),proj=PROJ_CONFIG[projName].make(w,h,pad),path=d3.geoPath().projection(proj);
+  svg.selectAll("*").remove();
+  const g=svg.append("g").attr("class","map-g");
+  g.append("path").datum({type:"Sphere"}).attr("class","sphere-fill").attr("d",path);
+  g.append("path").datum(GRAT()).attr("class","graticule").attr("d",path);
+  const cp=g.selectAll(".country").data(COUNTRIES).join("path")
+    .attr("d",path)
+    .attr("class",d=>"country"+(interactive&&isHighlighted(d)?" lit-active":""));
+  if(interactive){cp.on("mousemove",(evt,d)=>showTip(evt,d)).on("mouseleave",hideTip);}
+  g.append("path").datum({type:"Sphere"}).attr("class","sphere-border").attr("d",path);
+  if(interactive&&cityList.length>0){
+    const cityG=g.append("g").attr("class","cities-layer");
+    const merged=mergeCities(cityList);
+    for(const c of merged){
+      const pt=proj([c.lon,c.lat]);if(!pt||isNaN(pt[0]))continue;
+      const cg=cityG.append("g").attr("class","city-group");
+      cg.append("circle").attr("class","city-dot").attr("cx",pt[0]).attr("cy",pt[1]).attr("r",4)
+        .attr("data-lon",c.lon).attr("data-lat",c.lat)
+        .on("mouseenter",function(evt){const k=(currentTransform&&currentTransform.k)?currentTransform.k:1;d3.select(this).transition().duration(120).attr("r",6/k);showCityTip(evt,c);})
+        .on("mousemove",function(evt){showCityTip(evt,c);})
+        .on("mouseleave",function(){const k=(currentTransform&&currentTransform.k)?currentTransform.k:1;d3.select(this).transition().duration(200).attr("r",4/k);hideTip();});
+      cg.append("text").attr("class","city-label").attr("x",pt[0]).attr("y",pt[1]+8).text(c._resolvedNom);
+    }
+  }
+  if(interactive){
+    mainProj=proj;mainPath=path;
+    if(projName==="orthographic"){
+      mainZoom=null;
+      svg.on(".zoom",null);  /* remove any zoom handlers from previous projection */
+      document.getElementById("zoom-controls").style.display="none";
+    }
+    else{
+      svg.on(".drag",null);  /* remove any drag handlers from previous orthographic render */
+      mainZoom=d3.zoom().scaleExtent([1,12]).on("zoom",evt=>{
+        currentTransform=evt.transform;g.attr("transform",evt.transform);
+        const k=evt.transform.k;
+        g.selectAll(".city-dot").attr("r",4/k);
+        g.selectAll(".city-label").style("font-size",(9/k)+"px");
+        g.selectAll(".country").style("stroke-width",(0.4/k)+"px");
+        g.selectAll(".country.lit-active").style("stroke-width",(0.6/k)+"px");
+      });
+      svg.call(mainZoom);
+      autoZoom(svg,proj,path,false);
+      document.getElementById("zoom-controls").style.display="flex";
+    }
+  }
+  if(interactive&&projName==="orthographic")addGlobeDrag(svg,proj,g);
+  return{proj,path};
+}
+
+function renderMain(projName,animate){
+  const mapEl=document.getElementById("main-map");
+  const svg=d3.select(mapEl);
+  const doRender=()=>{
+    computeHighlighted();currentTransform=d3.zoomIdentity;
+    buildMap(mapEl,projName,MW,MH,MPAD,true);
+    document.getElementById("proj-info").textContent=PROJ_CONFIG[projName].desc;
+    document.getElementById("globe-hint").classList.toggle("visible",projName==="orthographic");
+    mapEl.classList.toggle("is-globe",projName==="orthographic");currentProj=projName;
+    document.querySelectorAll(".proj-btn").forEach(b=>b.classList.toggle("active",b.dataset.proj===projName));
+    document.querySelectorAll(".gallery-card").forEach(c=>c.classList.toggle("active",c.dataset.proj===projName));
+  };
+  if(animate){
+    svg.transition().duration(180).style("opacity",0).end().then(()=>{
+      doRender();
+      svg.transition().duration(280).style("opacity",1).end().then(()=>{
+        autoZoom(svg,mainProj,mainPath,true);
+      });
+    });
+  }
+  else{doRender();mapEl.style.display="block";mapEl.style.opacity="1";}
+}
+
+function renderGallery(){
+  const grid=document.getElementById("gallery");grid.innerHTML="";
+  Object.entries(PROJ_CONFIG).forEach(([key,cfg])=>{
+    const card=document.createElement("div");card.className="gallery-card"+(key===currentProj?" active":"");card.dataset.proj=key;
+    const lbl=document.createElement("div");lbl.className="gallery-label";lbl.textContent=cfg.label;card.appendChild(lbl);
+    const svgEl=document.createElementNS("http://www.w3.org/2000/svg","svg");svgEl.setAttribute("viewBox","0 0 "+GW+" "+GH);svgEl.setAttribute("preserveAspectRatio","xMidYMid meet");card.appendChild(svgEl);
+    buildMap(svgEl,key,GW,GH,GPAD,false);card.addEventListener("click",()=>renderMain(key,true));grid.appendChild(card);
+  });
+}
+
+function showTip(evt,d){
+  const p=getPays(d),id=cid(d),litEvts=highlightedMap[id];
+  const era=getEra(getForm().timeline[currentDateIdx].year);
+  document.getElementById("t-flag").textContent=p?p.drapeau:"🌐";
+  document.getElementById("t-name").textContent=p?p.nom:"Territoire";
+  document.getElementById("t-sub").textContent=era?era.label:"";
+  const body=document.getElementById("tip-body");body.innerHTML="";
+  if(litEvts&&litEvts.length>0){
+    let h='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+'</div>';
+    for(const ev of litEvts){const ct=ev.city?'<span class="tip-city-badge">'+resolveCityName(ev.city,ev.year).nom+'</span>':"";h+='<div class="tip-lit-event"><div class="tip-lit-year">'+formatYear(ev.year)+ct+'</div><div class="tip-lit-text">'+ev.title+'</div></div>';}
+    h+='</div>';body.innerHTML=h;
+  }else if(p){
+    body.innerHTML='<div class="tip-rows"><span class="tip-lbl">Capitale</span><span class="tip-val">'+p.capitale+'</span><span class="tip-lbl">Population</span><span class="tip-val">'+p.pop+'</span><span class="tip-lbl">Superficie</span><span class="tip-val">'+p.superficie+'</span></div>';
+  }
+  const tt=document.getElementById("tooltip");tt.classList.add("visible");positionTip(evt,tt);
+}
+
+function showCityTip(evt,c){
+  const p=PAYS[c.countryId];
+  document.getElementById("t-flag").textContent="📍";
+  document.getElementById("t-name").textContent=c._resolvedNom+(c._resolvedLocal?" ("+c._resolvedLocal+")":"");
+  document.getElementById("t-sub").textContent=p?p.nom:"";
+  let h='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+' — '+c._resolvedNom+'</div>';
+  for(const ev of c.events){h+='<div class="tip-lit-event"><div class="tip-lit-year">'+formatYear(ev.year)+'</div><div class="tip-lit-text">'+ev.title+'</div></div>';}
+  h+='</div>';
+  document.getElementById("tip-body").innerHTML=h;
+  const tt=document.getElementById("tooltip");tt.classList.add("visible");positionTip(evt,tt);
+}
+
+function positionTip(evt,tt){const m=16;let x=evt.clientX+m,y=evt.clientY+m;tt.style.left="0";tt.style.top="0";const r=tt.getBoundingClientRect();if(x+r.width>window.innerWidth)x=evt.clientX-r.width-m;if(y+r.height>window.innerHeight)y=evt.clientY-r.height-m;tt.style.left=x+"px";tt.style.top=y+"px";}
+document.addEventListener("mousemove",evt=>{const tt=document.getElementById("tooltip");if(tt.classList.contains("visible"))positionTip(evt,tt);});
+function hideTip(){document.getElementById("tooltip").classList.remove("visible");}
+
+function addGlobeDrag(svg,proj,g){
+  let ox=0,oy=0,r0;
+  svg.call(d3.drag()
+    .on("start",evt=>{ox=evt.x;oy=evt.y;r0=proj.rotate().slice();})
+    .on("drag",evt=>{
+      proj.rotate([r0[0]+(evt.x-ox)*0.35,r0[1]-(evt.y-oy)*0.35]);
+      const np=d3.geoPath().projection(proj);g.selectAll("path").attr("d",np);
+      g.selectAll(".city-group").each(function(){
+        const dot=d3.select(this).select("circle"),lbl=d3.select(this).select("text");
+        const lon=+dot.attr("data-lon"),lat=+dot.attr("data-lat");
+        if(!isNaN(lon)&&!isNaN(lat)){const pt=proj([lon,lat]);if(pt){dot.attr("cx",pt[0]).attr("cy",pt[1]);lbl.attr("x",pt[0]).attr("y",pt[1]+8);const vis=d3.geoDistance([lon,lat],[-proj.rotate()[0],-proj.rotate()[1]])<Math.PI/2;d3.select(this).style("display",vis?null:"none");}}
+      });
+    })
+  );
+}
+
+function formatYear(y){return y<0?Math.abs(y)+" av. J.-C.":String(y);}
+
+function buildTimeline(){
+  const form=getForm(),tl=form.timeline;
+  const wrapper=document.getElementById("tl-track-wrapper");
+  wrapper.querySelectorAll(".timeline-marker").forEach(m=>m.remove());
+  tl.forEach((entry,i)=>{
+    const pct=tl.length===1?50:(i/(tl.length-1))*100;
+    const mk=document.createElement("div");mk.className="timeline-marker"+(i===currentDateIdx?" active":"");mk.style.left=pct+"%";mk.dataset.idx=i;
+    const yr=document.createElement("div");yr.className="timeline-marker-year";yr.textContent=formatYear(entry.year);mk.appendChild(yr);
+    mk.addEventListener("click",()=>goToDate(i));wrapper.appendChild(mk);
+  });
+  updateTimelineUI();
+}
+
+function updateTimelineUI(){
+  const form=getForm(),tl=form.timeline;
+  document.getElementById("timeline-year").textContent=formatYear(tl[currentDateIdx].year);
+  const pct=tl.length===1?50:(currentDateIdx/(tl.length-1))*100;
+  document.getElementById("tl-fill").style.width=pct+"%";
+  document.querySelectorAll(".timeline-marker").forEach((mk,i)=>mk.classList.toggle("active",i===currentDateIdx));
+  document.getElementById("tl-prev").disabled=currentDateIdx===0;
+  document.getElementById("tl-next").disabled=currentDateIdx===tl.length-1;
+  renderEventCard();
+}
+
+function renderEventCard(){
+  const entry=getForm().timeline[currentDateIdx];
+  let h='<div class="event-entries">';
+  for(const evt of entry.events){
+    const p=PAYS[evt.countryId],flag=p?p.drapeau:"🌐";
+    const cityTag=evt.city?(()=>{const cn=resolveCityName(evt.city,entry.year);return'<span class="event-city-tag">📍 '+cn.nom+(cn.local?" ("+cn.local+")":"")+"</span>";})():"";
+    h+='<div class="event-entry"><div class="event-flag">'+flag+'</div><div class="event-text"><div class="event-title">'+evt.title+cityTag+'</div><div class="event-detail">'+evt.detail+'</div></div></div>';
+  }
+  h+='</div>';document.getElementById("event-card-inner").innerHTML=h;
+}
+
+function goToDate(idx){const tl=getForm().timeline;if(idx<0||idx>=tl.length)return;currentDateIdx=idx;updateTimelineUI();renderMain(currentProj,true);}
+
+function switchForm(formKey){
+  if(!LITERARY_FORMS[formKey])return;currentForm=formKey;currentDateIdx=0;
+  document.querySelectorAll(".lit-btn").forEach(b=>b.classList.toggle("active",b.dataset.form===formKey));
+  document.getElementById("form-desc").textContent=getForm().desc;
+  buildTimeline();renderMain(currentProj,true);renderGallery();
+}
+
+function setupZoomButtons(){
+  const svg=d3.select("#main-map");
+  document.getElementById("z-in").addEventListener("click",()=>{if(mainZoom)svg.transition().duration(300).call(mainZoom.scaleBy,1.5);});
+  document.getElementById("z-out").addEventListener("click",()=>{if(mainZoom)svg.transition().duration(300).call(mainZoom.scaleBy,0.67);});
+  document.getElementById("z-reset").addEventListener("click",()=>{if(mainZoom)svg.transition().duration(500).call(mainZoom.transform,d3.zoomIdentity);});
+}
+
+function setupUI(){
+  const litNav=document.getElementById("lit-nav");
+  Object.entries(LITERARY_FORMS).forEach(([key,cfg])=>{
+    const btn=document.createElement("button");btn.className="lit-btn"+(key===currentForm?" active":"");btn.dataset.form=key;btn.textContent=cfg.label;btn.addEventListener("click",()=>switchForm(key));litNav.appendChild(btn);
+  });
+  const projNav=document.getElementById("proj-nav");
+  Object.entries(PROJ_CONFIG).forEach(([key,cfg])=>{
+    const btn=document.createElement("button");btn.className="proj-btn"+(key===currentProj?" active":"");btn.dataset.proj=key;btn.textContent=cfg.label;btn.addEventListener("click",()=>renderMain(key,true));projNav.appendChild(btn);
+  });
+  document.getElementById("tl-prev").addEventListener("click",()=>goToDate(currentDateIdx-1));
+  document.getElementById("tl-next").addEventListener("click",()=>goToDate(currentDateIdx+1));
+  setupZoomButtons();
+}
+
+async function init(){
+  try{
+    const world=await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
+    COUNTRIES=topojson.feature(world,world.objects.countries).features;
+    document.getElementById("loading").style.display="none";
+    document.getElementById("form-desc").textContent=getForm().desc;
+    setupUI();buildTimeline();renderMain("naturalEarth1",false);renderGallery();
+  }catch(err){
+    document.getElementById("loading").innerHTML='<div style="color:#c07a50;font-family:Cinzel,serif;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;text-align:center;padding:20px">Erreur de chargement<br><span style="font-family:EB Garamond,serif;font-style:italic;font-size:1rem;letter-spacing:0;text-transform:none;color:#7a6e5f;margin-top:8px;display:block">Vérifiez votre connexion et rechargez la page.</span></div>';
+    console.error(err);
+  }
+}
+init();
+</script>
+</body>
+</html>

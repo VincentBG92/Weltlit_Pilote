@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arborescences · Atlas des formes littéraires</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c1220;--gold:#c9a227;--gold-light:#e8d078;--cream:#e8dcc8;
+  --text-dim:#7a6e5f;--text-faint:rgba(122,110,95,0.5);
+  --border-subtle:rgba(201,162,39,0.18);--border-gold:rgba(201,162,39,0.4);
+  --card-bg:rgba(15,25,45,0.7);
+}
+body{background:var(--bg);color:var(--cream);font-family:'EB Garamond',serif;min-height:100vh;
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(30,60,100,0.12) 0%,transparent 60%)}
+
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 44px;
+  border-bottom:1px solid var(--border-subtle);background:rgba(12,18,32,0.97);
+  position:sticky;top:0;z-index:200;backdrop-filter:blur(14px)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-diamond{color:var(--gold);font-size:.52rem}
+.nav-brand-text{font-family:'Cinzel',serif;font-size:.73rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light)}
+.nav-links{display:flex;gap:36px}
+.nav-link{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-dim);text-decoration:none;transition:color .22s;padding-bottom:2px;
+  border-bottom:1px solid transparent}
+.nav-link:hover{color:var(--gold-light);border-bottom-color:rgba(201,162,39,.3)}
+.nav-link.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+@media(max-width:640px){.site-nav{padding:12px 20px}.nav-links{gap:16px}.nav-link{font-size:.6rem}}
+
+header{text-align:center;padding:30px 20px 4px}
+.header-ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.header-line{flex:1;max-width:160px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.header-line.right{background:linear-gradient(to left,transparent,var(--gold))}
+.header-diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);opacity:.7}
+.title-main{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,2.5vw,1.85rem);
+  color:var(--gold-light);letter-spacing:.03em;text-shadow:0 0 50px rgba(201,162,39,.2)}
+.title-sub{font-family:'Cinzel',serif;font-size:clamp(.5rem,.95vw,.66rem);
+  letter-spacing:.35em;text-transform:uppercase;color:var(--text-dim);margin-top:8px}
+
+.section-label{text-align:center;font-family:'Cinzel',serif;font-size:.66rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--text-faint);padding:20px 20px 8px}
+.btn-row{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;
+  padding:4px 24px 14px;max-width:1200px;margin:0 auto}
+.tree-btn{background:transparent;border:1px solid var(--border-subtle);color:var(--text-dim);
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 16px;cursor:pointer;transition:all .26s;outline:none;position:relative}
+.tree-btn:hover{color:var(--gold-light);border-color:rgba(201,162,39,.55);background:rgba(201,162,39,.05)}
+.tree-btn.active{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.tree-btn.stub{opacity:.6}
+.tree-btn.stub::after{content:'· · ·';position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);font-size:.4rem;color:var(--text-faint);letter-spacing:.1em}
+
+.tree-desc{text-align:center;font-style:italic;color:var(--text-dim);font-size:1.02rem;
+  padding:4px 30px 16px;max-width:860px;margin:0 auto;line-height:1.6;min-height:32px}
+.thin-divider{max-width:700px;margin:2px auto 0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(201,162,39,.12),transparent)}
+
+.legend{display:flex;align-items:center;justify-content:center;gap:28px;
+  padding:12px 20px 4px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-family:'Cinzel',serif;
+  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim)}
+.legend-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid}
+.legend-line{width:24px;height:2px}
+.legend-dline{width:24px;height:2px;
+  background:repeating-linear-gradient(to right,rgba(224,96,64,.5) 0,rgba(224,96,64,.5) 4px,
+  transparent 4px,transparent 7px)}
+
+/* ── Zone de scroll ── */
+.scroll-nav{display:flex;align-items:center;gap:10px;padding:10px 20px 2px;max-width:100%}
+.scroll-arrow{background:rgba(15,25,45,0.9);border:1px solid var(--border-subtle);
+  color:var(--text-dim);width:36px;height:36px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+  transition:all .2s;user-select:none}
+.scroll-arrow:hover{border-color:var(--border-gold);color:var(--gold-light);
+  background:rgba(201,162,39,.08)}
+.scroll-track-wrap{flex:1;position:relative;height:36px;display:flex;align-items:center}
+.scroll-track{width:100%;height:4px;background:rgba(201,162,39,.1);
+  border-radius:2px;position:relative;cursor:pointer}
+.scroll-thumb{position:absolute;top:0;left:0;height:4px;background:rgba(201,162,39,.45);
+  border-radius:2px;min-width:40px;transition:background .15s;cursor:grab}
+.scroll-thumb:hover,.scroll-thumb.dragging{background:rgba(201,162,39,.75)}
+.scroll-pos{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-faint);white-space:nowrap;min-width:60px;text-align:right}
+
+.tree-wrapper{width:100%;overflow-x:scroll;overflow-y:hidden;padding:14px 20px 6px;
+  scrollbar-width:none} /* native scrollbar masqué, on utilise le custom */
+.tree-wrapper::-webkit-scrollbar{display:none}
+#tree-svg{display:block}
+
+.node-group{cursor:pointer}
+.node-circle{stroke-width:1.8;transition:r .2s}
+/* Halo de fond derrière les étiquettes pour éviter les chevauchements illisibles */
+.node-label{
+  font-family:'Cinzel',serif;font-size:13px;fill:var(--cream);
+  pointer-events:none;dominant-baseline:middle;
+  paint-order:stroke fill;
+  stroke:rgba(12,18,32,0.88);stroke-width:5px;stroke-linejoin:round}
+.node-year{
+  font-family:'Cinzel',serif;font-size:11px;fill:var(--text-dim);
+  pointer-events:none;dominant-baseline:middle;
+  paint-order:stroke fill;
+  stroke:rgba(12,18,32,0.88);stroke-width:4px;stroke-linejoin:round}
+.tree-link{fill:none;stroke:rgba(201,162,39,.22);stroke-width:1.4}
+.tree-link-hybrid{stroke-dasharray:5,3;stroke:rgba(224,96,64,.32);stroke-width:1.4}
+
+.detail-panel{max-width:900px;margin:0 auto;padding:0 30px 20px}
+.detail-inner{background:var(--card-bg);border:1px solid var(--border-subtle);
+  padding:20px 26px;min-height:80px;position:relative;overflow:hidden;transition:all .3s}
+.detail-inner::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,162,39,.03) 0%,transparent 60%);pointer-events:none}
+.detail-title{font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;
+  color:var(--gold-light);letter-spacing:.06em;margin-bottom:8px}
+.detail-meta{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;
+  color:var(--text-dim);margin-bottom:12px}
+.detail-text{font-size:1.03rem;color:var(--cream);line-height:1.7;opacity:.88}
+.detail-placeholder{font-style:italic;color:var(--text-faint);font-size:.95rem;padding:14px 0}
+
+.sources-bar{max-width:900px;margin:10px auto 0;padding:0 30px;
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  color:#c47a3a;text-align:right;min-height:20px}
+.moretti-note{max-width:860px;margin:24px auto 0;padding:0 30px;
+  font-style:italic;color:rgba(200,170,120,0.65);font-size:.88rem;line-height:1.6;text-align:center}
+.orn-div{display:flex;align-items:center;gap:18px;max-width:900px;margin:28px auto 0;padding:0 30px}
+.orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.15),transparent)}
+.orn-text{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--text-faint);white-space:nowrap}
+footer{text-align:center;padding:30px 20px 24px;font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(122,110,95,.32);border-top:1px solid var(--border-subtle);margin-top:40px}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html"><span class="nav-diamond">◆</span><span class="nav-brand-text">Atlas · Formes Littéraires</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Accueil</a>
+    <a href="atlas.html" class="nav-link">Atlas</a>
+    <a href="trees.html" class="nav-link active">Arborescences</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<header>
+  <div class="header-ornament">
+    <div class="header-line"></div><div class="header-diamond"></div>
+    <div class="header-diamond" style="opacity:.4;transform:rotate(45deg) scale(.65)"></div>
+    <div class="header-diamond"></div><div class="header-line right"></div>
+  </div>
+  <div class="title-main">Arborescences des formes littéraires</div>
+  <div class="title-sub">Évolution, spéciation et hybridation des genres</div>
+</header>
+
+<div class="section-label">Forme littéraire</div>
+<div class="btn-row" id="tab-row"></div>
+<p class="tree-desc" id="tree-desc"></p>
+<div class="thin-divider"></div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(201,162,39,.18);border-color:#c9a227"></div>Forme souche</div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(212,168,73,.13);border-color:#d4a849"></div>Forme principale</div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(100,180,150,.14);border-color:#5ab08a"></div>Ramification / école</div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(180,100,200,.14);border-color:#b464c8"></div>Hybride / emprunt</div>
+  <div class="legend-item"><div class="legend-line" style="background:rgba(201,162,39,.3)"></div>Filiation directe</div>
+  <div class="legend-item"><div class="legend-dline"></div>Hybridation documentée</div>
+</div>
+
+<div class="scroll-nav" id="scroll-nav">
+  <button class="scroll-arrow" id="scroll-left" title="Vers la gauche">&#9666;</button>
+  <div class="scroll-track-wrap">
+    <div class="scroll-track" id="scroll-track">
+      <div class="scroll-thumb" id="scroll-thumb"></div>
+    </div>
+  </div>
+  <div class="scroll-pos" id="scroll-pos"></div>
+  <button class="scroll-arrow" id="scroll-right" title="Vers la droite">&#9656;</button>
+</div>
+
+<div class="tree-wrapper" id="tree-wrapper">
+  <svg id="tree-svg"></svg>
+</div>
+
+<div class="detail-panel">
+  <div class="detail-inner" id="detail-inner">
+    <p class="detail-placeholder">Cliquez sur un nœud pour afficher les détails.</p>
+  </div>
+</div>
+<div class="sources-bar" id="sources-bar"></div>
+
+<p class="moretti-note">
+  Ces arborescences s'inspirent de la méthode de Franco Moretti dans « The Slaughterhouse of Literature » (<em>MLQ</em>, 2000) et <em>Graphs, Maps, Trees</em> (2005) : les formes littéraires y sont traitées comme des espèces qui se ramifient, s'hybrident et parfois disparaissent. Les liens tiretés indiquent des hybridations ou emprunts documentés entre traditions distinctes ; les liens continus, des filiations génériques directes au sein d'une même tradition.
+</p>
+<div class="orn-div"><div class="orn-line"></div><span class="orn-text">Note méthodologique</span><div class="orn-line"></div></div>
+
+<footer>Données provisoires</footer>
+
+<!-- donnees.js (atlas) chargé en premier : LITERARY_FORMS et PAYS disponibles si présents -->
+<script src="donnees.js"></script>
+<script src="donnees-arbres.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   MOTEUR DE RENDU
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const TYPE_COLOR = {
+  root:   { fill:"rgba(201,162,39,0.20)",  stroke:"#c9a227", r:17 },
+  main:   { fill:"rgba(212,168,73,0.13)",  stroke:"#d4a849", r:12 },
+  branch: { fill:"rgba(100,180,150,0.14)", stroke:"#5ab08a", r:9  },
+  hybrid: { fill:"rgba(180,100,200,0.14)", stroke:"#b464c8", r:9  }
+};
+
+const TYPE_LABEL = {
+  root:"Forme souche", main:"Forme principale",
+  branch:"Ramification / école", hybrid:"Forme hybride / emprunt"
+};
+
+let currentTree = null;
+let selectedNodeId = null;
+
+/* ── Construction des onglets ─────────────────────────────────────────── */
+function buildTabs() {
+  const row = document.getElementById("tab-row");
+  row.innerHTML = "";
+  let first = null;
+  for (const [key, tree] of Object.entries(TREES)) {
+    if (!first) first = key;
+    const btn = document.createElement("button");
+    btn.className = "tree-btn" + (tree.status === "stub" ? " stub" : "");
+    btn.dataset.tree = key;
+    btn.textContent = tree.label || key;
+    btn.title = tree.status === "stub"
+      ? tree.label + " — en cours de documentation"
+      : tree.label || key;
+    btn.addEventListener("click", () => switchTree(key));
+    row.appendChild(btn);
+  }
+  return first;
+}
+
+/* ── Changement d'onglet ─────────────────────────────────────────────── */
+function switchTree(key) {
+  currentTree = key;
+  selectedNodeId = null;
+  const tree = TREES[key];
+
+  document.querySelectorAll(".tree-btn")
+    .forEach(b => b.classList.toggle("active", b.dataset.tree === key));
+
+  document.getElementById("tree-desc").textContent = tree.desc || "";
+  document.getElementById("sources-bar").innerHTML =
+    tree.sources ? "Sources : " + tree.sources : "";
+  document.getElementById("detail-inner").innerHTML =
+    '<p class="detail-placeholder">Cliquez sur un nœud pour afficher les détails.</p>';
+
+  if (tree.status === "stub") {
+    renderStub(tree);
+  } else {
+    document.getElementById("tree-wrapper").style.display = "";
+    renderTree(tree);
+  }
+}
+
+/* ── Page "en construction" ──────────────────────────────────────────── */
+function renderStub(tree) {
+  const svg = d3.select("#tree-svg");
+  svg.attr("width", 0).attr("height", 0).selectAll("*").remove();
+  document.getElementById("tree-wrapper").style.display = "none";
+  document.getElementById("scroll-nav").style.display = "none";
+  document.getElementById("detail-inner").innerHTML = `
+    <div style="text-align:center;padding:24px 0 10px">
+      <div style="font-size:1.8rem;opacity:.35;margin-bottom:18px">◈</div>
+      <div style="font-family:'Cinzel',serif;font-size:.88rem;letter-spacing:.12em;
+        text-transform:uppercase;color:var(--gold-light);margin-bottom:14px">
+        ${tree.label || "Arborescence"}
+      </div>
+      <p style="font-style:italic;color:var(--text-dim);font-size:1rem;line-height:1.75;max-width:480px;margin:0 auto">
+        Cette arborescence est en cours de documentation.<br>
+        Sources et structure généalogique en cours de sélection.
+      </p>
+      <p style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.16em;
+        text-transform:uppercase;color:var(--text-faint);margin-top:22px">
+        Contributions bienvenues · page Contact
+      </p>
+    </div>
+  `;
+}
+
+/* ── Rendu D3 de l'arbre ─────────────────────────────────────────────── */
+function renderTree(tree) {
+  document.getElementById("tree-wrapper").style.display = "";
+  document.getElementById("scroll-nav").style.display = "";
+  const svg = d3.select("#tree-svg");
+  svg.selectAll("*").remove();
+
+  const hier = d3.hierarchy(tree.root, d => d.children);
+  /* nodeSize[0] = espacement vertical entre frères, nodeSize[1] = profondeur horizontale */
+  const treeLayout = d3.tree().nodeSize([120, 320]);
+  treeLayout(hier);
+
+  const nodes = hier.descendants();
+  const links  = hier.links();
+
+  const xs = nodes.map(n => n.x), ys = nodes.map(n => n.y);
+  const xMin = Math.min(...xs), xMax = Math.max(...xs);
+  const yMin = Math.min(...ys);
+  /* padY gauche large pour que l'étiquette du nœud racine (ci-dessous) ne soit pas coupée */
+  const padX = 70, padY = 90;
+  const W = (Math.max(...ys) - yMin) + padY * 2 + 340;
+  const H = (xMax - xMin) + padX * 2;
+
+  svg.attr("width", W).attr("height", H);
+
+  const g = svg.append("g")
+    .attr("transform", `translate(${padY - yMin},${padX - xMin})`);
+
+  /* Liens */
+  const linkGen = d3.linkHorizontal().x(d => d.y).y(d => d.x);
+  g.selectAll(".tree-link")
+    .data(links)
+    .join("path")
+    .attr("class", d => "tree-link" + (d.target.data.hybrid ? " tree-link-hybrid" : ""))
+    .attr("d", linkGen);
+
+  /* Nœuds */
+  const nodeG = g.selectAll(".node-group")
+    .data(nodes)
+    .join("g")
+    .attr("class", "node-group")
+    .attr("transform", d => `translate(${d.y},${d.x})`)
+    .on("click", (evt, d) => selectNode(d.data));
+
+  nodeG.each(function(d) {
+    const tc = TYPE_COLOR[d.data.type] || TYPE_COLOR.branch;
+    const sel = d.data.id === selectedNodeId;
+    d3.select(this).append("circle")
+      .attr("class", "node-circle")
+      .attr("r", sel ? tc.r * 1.45 : tc.r)
+      .style("fill", sel ? tc.stroke.replace(")", ",0.25)").replace("rgb","rgba") : tc.fill)
+      .style("stroke", tc.stroke)
+      .style("stroke-width", sel ? 3 : 1.8);
+  });
+
+  /* Labels :
+     - nœud racine (depth 0) : centré EN DESSOUS du cercle
+     - nœuds parents (depth > 0, avec enfants) : à gauche, text-anchor:end
+     - feuilles : à droite, text-anchor:start
+  */
+  nodeG.append("text")
+    .attr("class", "node-label")
+    .attr("x", d => d.depth === 0 ? 0 : (d.children ? -22 : 22))
+    .attr("y", d => d.depth === 0 ? 26 : 0)
+    .attr("text-anchor", d => d.depth === 0 ? "middle" : (d.children ? "end" : "start"))
+    .attr("dominant-baseline", d => d.depth === 0 ? "auto" : "middle")
+    .text(d => d.data.label);
+
+  nodeG.append("text")
+    .attr("class", "node-year")
+    .attr("x", d => d.depth === 0 ? 0 : (d.children ? -22 : 22))
+    .attr("y", d => d.depth === 0 ? 40 : 18)
+    .attr("text-anchor", d => d.depth === 0 ? "middle" : (d.children ? "end" : "start"))
+    .attr("dominant-baseline", d => d.depth === 0 ? "auto" : "middle")
+    .text(d => d.data.year || "");
+
+  /* Mise à jour du scroll custom */
+  updateScrollUI();
+}
+
+/* ── Système de scroll custom ────────────────────────────────────────── */
+function updateScrollUI() {
+  const wrapper = document.getElementById("tree-wrapper");
+  const thumb   = document.getElementById("scroll-thumb");
+  const track   = document.getElementById("scroll-track");
+  const posEl   = document.getElementById("scroll-pos");
+  if (!wrapper || !thumb) return;
+
+  const ratio = wrapper.clientWidth / wrapper.scrollWidth;
+  if (ratio >= 1) {
+    document.getElementById("scroll-nav").style.opacity = "0.3";
+    document.getElementById("scroll-nav").style.pointerEvents = "none";
+    thumb.style.width = "100%";
+    posEl.textContent = "";
+    return;
+  }
+  document.getElementById("scroll-nav").style.opacity = "";
+  document.getElementById("scroll-nav").style.pointerEvents = "";
+
+  const trackW = track.offsetWidth;
+  const thumbW = Math.max(40, trackW * ratio);
+  thumb.style.width = thumbW + "px";
+
+  const scrollFraction = wrapper.scrollLeft / (wrapper.scrollWidth - wrapper.clientWidth);
+  thumb.style.left = (scrollFraction * (trackW - thumbW)) + "px";
+
+  const pct = Math.round(scrollFraction * 100);
+  posEl.textContent = pct + " %";
+}
+
+function initScroll() {
+  const wrapper = document.getElementById("tree-wrapper");
+  const thumb   = document.getElementById("scroll-thumb");
+  const track   = document.getElementById("scroll-track");
+
+  /* Boutons flèches */
+  document.getElementById("scroll-left").addEventListener("click", () => {
+    wrapper.scrollBy({ left: -300, behavior: "smooth" });
+  });
+  document.getElementById("scroll-right").addEventListener("click", () => {
+    wrapper.scrollBy({ left: 300, behavior: "smooth" });
+  });
+
+  /* Sync scroll → thumb */
+  wrapper.addEventListener("scroll", updateScrollUI);
+  window.addEventListener("resize", updateScrollUI);
+
+  /* Clic sur la piste */
+  track.addEventListener("click", (e) => {
+    if (e.target === thumb) return;
+    const rect = track.getBoundingClientRect();
+    const frac = (e.clientX - rect.left) / rect.width;
+    wrapper.scrollLeft = frac * (wrapper.scrollWidth - wrapper.clientWidth);
+  });
+
+  /* Drag du thumb */
+  let dragStart = null, scrollStart = 0;
+  thumb.addEventListener("mousedown", e => {
+    e.preventDefault();
+    dragStart = e.clientX;
+    scrollStart = wrapper.scrollLeft;
+    thumb.classList.add("dragging");
+  });
+  document.addEventListener("mousemove", e => {
+    if (dragStart === null) return;
+    const trackW = track.offsetWidth;
+    const thumbW = thumb.offsetWidth;
+    const delta = (e.clientX - dragStart) / (trackW - thumbW);
+    wrapper.scrollLeft = scrollStart + delta * (wrapper.scrollWidth - wrapper.clientWidth);
+  });
+  document.addEventListener("mouseup", () => {
+    if (dragStart !== null) { dragStart = null; thumb.classList.remove("dragging"); }
+  });
+}
+
+/* ── Sélection d'un nœud ─────────────────────────────────────────────── */
+function selectNode(data) {
+  selectedNodeId = data.id;
+  const tc = TYPE_COLOR[data.type] || TYPE_COLOR.branch;
+  document.getElementById("detail-inner").innerHTML = `
+    <div class="detail-title">${data.label}</div>
+    <div class="detail-meta" style="color:${tc.stroke}">
+      ${TYPE_LABEL[data.type] || ""}${data.year ? " · " + data.year : ""}
+    </div>
+    <div class="detail-text">${data.detail || "<em style='color:var(--text-faint)'>Détail à documenter.</em>"}</div>
+  `;
+  renderTree(TREES[currentTree]);
+}
+
+/* ── Init ──────────────────────────────────────────────────────────────── */
+initScroll();
+const firstKey = buildTabs();
+switchTree(firstKey);
+window.addEventListener("resize", () => {
+  if (currentTree && TREES[currentTree]?.status === "ready") {
+    renderTree(TREES[currentTree]);
+  }
+});
+</script>
+</body>
+</html>

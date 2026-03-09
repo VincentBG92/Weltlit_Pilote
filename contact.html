@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact · Atlas des formes littéraires</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c1220;--gold:#c9a227;--gold-light:#e8d078;--cream:#e8dcc8;
+  --text-dim:#7a6e5f;--text-faint:rgba(122,110,95,0.5);
+  --border-subtle:rgba(201,162,39,0.18);--border-gold:rgba(201,162,39,0.45);
+  --card-bg:rgba(15,25,45,0.7);--input-bg:rgba(8,14,28,0.7);
+}
+body{background:var(--bg);color:var(--cream);font-family:'EB Garamond',serif;min-height:100vh;
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(30,60,100,0.12) 0%,transparent 60%)}
+.site-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 44px;border-bottom:1px solid var(--border-subtle);background:rgba(12,18,32,0.97);position:sticky;top:0;z-index:200;backdrop-filter:blur(14px)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-diamond{color:var(--gold);font-size:.52rem}
+.nav-brand-text{font-family:'Cinzel',serif;font-size:.73rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light)}
+.nav-links{display:flex;gap:36px}
+.nav-link{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color .22s;padding-bottom:2px;border-bottom:1px solid transparent}
+.nav-link:hover{color:var(--gold-light);border-bottom-color:rgba(201,162,39,.3)}
+.nav-link.active{color:var(--gold-light);border-bottom-color:var(--gold)}
+@media(max-width:640px){.site-nav{padding:12px 20px}.nav-links{gap:16px}.nav-link{font-size:.6rem}}
+
+header{text-align:center;padding:30px 20px 28px}
+.header-ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.header-line{flex:1;max-width:160px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.header-line.right{background:linear-gradient(to left,transparent,var(--gold))}
+.header-diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);opacity:.7}
+.title-main{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,2.5vw,1.85rem);color:var(--gold-light);letter-spacing:.03em;text-shadow:0 0 50px rgba(201,162,39,.2)}
+.title-sub{font-family:'Cinzel',serif;font-size:clamp(.5rem,.95vw,.66rem);letter-spacing:.35em;text-transform:uppercase;color:var(--text-dim);margin-top:8px}
+
+/* FORM LAYOUT */
+.form-outer{max-width:720px;margin:0 auto;padding:0 28px 60px}
+.form-intro{font-size:1.06rem;color:var(--cream);opacity:.78;line-height:1.8;margin-bottom:32px;text-align:center}
+.form-intro em{font-style:italic;color:var(--gold-light);opacity:.9}
+
+.form-card{background:var(--card-bg);border:1px solid var(--border-subtle);padding:32px 36px;position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,162,39,.03) 0%,transparent 60%);pointer-events:none}
+
+.field-group{margin-bottom:24px}
+.field-label{display:block;font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+.field-req{color:var(--gold);margin-left:3px}
+
+input[type=text], input[type=email], select, textarea {
+  width:100%;background:var(--input-bg);border:1px solid var(--border-subtle);
+  color:var(--cream);font-family:'EB Garamond',serif;font-size:1.02rem;
+  padding:10px 14px;outline:none;transition:border-color .22s,box-shadow .22s;
+  appearance:none;-webkit-appearance:none;
+}
+input[type=text]:focus,input[type=email]:focus,select:focus,textarea:focus{
+  border-color:var(--border-gold);box-shadow:0 0 0 2px rgba(201,162,39,.08);
+}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a227' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer}
+select option{background:#0c1220;color:var(--cream)}
+textarea{resize:vertical;min-height:130px;line-height:1.6}
+
+.field-hint{font-size:.85rem;color:var(--text-faint);margin-top:6px;font-style:italic}
+
+/* Row of two selects */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:580px){.field-row{grid-template-columns:1fr}}
+
+/* Submit */
+.submit-btn{width:100%;padding:13px;background:transparent;border:1px solid var(--gold);color:var(--gold-light);font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:all .28s;margin-top:8px;position:relative;overflow:hidden}
+.submit-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:0}
+.submit-btn:hover::before{transform:scaleX(1)}
+.submit-btn:hover{color:var(--bg)}
+.submit-btn span{position:relative;z-index:1}
+
+/* Success */
+.success-msg{display:none;text-align:center;padding:32px 20px}
+.success-icon{font-size:2.2rem;margin-bottom:12px;opacity:.8}
+.success-title{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold-light);margin-bottom:10px}
+.success-text{font-style:italic;color:var(--text-dim);font-size:1rem;line-height:1.6}
+
+/* Divider */
+.orn-div{display:flex;align-items:center;gap:18px;max-width:720px;margin:0 auto 28px;padding:0 28px}
+.orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.15),transparent)}
+.orn-text{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--text-faint);white-space:nowrap}
+
+/* Type badges (radio-style) */
+.type-grid{display:flex;flex-wrap:wrap;gap:8px}
+.type-opt{display:none}
+.type-opt + label{display:inline-block;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border-subtle);color:var(--text-dim);cursor:pointer;transition:all .22s}
+.type-opt:checked + label{background:rgba(201,162,39,.12);border-color:var(--border-gold);color:var(--gold-light)}
+.type-opt + label:hover{border-color:rgba(201,162,39,.4);color:var(--gold-light)}
+
+footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(122,110,95,.32);border-top:1px solid var(--border-subtle)}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html"><span class="nav-diamond">◆</span><span class="nav-brand-text">Atlas · Formes Littéraires</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Accueil</a>
+    <a href="atlas.html" class="nav-link">Atlas</a>
+    <a href="trees.html" class="nav-link">Arborescences</a>
+    <a href="contact.html" class="nav-link active">Contact</a>
+  </div>
+</nav>
+
+<header>
+  <div class="header-ornament">
+    <div class="header-line"></div><div class="header-diamond"></div>
+    <div class="header-diamond" style="opacity:.4;transform:rotate(45deg) scale(.65)"></div>
+    <div class="header-diamond"></div><div class="header-line right"></div>
+  </div>
+  <div class="title-main">Contributions & suggestions</div>
+  <div class="title-sub">Enrichissement collaboratif du projet · Chercheurs et lecteurs bienvenus</div>
+</header>
+
+<div class="form-outer">
+  <p class="form-intro">
+    Ce projet est en cours de développement. Les données sont <em>provisoires</em> et 
+    soumises à révision. Toute suggestion de correction factuelle, d'ajout d'entrée, 
+    de signalement d'erreur bibliographique ou cartographique est bienvenue.
+  </p>
+
+  <div class="form-card" id="form-card">
+    <form id="contact-form" novalidate>
+
+      <!-- Identité -->
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-name">Nom<span class="field-req">*</span></label>
+          <input type="text" id="f-name" name="name" placeholder="Votre nom" required autocomplete="name">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-email">Adresse e-mail<span class="field-req">*</span></label>
+          <input type="email" id="f-email" name="email" placeholder="nom@institution.fr" required autocomplete="email">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="f-affiliation">Affiliation institutionnelle</label>
+        <input type="text" id="f-affiliation" name="affiliation" placeholder="Université, laboratoire, revue…" autocomplete="organization">
+      </div>
+
+      <!-- Type de suggestion -->
+      <div class="field-group">
+        <label class="field-label">Type de contribution<span class="field-req">*</span></label>
+        <div class="type-grid">
+          <input class="type-opt" type="radio" name="type" id="t1" value="correction" checked>
+          <label for="t1">Correction factuelle</label>
+          <input class="type-opt" type="radio" name="type" id="t2" value="ajout">
+          <label for="t2">Ajout d'entrée</label>
+          <input class="type-opt" type="radio" name="type" id="t3" value="biblio">
+          <label for="t3">Référence bibliographique</label>
+          <input class="type-opt" type="radio" name="type" id="t4" value="carto">
+          <label for="t4">Erreur cartographique</label>
+          <input class="type-opt" type="radio" name="type" id="t5" value="autre">
+          <label for="t5">Autre</label>
+        </div>
+      </div>
+
+      <!-- Section concernée -->
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label" for="f-section">Section concernée<span class="field-req">*</span></label>
+          <select id="f-section" name="section" required onchange="updateSubSelect()">
+            <option value="" disabled selected>Choisir une section…</option>
+            <option value="atlas">Atlas cartographique</option>
+            <option value="tree">Arborescences</option>
+            <option value="accueil">Page d'accueil</option>
+            <option value="general">Général / autre</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-objet">Objet spécifique</label>
+          <select id="f-objet" name="objet">
+            <option value="" disabled selected>Sélectionner d'abord la section</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="field-group">
+        <label class="field-label" for="f-message">Suggestion ou remarque<span class="field-req">*</span></label>
+        <textarea id="f-message" name="message" placeholder="Décrivez votre suggestion avec autant de précision que possible : source, référence, date, localisation…" required></textarea>
+        <p class="field-hint">Merci d'indiquer vos sources si possible (références bibliographiques, liens, archives).</p>
+      </div>
+
+      <!-- Source -->
+      <div class="field-group">
+        <label class="field-label" for="f-source">Source(s) ou référence(s)</label>
+        <input type="text" id="f-source" name="source" placeholder="Auteur, titre, année, DOI, URL…">
+      </div>
+
+      <button type="submit" class="submit-btn"><span>Envoyer la suggestion</span></button>
+    </form>
+
+    <div class="success-msg" id="success-msg">
+      <div class="success-icon">✦</div>
+      <div class="success-title">Message transmis</div>
+      <p class="success-text">Merci pour votre contribution. Nous lirons votre suggestion attentivement et vous répondrons si nécessaire.</p>
+    </div>
+  </div>
+</div>
+
+<footer>Atlas mondial des formes littéraires · Projet en développement</footer>
+
+<script>
+/* Sub-select options per section */
+const OBJET_OPTIONS = {
+  atlas: [
+    "— Sélectionner un objet —",
+    "Forme : Écritures",
+    "Forme : Vers libre",
+    "Forme : Haïku",
+    "Forme : Roman policier",
+    "Forme : Dialogue philosophique",
+    "Projection : Natural Earth",
+    "Projection : Équirectangulaire",
+    "Projection : Orthographique",
+    "Projection : Polaire",
+    "Données pays (tooltip)",
+    "Données ville / point",
+    "Autre entrée de l'atlas",
+  ],
+  tree: [
+    "— Sélectionner un objet —",
+    "Arbre : Roman & Épopée — Épopée orale",
+    "Arbre : Roman & Épopée — Roman grec antique",
+    "Arbre : Roman & Épopée — Roman chevaleresque",
+    "Arbre : Roman & Épopée — Roman picaresque / Bildungsroman",
+    "Arbre : Roman & Épopée — Roman réaliste / naturaliste",
+    "Arbre : Roman & Épopée — Roman policier",
+    "Arbre : Roman & Épopée — Polar scandinave",
+    "Arbre : Roman & Épopée — Science-fiction / Fantasy",
+    "Arbre : Poésie en vers — Poésie orale archaïque",
+    "Arbre : Poésie en vers — Lyrique grecque",
+    "Arbre : Poésie en vers — Sonnet",
+    "Arbre : Poésie en vers — Troubadours / Ghazal",
+    "Arbre : Poésie en vers — Haïku mondial",
+    "Arbre : Poésie en vers — Vers libre",
+    "Arbre : Poésie en vers — Slam / poésie orale contemporaine",
+    "Lien de filiation (connexion entre nœuds)",
+    "Autre nœud de l'arborescence",
+  ],
+  accueil: [
+    "— Sélectionner un objet —",
+    "Présentation générale du projet",
+    "Références bibliographiques",
+    "Ancrage méthodologique",
+  ],
+  general: [
+    "— Sélectionner un objet —",
+    "Navigation / interface",
+    "Accessibilité",
+    "Donnée manquante (non catégorisée)",
+    "Suggestion de nouvelle forme à cartographier",
+    "Autre",
+  ]
+};
+
+function updateSubSelect() {
+  const section = document.getElementById("f-section").value;
+  const objet = document.getElementById("f-objet");
+  const opts = OBJET_OPTIONS[section] || ["— Sélectionner d'abord la section —"];
+  objet.innerHTML = "";
+  opts.forEach((o, i) => {
+    const el = document.createElement("option");
+    el.value = i === 0 ? "" : o;
+    el.textContent = o;
+    if (i === 0) { el.disabled = true; el.selected = true; }
+    objet.appendChild(el);
+  });
+}
+
+document.getElementById("contact-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const name = document.getElementById("f-name").value.trim();
+  const email = document.getElementById("f-email").value.trim();
+  const section = document.getElementById("f-section").value;
+  const message = document.getElementById("f-message").value.trim();
+
+  if (!name || !email || !section || !message) {
+    /* Simple inline validation */
+    if (!name) document.getElementById("f-name").style.borderColor = "rgba(224,80,60,.6)";
+    if (!email) document.getElementById("f-email").style.borderColor = "rgba(224,80,60,.6)";
+    if (!section) document.getElementById("f-section").style.borderColor = "rgba(224,80,60,.6)";
+    if (!message) document.getElementById("f-message").style.borderColor = "rgba(224,80,60,.6)";
+    return;
+  }
+
+  /* Simulate send — in production, replace with fetch() to a backend endpoint */
+  document.getElementById("contact-form").style.display = "none";
+  document.getElementById("success-msg").style.display = "block";
+});
+
+/* Reset red borders on input */
+["f-name","f-email","f-section","f-message"].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener("input", () => el.style.borderColor = "");
+  el.addEventListener("change", () => el.style.borderColor = "");
+});
+</script>
+</body>
+</html>
