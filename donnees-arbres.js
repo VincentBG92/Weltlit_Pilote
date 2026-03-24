@@ -282,10 +282,189 @@ const TREES = {
     status: "stub",
     label: "Ta'ziyeh",
   },
+  
   biji: {
-    status: "stub",
-    label: "Biji",
-  },
+    status: "ready",
+    label: "Biji (筆記)",
+    desc: "Le biji (« notes au pinceau ») est un genre lettré chinois à forme libre, accueillant anecdotes, érudition, critique littéraire et récits de l'étrange. Né des traditions de xiaoshuo et de zhiguai sous les Wei-Jin, codifié sous les Tang, porté à son apogée sous les Song, il circule dans tout l'espace sinographique : zuihitsu au Japon, p'ilgi / chapki en Corée, bút ký au Viêt Nam. Arbre documenté d'après De Weerdt (2020), Egan (2013), Liu Yeqiu, Gang Liu, Inglis (2006), Chance (1997), Lee (1989).",
+    sources: "De Weerdt, « Notebooks (Biji) and Shifting Boundaries of Knowledge » (<em>T'oung Pao</em>, 2020) · Egan, « Shen Kuo Chats with Ink Stone and Brush » (2013) · Inglis, <em>Hong Mai's Record of the Listener</em> (2006) · Liu Yeqiu 劉葉秋, <em>Lidai biji gaishu</em> · Gang Liu, <em>The Poetics of Miscellaneousness</em> (Michigan) · Chance, <em>Formless in Form</em> (1997) · Lee, <em>A Korean Storyteller's Miscellany</em> (1989)",
+    root: {
+      id: "xiaoshuo",
+      label: "Xiaoshuo (小說)",
+      year: "IIe s. av. J.-C. – IIe s.",
+      type: "root",
+      detail: "Le terme <em>xiaoshuo</em> (« menus propos ») apparaît dans le <em>Zhuangzi</em> avec le sens de « petite parole » sans rapport avec la fiction. Sous les Han, Ban Gu (32–92) classe les <em>xiaoshuo</em> dans le <em>Yiwenzhi</em> 藝文志 comme « bavardages de rue et commérages de ruelle » (<em>jietan xiangyu</em> 街談巷語) recueillis par de petits fonctionnaires (<em>baiguan</em> 稗官). Cette catégorie résiduelle de la bibliographie impériale fonde paradoxalement la possibilité d'un genre lettré « mineur » à forme libre. Comme le montre Gang Liu (<em>Poetics of Miscellaneousness</em>), le biji hérite de cette marginalité bibliographique qui lui permet d'accueillir ce que les genres canoniques (jing 經, shi 史) excluent.",
+      children: [
+        {
+          id: "zhiguai",
+          label: "Zhiguai (志怪)",
+          year: "IIIe–VIe s.",
+          type: "main",
+          detail: "Les « récits de l'étrange » (<em>zhiguai xiaoshuo</em> 志怪小說) constituent la branche narrative du proto-biji. Le <em>Soushen ji</em> 搜神記 (« À la recherche des esprits ») de Gan Bao (IVe s.) en est le monument : compilation de prodiges, fantômes, métamorphoses, dans une prose concise. Le <em>Shishuo xinyu</em> 世說新語 de Liu Yiqing (Ve s.) en constitue le pendant mondain : anecdotes sur les personnalités de l'élite, jugements de caractère, bons mots. Ces deux œuvres établissent les deux polarités du biji futur : le merveilleux et l'érudition mondaine. Ge Hong (<em>Baopuzi</em> 抱朴子, IVe s.) y ajoute la dimension encyclopédique et alchimique.",
+          children: [
+            {
+              id: "nanchao",
+              label: "Biji des Dynasties du Sud",
+              year: "420–589",
+              type: "main",
+              detail: "Le biji émerge comme genre autonome sous les Dynasties du Sud (420–589). La multiplication des formes de prose informelle — notes érudites, anecdotes historiques, observations sur les mœurs — crée un espace littéraire qui ne relève ni des classiques, ni de l'historiographie officielle, ni de la fiction avouée. Liu Yeqiu 劉葉秋 (<em>Lidai biji gaishu</em>) identifie cette période comme le moment de cristallisation du genre, entre <em>zhiguai</em> narratif et érudition philologique.",
+              children: [
+                {
+                  id: "tang-biji",
+                  label: "Biji Tang",
+                  year: "618–907",
+                  type: "main",
+                  detail: "Le biji se perfectionne sous les Tang. Le chef-d'œuvre est le <em>Youyang zazu</em> 酉陽雜俎 (« Mélanges de Youyang ») de Duan Chengshi (IXe s.) : encyclopédie du bizarre couvrant géographie, plantes, animaux, croyances populaires, récits surnaturels, usages étrangers. La prose est brillante, le savoir immense. Autres biji Tang majeurs : le <em>Datang xinyu</em> 大唐新語 de Liu Su (anecdotes historiques), le <em>Tang guoshi bu</em> 唐國史補 de Li Zhao (supplément à l'histoire nationale). Sous les Tang, le biji se différencie du <em>chuanqi</em> 傳奇 (« conte merveilleux »), qui est de la fiction avouée, là où le biji garde une prétention au document.",
+                  children: [
+                    /* ── SONG : apogée, bifurcation en trois branches ── */
+                    {
+                      id: "song-biji",
+                      label: "Biji Song — apogée",
+                      year: "960–1279",
+                      type: "main",
+                      detail: "Le biji atteint son apogée sous les Song. De Weerdt (<em>T'oung Pao</em>, 2020) montre que l'essor de l'imprimerie, la croissance des bibliothèques privées et le système des examens créent un lectorat lettré partagé qui a besoin de genres souples pour noter ce que les genres canoniques ne peuvent accueillir. Le terme « biji » est pour la première fois utilisé comme désignation générique par Song Qi 宋祁 (998–1061), dont le <em>Biji</em> en 3 juan est le premier livre portant ce titre. Trois branches majeures se développent simultanément.",
+                      children: [
+                        {
+                          id: "mengxi",
+                          label: "Mengxi bitan (夢溪筆談)",
+                          year: "c. 1088",
+                          type: "branch",
+                          detail: "Le <em>Mengxi bitan</em> (« Discussions au pinceau du ruisseau des songes ») de Shen Kuo 沈括 (1031–1095) est le biji le plus célèbre. 26 juan couvrant politique, culture, sciences et techniques. Première mention de l'imprimerie à caractères mobiles (Bi Sheng), première description de la boussole magnétique, explication des fossiles. Ronald Egan (2013) analyse comment Shen Kuo utilise la forme biji pour consigner des observations empiriques inclassables dans les genres savants établis — la juxtaposition d'éléments paradoxaux constitue une méthode de pensée. Fu Daiwie (<em>Chinese Science</em>, 1993) montre que la taxonomie interne du <em>Mengxi</em> (17 rubriques) reflète les sous-cultures lettrées des Song du Nord. De Weerdt souligne que ce chef-d'œuvre requiert une préface apologétique précisément parce que son contenu — anecdotes techniques, curiosités naturelles — n'a pas de place dans les genres canoniques.",
+                          children: [
+                            {
+                              id: "biji-savant",
+                              label: "Biji savant / philologique",
+                              year: "XIe–XIIIe s.",
+                              type: "branch",
+                              detail: "Branche érudite du biji Song, orientée vers la philologie, la critique textuelle et les « petites études » (<em>xiaoxue</em> 小學). Exemples majeurs : le <em>Xuelin</em> 學林 de Wang Guanguo (classiques et phonétique), le <em>Nenggaizhai manlu</em> 能改齋漫錄 de Wu Zeng, le <em>Yeke congshu</em> 野客叢書 de Wang Mao. Peter K. Bol (<em>JSYS</em> 25, 1995) montre, à partir du <em>Mingtao zashi</em> de Zhang Lei, comment le biji sert de véhicule à l'histoire intellectuelle des Song. Cette branche savante se prolonge sous les Qing avec l'école de l'« étude par preuves » (<em>kaozheng</em>) : Gu Yanwu (<em>Rizhilu</em> 日知錄), Zhao Yi (<em>Gaiyu congkao</em>), Qian Daxin (<em>Shijiazhai yangxin lu</em>)."
+                            }
+                          ]
+                        },
+                        {
+                          id: "yijian",
+                          label: "Yijianzhi (夷堅志)",
+                          year: "1161–c. 1198",
+                          type: "branch",
+                          detail: "Le <em>Yijianzhi</em> (« Récits de Yi Jian ») de Hong Mai 洪邁 (1123–1202) est la plus grande collection de récits de l'étrange produite sous les Song — environ 2 700 récits en 420 juan dans sa forme la plus complète. Alister Inglis (<em>SUNY Press</em>, 2006) montre que Hong Mai collectait ses récits auprès d'informateurs de toutes les classes sociales, créant un « réservoir narratif » qui irrigue la fiction vernaculaire ultérieure. Inglis définit le biji comme « catégorie résiduelle : une étiquette attachée aux œuvres non par ce qu'elles étaient, mais par ce qu'elles n'étaient pas ». Le <em>Rongzhai suibi</em> 容齋隨筆 du même Hong Mai mêle érudition textuelle et anecdotes — démontrant la polyvalence d'un même auteur dans les deux pôles du biji.",
+                          children: [
+                            {
+                              id: "biji-xiaoshuo",
+                              label: "Biji xiaoshuo (筆記小說)",
+                              year: "XIIIe–XIXe s.",
+                              type: "branch",
+                              detail: "Le terme <em>biji xiaoshuo</em> apparaît pour la première fois chez Shi Shengzu 史繩祖 (fl. 1241) dans le <em>Xuezhai zhanbi</em> 學齋占畢. Il désigne la branche narrative et fictionnelle du biji, distincte du biji savant. Sous les Ming et les Qing, cette branche produit des chefs-d'œuvre : le <em>Liaozhai zhiyi</em> 聊齋志異 de Pu Songling (c. 1679–1710), 500 récits fantastiques d'une perfection stylistique rare ; le <em>Zi bu yu</em> 子不語 de Yuan Mei. Le biji xiaoshuo sert de matrice narrative au roman vernaculaire : des récits du <em>Yijianzhi</em> sont repris dans les <em>Erke pai'an jingqi</em> 二刻拍案驚奇 de la fin des Ming.",
+                              children: [
+                                {
+                                  id: "liaozhai",
+                                  label: "Liaozhai zhiyi (聊齋志異)",
+                                  year: "c. 1679–1710",
+                                  type: "branch",
+                                  detail: "Le <em>Liaozhai zhiyi</em> (« Contes extraordinaires du studio Liao ») de Pu Songling 蒲松齡 (1640–1715) porte le biji xiaoshuo à son sommet littéraire. Environ 500 récits mettant en scène renardes-fées, fantômes et lettrés — sous la surface surnaturelle, une critique acerbe de la société et des examens impériaux. Stylistiquement, Pu Songling revient à la prose classique (guwen) tout en intégrant des éléments vernaculaires. Œuvre majeure de la littérature chinoise, traduite dans de nombreuses langues."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          id: "memoires-song",
+                          label: "Biji mémorialiste / historique",
+                          year: "XIe–XIIIe s.",
+                          type: "branch",
+                          detail: "Troisième branche du biji Song : le biji comme mémoire historique et témoignage de cour. Ouyang Xiu 歐陽修 (<em>Guitian lu</em> 歸田錄, « Notes de la retraite aux champs »), Wang Pizhi (<em>Shengshui yantan lu</em> 澠水燕談錄), Ye Mengde (<em>Shilin yanyu</em> 石林燕語). De Weerdt montre comment ces biji mémorialistes consignent l'expérience politique et administrative des lettrés-fonctionnaires dans une forme que l'historiographie officielle ne permet pas — « il n'était pas inapproprié pour les lettrés de raconter des anecdotes de cour ; la difficulté résidait dans le fait de coucher ces sujets par écrit ». Le <em>Dongjing menghua lu</em> 東京夢華錄 de Meng Yuanlao (1147) constitue un cas particulier : mémoire nostalgique de la capitale Kaifeng avant sa chute en 1127.",
+                          children: [
+                            {
+                              id: "yuewu",
+                              label: "Yuewu caotang biji (閱微草堂筆記)",
+                              year: "1789–1798",
+                              type: "branch",
+                              detail: "Le <em>Yuewu caotang biji</em> (« Notes de la chaumière des observations minutieuses ») de Ji Yun 紀昀 (1724–1805), Grand Secrétaire et directeur du <em>Siku quanshu</em>. 24 juan composés entre 1789 et 1798. Récits brefs mêlant surnaturel et morale confucéenne, dans un style classique volontairement opposé au foisonnement du <em>Liaozhai</em>. Dernière grande œuvre du biji classique. Ji Yun revendique explicitement une écriture plus sobre et « véridique » que celle de Pu Songling."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    /* ── Circulation hors de Chine ── */
+                    {
+                      id: "zuihitsu",
+                      label: "Zuihitsu (随筆) — Japon",
+                      year: "c. 1000–",
+                      type: "hybrid",
+                      hybrid: true,
+                      detail: "Le <em>zuihitsu</em> (« au fil du pinceau », 随筆, même étymon que <em>suibi</em> en chinois) est l'adaptation japonaise du biji. Le terme entre dans l'usage littéraire japonais à l'époque Muromachi (XVe s.), mais le genre est rétroprojecté sur le <em>Makura no sōshi</em> (Notes de chevet) de Sei Shōnagon (c. 1000). Linda H. Chance (<em>Formless in Form</em>, Stanford UP, 1997) montre comment le zuihitsu japonais s'écarte du modèle chinois par sa dimension esthétique et intime : là où le biji Song reste encyclopédique et philologique, le zuihitsu japonais privilégie l'observation sensorielle et le <em>mono no aware</em> (« sensibilité à l'éphémère »). Le <em>Hōjōki</em> 方丈記 de Kamo no Chōmei (1212) et le <em>Tsurezuregusa</em> 徒然草 de Yoshida Kenkō (c. 1330), avec leurs méditations bouddhiques sur l'impermanence, constituent les sommets du genre. Steven D. Carter (<em>Columbia Anthology of Japanese Essays</em>, 2014) recense plus de cent zuihitsu du Xe au XXIe siècle.",
+                      children: [
+                        {
+                          id: "makura",
+                          label: "Makura no sōshi (枕草子)",
+                          year: "c. 1000",
+                          type: "branch",
+                          detail: "Les <em>Notes de chevet</em> de Sei Shōnagon (c. 966–1025), dame de cour de l'impératrice Teishi, sont considérées comme le premier zuihitsu. Listes (« choses qui font battre le cœur », « choses détestables »), anecdotes de cour, observations sur la nature, jugements esthétiques — dans une prose en <em>kana</em> d'une vivacité sans précédent. Le genre se développe ensuite à Kamakura avec une coloration bouddhique."
+                        },
+                        {
+                          id: "tsurezure",
+                          label: "Tsurezuregusa (徒然草)",
+                          year: "c. 1330",
+                          type: "branch",
+                          detail: "Les <em>Heures oisives</em> de Yoshida Kenkō (c. 1283–1350), moine bouddhiste, constituent le second sommet du zuihitsu classique. 243 sections de longueur variable, mêlant méditations sur l'impermanence, anecdotes, conseils pratiques et jugements esthétiques. Chance (1997) montre comment la « rhétorique de la prose fragmentaire » chez Kenkō fait de la discontinuité même une forme d'expression philosophique."
+                        },
+                        {
+                          id: "edo-zuihitsu",
+                          label: "Zuihitsu Edo",
+                          year: "XVIIe–XIXe s.",
+                          type: "branch",
+                          detail: "Le zuihitsu connaît un nouvel essor sous le shogunat Tokugawa. Des lettrés de premier plan — Motoori Norinaga 本居宣長 (<em>Tama no ogushi</em>, 1796, critique du <em>Genji</em> au nom du <em>mono no aware</em>), Matsudaira Sadanobu 松平定信, Yokoi Yayū — pratiquent le genre pour des réflexions érudites, personnelles et sociales. Le zuihitsu Edo mêle kokugaku (études nationales), confucianisme et observation de la vie quotidienne.",
+                          children: [
+                            {
+                              id: "zuihitsu-moderne",
+                              label: "Zuihitsu moderne et contemporain",
+                              year: "XXe–XXIe s.",
+                              type: "branch",
+                              detail: "À l'ère Meiji et au-delà, le zuihitsu s'hybride avec l'essai occidental et la chronique journalistique. Natsume Sōseki (<em>Yume jūya</em>, « Dix nuits de rêve », 1908) en propose une version moderniste et onirique. Au XXIe siècle, le zuihitsu est réapproprié hors du Japon par des poètes asio-américains comme Kimiko Hahn (<em>The Narrow Road to the Interior</em>, 2006), qui en font une forme hybride entre poème en prose, essai et fragment. L'Asian American Writers' Workshop publie en 2022 un « Zuihitsu Notebook » dans <em>The Margins</em>."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      id: "korean-chapki",
+                      label: "P'ilgi / Chapki (筆記 / 雜記) — Corée",
+                      year: "XIIIe s.–",
+                      type: "hybrid",
+                      hybrid: true,
+                      detail: "En Corée, le genre est connu sous les noms de <em>p'ilgi</em> 筆記 ou <em>chapki</em> 雜記. La première œuvre notable est le <em>P'ahan chip</em> 破閑集 (« Notes pour rompre l'oisiveté ») de Yi Inno (1260), sous le Koryŏ — qui inaugure une longue tradition. Sous le Chosŏn, le genre fleurit : le <em>P'aegwan chapki</em> 稗官雜記 de Ŏ Sukkwŏn (fl. 1525–1554) et le <em>Yongjae ch'onghwa</em> 慵齋叢話 de Sŏng Hyŏn en sont les exemples les plus connus. Peter H. Lee (Princeton UP, 1989) identifie les thèmes récurrents : critique poétique, relations avec la Chine, portraits individuels, bouddhisme, vignettes autobiographiques. Comme en Chine, la miscellanée coréenne offre aux historiens des informations absentes des sources officielles (dynastiques, diplomatiques). Lee montre que la chapki est « mieux adaptée à la présentation du moi » que les genres canoniques. L'<em>Encyclopédie des historiographies</em> (Inalco, 2020) note que la <em>Taedong yasŭng</em> 大東野乘 (1909) rassemble de nombreuses miscellanées du Chosŏn.",
+                      children: [
+                        {
+                          id: "pahan",
+                          label: "P'ahan chip (破閑集)",
+                          year: "1260",
+                          type: "branch",
+                          detail: "Le <em>P'ahan chip</em> (« Notes pour rompre l'oisiveté ») de Yi Inno (Yi Illo), sous le Koryŏ, inaugure le genre en Corée. Outre la critique poétique, il contient des notes autobiographiques en forme de journal, des portraits d'amis et des observations sur les mœurs contemporaines."
+                        },
+                        {
+                          id: "paegwan",
+                          label: "P'aegwan chapki (稗官雜記)",
+                          year: "c. 1525–1554",
+                          type: "branch",
+                          detail: "Le <em>P'aegwan chapki</em> (« Miscellanée de l'anecdotier ») de Ŏ Sukkwŏn, traduit par Peter H. Lee (Princeton UP, 1989). Ŏ s'appelle lui-même <em>p'aegwan</em> (« petit fonctionnaire qui note les bavardages ») par modestie lettrée — exactement comme Ban Gu classait les <em>xiaoshuo</em> chinois. Lee montre que ce geste d'auto-dépréciation est constitutif du genre en Asie orientale."
+                        }
+                      ]
+                    },
+                    {
+                      id: "viet-butky",
+                      label: "Tùy bút / Bút ký — Viêt Nam",
+                      year: "tradition lettrée",
+                      type: "hybrid",
+                      hybrid: true,
+                      detail: "Au Viêt Nam, les lettrés confucéens compilent également des miscellanées en chinois classique, connues sous les noms de <em>tùy bút</em> 隨筆 (« au fil du pinceau ») ou <em>bút ký</em> 筆記 (« notes au pinceau »). Ce domaine reste peu étudié en langues occidentales. L'<em>Encyclopédie des historiographies</em> (Inalco, 2020) signale cette tradition sans la développer. C'est un angle mort de la recherche comparative en littérature est-asiatique."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }, /* fin biji */
   romanChoral: {
     status: "stub",
     label: "Roman polyphonique choral",

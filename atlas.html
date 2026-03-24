@@ -49,6 +49,7 @@ header{text-align:center;padding:28px 20px 4px}
 .loading-spinner{width:32px;height:32px;border:2px solid rgba(201,162,39,.15);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim)}
+.hist-loading{text-align:center;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;color:rgba(201,162,39,.5);padding:2px 0;min-height:20px}
 .globe-hint{text-align:center;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,162,39,.4);padding-bottom:2px;display:none}
 .globe-hint.visible{display:block}
 .proj-info-bar{text-align:center;padding:8px 24px 2px;font-style:italic;color:var(--text-faint);font-size:.82rem;min-height:28px}
@@ -80,6 +81,8 @@ header{text-align:center;padding:28px 20px 4px}
 .event-title{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--gold-light);letter-spacing:.06em;margin-bottom:4px}
 .event-detail{font-size:1.02rem;color:var(--cream);line-height:1.6;opacity:.88}
 .event-city-tag{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;color:var(--city-color);margin-left:4px}
+.event-territory-tag{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:rgba(100,180,220,.8);margin-left:6px;border:1px solid rgba(100,180,220,.25);padding:1px 6px}
+.event-diaspora-tag{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:rgba(201,162,39,.7);margin-left:6px;border:1px solid rgba(201,162,39,.25);padding:1px 6px}
 .ornament-divider{display:flex;align-items:center;gap:16px;padding:20px 40px;max-width:900px;margin:0 auto}
 .divider-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.2),transparent)}
 .divider-text{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--text-dim);white-space:nowrap}
@@ -95,12 +98,16 @@ header{text-align:center;padding:28px 20px 4px}
 .gallery-card svg{width:100%;display:block}
 .sphere-fill{fill:var(--ocean)}
 .graticule{fill:none;stroke:rgba(100,155,200,.08);stroke-width:.4}
-.country{fill:var(--land);stroke:var(--land-border);stroke-width:.4;transition:fill .15s}
-.country:hover{fill:#5a5248}
-.country.lit-active{fill:var(--highlight);stroke:rgba(180,140,40,.6);stroke-width:.6}
-.country.lit-active:hover{fill:var(--highlight-hover)}
+/* Couche moderne : fond transparent, bordures fines visibles */
+.country-base{fill:none;stroke:rgba(180,180,180,.22);stroke-width:.5}
+/* Territoires historiques */
+.hist-territory{opacity:.5;stroke-width:.6;stroke:rgba(0,0,0,.5);cursor:pointer;transition:opacity .18s}
+.hist-territory:hover{opacity:.72}
+.hist-territory.lit-active{opacity:.85;stroke:var(--gold);stroke-width:1.4;filter:drop-shadow(0 0 6px rgba(212,168,73,.4))}
+.hist-territory.lit-active:hover{opacity:.95}
+.hist-territory.lit-hatch{opacity:.65;stroke:var(--gold);stroke-width:1;stroke-dasharray:4,3}
 .sphere-border{fill:none;stroke:rgba(201,162,39,.3);stroke-width:.8}
-.gallery-card .country{transition:none;pointer-events:none}
+.gallery-card .country-base,.gallery-card .hist-territory{transition:none;pointer-events:none}
 .city-dot{fill:var(--city-color);stroke:rgba(0,0,0,.5);stroke-width:.8;cursor:pointer;filter:drop-shadow(0 0 3px rgba(224,96,64,.4))}
 .city-dot:hover{fill:var(--city-hover)}
 .city-label{font-family:'Cinzel',serif;font-size:9px;fill:var(--cream);pointer-events:none;text-anchor:middle;dominant-baseline:text-before-edge;opacity:.9}
@@ -119,7 +126,8 @@ header{text-align:center;padding:28px 20px 4px}
 .tip-lit-year{font-family:'Cinzel',serif;font-size:.78rem;color:var(--gold-light)}
 .tip-lit-text{font-size:.9rem;color:var(--cream);opacity:.85;line-height:1.4}
 .tip-city-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:var(--city-color);border:1px solid rgba(224,96,64,.3);padding:1px 6px;margin-left:6px}
-footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(122,110,95,.35)}
+footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(122,110,95,.35);line-height:2}
+footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid rgba(201,162,39,.2)}
 </style>
 </head>
 <body>
@@ -152,7 +160,7 @@ footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-
     <div class="loading-spinner"></div>
     <div class="loading-text">Chargement des données cartographiques…</div>
   </div>
-  <svg id="main-map" viewBox="0 0 960 520" preserveAspectRatio="xMidYMid meet"></svg>
+  <svg id="main-map" viewBox="0 0 960 520" preserveAspectRatio="xMidYMid meet"><defs></defs></svg>
   <div class="zoom-controls" id="zoom-controls" style="display:none">
     <button class="zoom-btn" id="z-in">+</button>
     <button class="zoom-btn" id="z-out">−</button>
@@ -160,6 +168,7 @@ footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-
   </div>
 </div>
 <p class="globe-hint" id="globe-hint">Cliquez et faites glisser pour faire pivoter le globe</p>
+<p class="hist-loading" id="hist-loading"></p>
 <p class="proj-info-bar" id="proj-info"></p>
 <div class="timeline-section">
   <div class="timeline-year-display"><div class="timeline-year" id="timeline-year"></div></div>
@@ -179,75 +188,235 @@ footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-
   <div class="tip-header"><span class="tip-flag" id="t-flag"></span><div><div class="tip-name" id="t-name"></div><div class="tip-subtitle" id="t-sub"></div></div></div>
   <div id="tip-body"></div>
 </div>
-<footer>Sources : Natural Earth · D3.js · TopoJSON · AWMC GeoData</footer>
+<footer>
+  Sources cartographiques : Natural Earth · D3.js · TopoJSON · AWMC GeoData<br>
+  Frontières historiques : A. Ourednik, <a href="https://github.com/aourednik/historical-basemaps">historical-basemaps</a> (GPL-3.0)
+</footer>
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-    <script src="donnees.js"></script>
+<script src="donnees.js"></script>
 <script>
-/* ════════════════════════════════════════════════════════
-   PAYS — dictionnaire complet (~185 pays, clés ISO 3166-1 numérique à 3 chiffres)
-   ════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   ATLAS WELTLIT v2.1
+   – Frontières actuelles visibles en fond (trait fin)
+   – Territoires historiques colorés + tooltip au survol
+   – Highlight sur territoire HISTORIQUE (point-in-polygon)
+   – Hachures diasporiques sur territoire historique d'origine
+   ═══════════════════════════════════════════════════════════ */
+
+/* --- Patch donnees.js : cityCountryId pour diaspora --- */
+(function patchDiaspora(){
+  const patches={
+    versLibre:[
+      {year:1912,match:"Imagisme",cityCountryId:"826"},
+      {year:1939,match:"Poemas humanos",cityCountryId:"250"}
+    ],
+    haiku:[
+      {year:1913,match:"Ezra Pound",cityCountryId:"826"}
+    ]
+  };
+  for(const[fk,pl]of Object.entries(patches)){
+    const form=LITERARY_FORMS[fk];if(!form)continue;
+    for(const p of pl){
+      for(const entry of form.timeline){
+        if(entry.year!==p.year)continue;
+        for(const evt of entry.events){
+          if(evt.title.includes(p.match)){evt.cityCountryId=p.cityCountryId;}
+        }
+      }
+    }
+  }
+})();
+
+/* --- Ajout forme "Territoires historiques" --- */
+if(!LITERARY_FORMS.territoires){
+  const tYears=[-3000,-2000,-1000,-500,-300,-1,100,400,800,1000,1200,1400,1500,1650,1800,1880,1914,1945,1994,2010];
+  const tDesc={
+    "-3000":"Premières cités-États sumériennes, Égypte ancienne, civilisation de l'Indus.",
+    "-2000":"Empires égyptien et babylonien, civilisation minoenne, dynastie Shang.",
+    "-1000":"Royaumes hébreux, Phénicie, Zhou occidentaux, expansion assyrienne.",
+    "-500":"Empire perse achéménide, cités grecques, République romaine naissante.",
+    "-300":"Empire d'Alexandre, Maurya en Inde, Qin en Chine.",
+    "-1":"Empire romain, Han en Chine, Parthes en Iran.",
+    "100":"Rome à son apogée, Han orientaux, Kushan.",
+    "400":"Division de Rome, invasions germaniques, Gupta en Inde.",
+    "800":"Empire carolingien, califat abbasside, Tang en Chine.",
+    "1000":"Saint-Empire, Fatimides, Song en Chine, Chola en Inde.",
+    "1200":"Empire mongol en expansion, croisades, Kamakura au Japon.",
+    "1400":"Empire ottoman naissant, Ming en Chine, royaumes africains.",
+    "1500":"Grandes découvertes, empires ibériques, Empire moghol.",
+    "1650":"Colonialisme européen, Qing en Chine, Empire ottoman.",
+    "1800":"Empires coloniaux, révolutions, Napoléon.",
+    "1880":"Impérialismes, partage de l'Afrique, Meiji au Japon.",
+    "1914":"Première Guerre mondiale, empires à leur zénith.",
+    "1945":"Décolonisations, Guerre froide, ONU.",
+    "1994":"Après la chute du Mur, mondialisation.",
+    "2010":"Monde contemporain."
+  };
+  LITERARY_FORMS.territoires={
+    label:"Territoires",
+    desc:"Exploration des frontières historiques depuis 3000 av. J.-C. Données : A. Ourednik, historical-basemaps.",
+    timeline:tYears.map(y=>({year:y,events:[{countryId:"000",title:formatYear(y),detail:tDesc[String(y)]||""}]}))
+  };
+}
+
+/* --- Projections --- */
 const PROJ_CONFIG={
   naturalEarth1:{label:"Natural Earth",desc:"Projection Natural Earth — équilibre entre forme et surface.",make(w,h,p){return d3.geoNaturalEarth1().fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
-  equirectangular:{label:"Équirectangulaire",desc:"Projection équirectangulaire — latitude/longitude en coordonnées directes.",make(w,h,p){return d3.geoEquirectangular().fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
+  equirectangular:{label:"Équirectangulaire",desc:"Projection équirectangulaire — latitude/longitude directes.",make(w,h,p){return d3.geoEquirectangular().fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
   orthographic:{label:"Orthographique",desc:"Vue depuis l'espace. Faites glisser pour pivoter le globe.",make(w,h,p){return d3.geoOrthographic().clipAngle(90).rotate([-10,-25]).fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
   azimuthalEqualArea:{label:"Polaire",desc:"Projection azimutale centrée sur le Pôle Nord.",make(w,h,p){return d3.geoAzimuthalEqualArea().rotate([0,-90]).clipAngle(150).fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}}
 };
 
+/* --- Frontières historiques (Ourednik) --- */
+const HIST_BASE="https://raw.githubusercontent.com/aourednik/historical-basemaps/master/geojson/";
+const HIST_AVAIL=[-5000,-4000,-3000,-2000,-1500,-1000,-700,-500,-400,-323,-300,-200,-100,-1,
+  100,200,300,400,500,600,700,800,900,1000,1100,1200,1279,1300,1400,1492,1500,1530,
+  1600,1650,1700,1715,1783,1800,1815,1880,1900,1914,1920,1930,1938,1945,1960,1994,2000,2010];
+const HIST_CACHE={};
+
+function closestHistYear(y){
+  let best=HIST_AVAIL[0],bd=Math.abs(y-best);
+  for(const h of HIST_AVAIL){const d=Math.abs(y-h);if(d<bd){bd=d;best=h;}}
+  return best;
+}
+function histFilename(y){return y<0?"world_bc"+Math.abs(y)+".geojson":"world_"+y+".geojson";}
+async function loadHistGeo(targetYear){
+  const hy=closestHistYear(targetYear);
+  if(HIST_CACHE[hy])return{data:HIST_CACHE[hy],year:hy};
+  const el=document.getElementById("hist-loading");
+  el.textContent="Chargement des frontières historiques ("+formatYear(hy)+")…";
+  try{
+    const d=await d3.json(HIST_BASE+histFilename(hy));
+    HIST_CACHE[hy]=d;el.textContent="";return{data:d,year:hy};
+  }catch(e){
+    console.warn("Hist load fail",hy,e);
+    el.textContent="Frontières historiques indisponibles pour cette période.";
+    return{data:null,year:hy};
+  }
+}
+
+/* Palette Tol bright — daltoniens ok */
+const HIST_PALETTE=["#4477AA","#EE6677","#228833","#CCBB44","#66CCEE","#AA3377","#BBBBBB",
+  "#EE8866","#44BB99","#FFAABB","#99DDFF","#CC6677","#117733","#DDCC77","#88CCEE","#882255",
+  "#332288","#999933","#AA4499","#44AA99","#6699CC","#994455","#66AA55","#CC9966"];
+const _cmap={};let _ci=0;
+function histColor(name){
+  if(!name)return HIST_PALETTE[0];
+  if(_cmap[name])return _cmap[name];
+  _cmap[name]=HIST_PALETTE[_ci%HIST_PALETTE.length];_ci++;
+  return _cmap[name];
+}
+
+/* --- Point-in-polygon : quel territoire historique contient [lon,lat] ? --- */
+function findHistTerritory(lon,lat,features){
+  if(!features||!features.length)return null;
+  for(const f of features){
+    try{if(d3.geoContains(f,[lon,lat]))return f;}catch(e){}
+  }
+  return null;
+}
+
+/* Trouver le centre approximatif d'un pays moderne (pour diaspora sans ville) */
+function modernCountryCenter(countryId){
+  const c=COUNTRIES.find(d=>String(d.id).padStart(3,"0")===countryId);
+  if(!c)return null;
+  const b=d3.geoBounds(c);
+  return[(b[0][0]+b[1][0])/2,(b[0][1]+b[1][1])/2];
+}
+
+/* --- État global --- */
 let COUNTRIES=[],currentProj="naturalEarth1",currentForm="ecritures",currentDateIdx=0;
-let highlightedMap={},cityList=[],mainProj=null,mainPath=null,mainZoom=null;
-let currentTransform=d3.zoomIdentity;
+let litActiveNames=new Set(),litHatchNames=new Set();
+let cityList=[],mainProj=null,mainPath=null,mainZoom=null;
+let currentTransform=d3.zoomIdentity,currentHistFeatures=[];
+/* Pour le tooltip des événements littéraires associés à un territoire */
+let territoryLitEvents={};
 const GRAT=d3.geoGraticule(),MW=960,MH=520,MPAD=28,GW=360,GH=190,GPAD=10;
 
 function cid(d){return String(d.id).padStart(3,"0");}
 function getPays(d){const r=String(d.id),p=r.padStart(3,"0");return PAYS[r]||PAYS[p]||null;}
 function getForm(){return LITERARY_FORMS[currentForm];}
+function formatYear(y){return y<0?Math.abs(y)+" av. J.-C.":String(y);}
 
-function computeHighlighted(){
+/* --- Calcul highlight sur territoires historiques --- */
+function computeHighlighted(histFeatures){
   const form=getForm(),maxYear=form.timeline[currentDateIdx].year;
-  const map={};const cities=[];
+  litActiveNames=new Set();litHatchNames=new Set();
+  territoryLitEvents={};cityList=[];
+
+  if(currentForm==="territoires")return;
+
   for(const entry of form.timeline){
     if(entry.year>maxYear)break;
     for(const evt of entry.events){
-      const id=evt.countryId;
-      if(!map[id])map[id]=[];
-      map[id].push({...evt,year:entry.year});
-      if(evt.city){const cn=resolveCityName(evt.city,entry.year);cities.push({...evt.city,_resolvedNom:cn.nom,_resolvedLocal:cn.local,countryId:id,year:entry.year,title:evt.title,detail:evt.detail});}
+      /* Ville de l'événement → territoire historique */
+      if(evt.city){
+        const cn=resolveCityName(evt.city,entry.year);
+        const ht=findHistTerritory(evt.city.lon,evt.city.lat,histFeatures);
+        if(ht){
+          const n=ht.properties?.NAME;
+          litActiveNames.add(n);
+          if(!territoryLitEvents[n])territoryLitEvents[n]=[];
+          territoryLitEvents[n].push({year:entry.year,title:evt.title,detail:evt.detail,cityNom:cn.nom});
+        }
+        cityList.push({...evt.city,_resolvedNom:cn.nom,_resolvedLocal:cn.local||null,
+          countryId:evt.countryId,cityCountryId:evt.cityCountryId||null,
+          year:entry.year,title:evt.title,detail:evt.detail,
+          histTerrName:ht?ht.properties?.NAME:null});
+
+        /* Diaspora : pays d'origine de l'auteur ≠ pays de la ville */
+        if(evt.cityCountryId&&evt.cityCountryId!==evt.countryId){
+          /* Trouver le territoire historique du pays d'origine */
+          const cc=modernCountryCenter(evt.countryId);
+          if(cc){
+            const ht2=findHistTerritory(cc[0],cc[1],histFeatures);
+            if(ht2)litHatchNames.add(ht2.properties?.NAME);
+          }
+        }
+      }else{
+        /* Pas de ville : on cherche le centre du pays moderne */
+        const cc=modernCountryCenter(evt.countryId);
+        if(cc){
+          const ht=findHistTerritory(cc[0],cc[1],histFeatures);
+          if(ht){
+            const n=ht.properties?.NAME;
+            litActiveNames.add(n);
+            if(!territoryLitEvents[n])territoryLitEvents[n]=[];
+            territoryLitEvents[n].push({year:entry.year,title:evt.title,detail:evt.detail,cityNom:null});
+          }
+        }
+      }
     }
   }
-  highlightedMap=map;cityList=cities;
 }
 
-function isHighlighted(d){return!!highlightedMap[cid(d)];}
-
+/* --- Auto-zoom sur villes --- */
 function computeAutoBounds(){
-  const form=getForm();
-  const entry=form.timeline[currentDateIdx];
-  if(!entry)return null;
-  const currentIds=new Set();
-  for(const evt of entry.events){if(evt.countryId)currentIds.add(evt.countryId);}
-  if(currentIds.size===0)return null;
-  const features=COUNTRIES.filter(d=>currentIds.has(cid(d)));
-  if(features.length===0)return null;
-  return{type:"FeatureCollection",features};
+  const form=getForm(),entry=form.timeline[currentDateIdx];
+  if(!entry||currentForm==="territoires")return null;
+  const pts=[];
+  for(const evt of entry.events){if(evt.city)pts.push([evt.city.lon,evt.city.lat]);}
+  if(pts.length>0){
+    const lons=pts.map(p=>p[0]),lats=pts.map(p=>p[1]);
+    const pad=8;
+    return{type:"FeatureCollection",features:[{type:"Feature",geometry:{type:"Polygon",
+      coordinates:[[[Math.min(...lons)-pad,Math.min(...lats)-pad],[Math.max(...lons)+pad,Math.min(...lats)-pad],
+      [Math.max(...lons)+pad,Math.max(...lats)+pad],[Math.min(...lons)-pad,Math.max(...lats)+pad],
+      [Math.min(...lons)-pad,Math.min(...lats)-pad]]]}}]};
+  }
+  return null;
 }
-
 function autoZoom(svg,proj,path,animate){
-  const fc=computeAutoBounds();
-  if(!fc||!mainZoom)return;
+  const fc=computeAutoBounds();if(!fc||!mainZoom)return;
   const bounds=path.bounds(fc);
-  const dx=bounds[1][0]-bounds[0][0];
-  const dy=bounds[1][1]-bounds[0][1];
-  const cx=(bounds[0][0]+bounds[1][0])/2;
-  const cy=(bounds[0][1]+bounds[1][1])/2;
-  const pad=60;
-  const scale=Math.min(MW/(dx+pad*2),MH/(dy+pad*2),8);
-  const clampedScale=Math.max(1,Math.min(scale,8));
-  const tx=MW/2-cx*clampedScale;
-  const ty=MH/2-cy*clampedScale;
-  const t=d3.zoomIdentity.translate(tx,ty).scale(clampedScale);
-  if(animate){svg.transition().duration(700).call(mainZoom.transform,t);}
-  else{svg.call(mainZoom.transform,t);}
+  const dx=bounds[1][0]-bounds[0][0],dy=bounds[1][1]-bounds[0][1];
+  const cx=(bounds[0][0]+bounds[1][0])/2,cy=(bounds[0][1]+bounds[1][1])/2;
+  const pad=60;const scale=Math.max(1,Math.min(MW/(dx+pad*2),MH/(dy+pad*2),8));
+  const tx=MW/2-cx*scale,ty=MH/2-cy*scale;
+  const t=d3.zoomIdentity.translate(tx,ty).scale(scale);
+  if(animate)svg.transition().duration(700).call(mainZoom.transform,t);
+  else svg.call(mainZoom.transform,t);
 }
 
 function mergeCities(cities){
@@ -261,17 +430,49 @@ function mergeCities(cities){
   return Object.values(map);
 }
 
-function buildMap(svgEl,projName,w,h,pad,interactive){
+/* --- Construction carte --- */
+function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
   const svg=d3.select(svgEl),proj=PROJ_CONFIG[projName].make(w,h,pad),path=d3.geoPath().projection(proj);
-  svg.selectAll("*").remove();
+  svg.selectAll("g.map-g").remove();
   const g=svg.append("g").attr("class","map-g");
+
+  /* Sphère + graticule */
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-fill").attr("d",path);
   g.append("path").datum(GRAT()).attr("class","graticule").attr("d",path);
-  const cp=g.selectAll(".country").data(COUNTRIES).join("path")
-    .attr("d",path)
-    .attr("class",d=>"country"+(interactive&&isHighlighted(d)?" lit-active":""));
-  if(interactive){cp.on("mousemove",(evt,d)=>showTip(evt,d)).on("mouseleave",hideTip);}
+
+  /* Couche 1 : frontières modernes — FOND (fill transparent, trait visible) */
+  g.selectAll(".country-base").data(COUNTRIES).join("path")
+    .attr("d",path).attr("class","country-base");
+
+  /* Couche 2 : territoires historiques */
+  if(histFeatures&&histFeatures.length>0){
+    g.selectAll(".hist-territory").data(histFeatures).join("path")
+      .attr("d",path)
+      .attr("class",d=>{
+        const n=d.properties?.NAME;
+        if(interactive&&litActiveNames.has(n))return"hist-territory lit-active";
+        if(interactive&&litHatchNames.has(n))return"hist-territory lit-hatch";
+        return"hist-territory";
+      })
+      .attr("fill",d=>{
+        const n=d.properties?.NAME;
+        if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
+        return histColor(n);
+      })
+      .attr("stroke-dasharray",d=>{
+        const n=d.properties?.NAME;
+        if(interactive&&litHatchNames.has(n))return"4,3";
+        const bp=d.properties?.BORDERPRECISION;
+        return(bp&&bp<=1)?"3,2":null;
+      })
+      .on("mousemove",(evt,d)=>{if(interactive)showHistTip(evt,d);})
+      .on("mouseleave",()=>{if(interactive)hideTip();});
+  }
+
+  /* Bordure sphère */
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-border").attr("d",path);
+
+  /* Villes */
   if(interactive&&cityList.length>0){
     const cityG=g.append("g").attr("class","cities-layer");
     const merged=mergeCities(cityList);
@@ -280,59 +481,81 @@ function buildMap(svgEl,projName,w,h,pad,interactive){
       const cg=cityG.append("g").attr("class","city-group");
       cg.append("circle").attr("class","city-dot").attr("cx",pt[0]).attr("cy",pt[1]).attr("r",4)
         .attr("data-lon",c.lon).attr("data-lat",c.lat)
-        .on("mouseenter",function(evt){const k=(currentTransform&&currentTransform.k)?currentTransform.k:1;d3.select(this).transition().duration(120).attr("r",6/k);showCityTip(evt,c);})
+        .on("mouseenter",function(evt){const k=(currentTransform?.k)||1;d3.select(this).transition().duration(120).attr("r",6/k);showCityTip(evt,c);})
         .on("mousemove",function(evt){showCityTip(evt,c);})
-        .on("mouseleave",function(){const k=(currentTransform&&currentTransform.k)?currentTransform.k:1;d3.select(this).transition().duration(200).attr("r",4/k);hideTip();});
+        .on("mouseleave",function(){const k=(currentTransform?.k)||1;d3.select(this).transition().duration(200).attr("r",4/k);hideTip();});
       cg.append("text").attr("class","city-label").attr("x",pt[0]).attr("y",pt[1]+8).text(c._resolvedNom);
     }
   }
+
+  /* Interactions */
   if(interactive){
     mainProj=proj;mainPath=path;
     if(projName==="orthographic"){
-      mainZoom=null;
-      svg.on(".zoom",null);  /* remove any zoom handlers from previous projection */
+      mainZoom=null;svg.on(".zoom",null);
       document.getElementById("zoom-controls").style.display="none";
-    }
-    else{
-      svg.on(".drag",null);  /* remove any drag handlers from previous orthographic render */
+      addGlobeDrag(svg,proj,g);
+    }else{
+      svg.on(".drag",null);
       mainZoom=d3.zoom().scaleExtent([1,12]).on("zoom",evt=>{
         currentTransform=evt.transform;g.attr("transform",evt.transform);
         const k=evt.transform.k;
         g.selectAll(".city-dot").attr("r",4/k);
         g.selectAll(".city-label").style("font-size",(9/k)+"px");
-        g.selectAll(".country").style("stroke-width",(0.4/k)+"px");
-        g.selectAll(".country.lit-active").style("stroke-width",(0.6/k)+"px");
+        g.selectAll(".country-base").style("stroke-width",(0.5/k)+"px");
+        g.selectAll(".hist-territory").style("stroke-width",function(){
+          return d3.select(this).classed("lit-active")?(1.4/k)+"px":(0.6/k)+"px";
+        });
       });
       svg.call(mainZoom);
-      autoZoom(svg,proj,path,false);
+      if(currentForm!=="territoires")autoZoom(svg,proj,path,false);
       document.getElementById("zoom-controls").style.display="flex";
     }
   }
-  if(interactive&&projName==="orthographic")addGlobeDrag(svg,proj,g);
   return{proj,path};
 }
 
-function renderMain(projName,animate){
-  const mapEl=document.getElementById("main-map");
-  const svg=d3.select(mapEl);
+/* --- Defs SVG (hachures) --- */
+function ensureDefs(svgEl){
+  const svg=d3.select(svgEl);
+  let defs=svg.select("defs");
+  if(defs.empty())defs=svg.append("defs");
+  if(defs.select("#hatch-origin").empty()){
+    const p=defs.append("pattern").attr("id","hatch-origin")
+      .attr("patternUnits","userSpaceOnUse").attr("width",6).attr("height",6)
+      .attr("patternTransform","rotate(45)");
+    p.append("rect").attr("width",6).attr("height",6).attr("fill","rgba(212,168,73,0.18)");
+    p.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",6)
+      .attr("stroke","rgba(212,168,73,0.55)").attr("stroke-width",2);
+  }
+}
+
+/* --- Rendu principal --- */
+async function renderMain(projName,animate){
+  const mapEl=document.getElementById("main-map"),svg=d3.select(mapEl);
+  ensureDefs(mapEl);
+  const year=getForm().timeline[currentDateIdx].year;
+  const hist=await loadHistGeo(year);
+  currentHistFeatures=hist.data?hist.data.features:[];
+  computeHighlighted(currentHistFeatures);
+
   const doRender=()=>{
-    computeHighlighted();currentTransform=d3.zoomIdentity;
-    buildMap(mapEl,projName,MW,MH,MPAD,true);
+    currentTransform=d3.zoomIdentity;
+    buildMap(mapEl,projName,MW,MH,MPAD,true,currentHistFeatures);
     document.getElementById("proj-info").textContent=PROJ_CONFIG[projName].desc;
     document.getElementById("globe-hint").classList.toggle("visible",projName==="orthographic");
-    mapEl.classList.toggle("is-globe",projName==="orthographic");currentProj=projName;
+    mapEl.classList.toggle("is-globe",projName==="orthographic");
+    currentProj=projName;
     document.querySelectorAll(".proj-btn").forEach(b=>b.classList.toggle("active",b.dataset.proj===projName));
     document.querySelectorAll(".gallery-card").forEach(c=>c.classList.toggle("active",c.dataset.proj===projName));
   };
+
   if(animate){
-    svg.transition().duration(180).style("opacity",0).end().then(()=>{
-      doRender();
-      svg.transition().duration(280).style("opacity",1).end().then(()=>{
-        autoZoom(svg,mainProj,mainPath,true);
-      });
-    });
-  }
-  else{doRender();mapEl.style.display="block";mapEl.style.opacity="1";}
+    await svg.transition().duration(180).style("opacity",0).end();
+    doRender();
+    await svg.transition().duration(280).style("opacity",1).end();
+    if(currentProj!=="orthographic"&&currentForm!=="territoires")autoZoom(svg,mainProj,mainPath,true);
+  }else{doRender();mapEl.style.display="block";mapEl.style.opacity="1";}
 }
 
 function renderGallery(){
@@ -341,33 +564,53 @@ function renderGallery(){
     const card=document.createElement("div");card.className="gallery-card"+(key===currentProj?" active":"");card.dataset.proj=key;
     const lbl=document.createElement("div");lbl.className="gallery-label";lbl.textContent=cfg.label;card.appendChild(lbl);
     const svgEl=document.createElementNS("http://www.w3.org/2000/svg","svg");svgEl.setAttribute("viewBox","0 0 "+GW+" "+GH);svgEl.setAttribute("preserveAspectRatio","xMidYMid meet");card.appendChild(svgEl);
-    buildMap(svgEl,key,GW,GH,GPAD,false);card.addEventListener("click",()=>renderMain(key,true));grid.appendChild(card);
+    buildMap(svgEl,key,GW,GH,GPAD,false,[]);
+    card.addEventListener("click",()=>renderMain(key,true));grid.appendChild(card);
   });
 }
 
-function showTip(evt,d){
-  const p=getPays(d),id=cid(d),litEvts=highlightedMap[id];
-  const era=getEra(getForm().timeline[currentDateIdx].year);
-  document.getElementById("t-flag").textContent=p?p.drapeau:"🌐";
-  document.getElementById("t-name").textContent=p?p.nom:"Territoire";
-  document.getElementById("t-sub").textContent=era?era.label:"";
-  const body=document.getElementById("tip-body");body.innerHTML="";
+/* --- Tooltips --- */
+function showHistTip(evt,d){
+  const props=d.properties||{};
+  const name=props.NAME||"Territoire inconnu";
+  document.getElementById("t-flag").textContent="🗺️";
+  document.getElementById("t-name").textContent=name;
+  const sub=[];
+  if(props.SUBJECTO&&props.SUBJECTO!==name)sub.push("Suzerain : "+props.SUBJECTO);
+  if(props.PARTOF)sub.push("Partie de : "+props.PARTOF);
+  document.getElementById("t-sub").textContent=sub.join(" · ");
+
+  let bodyH="";
+  const bp=props.BORDERPRECISION;
+  const bpT=bp==1?"approximatives":bp==2?"modérément précises":bp==3?"fixées par traité":"";
+  if(bpT)bodyH+='<div class="tip-rows"><span class="tip-lbl">Frontières</span><span class="tip-val">'+bpT+'</span></div>';
+
+  /* Événements littéraires associés à ce territoire */
+  const litEvts=territoryLitEvents[name];
   if(litEvts&&litEvts.length>0){
-    let h='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+'</div>';
-    for(const ev of litEvts){const ct=ev.city?'<span class="tip-city-badge">'+resolveCityName(ev.city,ev.year).nom+'</span>':"";h+='<div class="tip-lit-event"><div class="tip-lit-year">'+formatYear(ev.year)+ct+'</div><div class="tip-lit-text">'+ev.title+'</div></div>';}
-    h+='</div>';body.innerHTML=h;
-  }else if(p){
-    body.innerHTML='<div class="tip-rows"><span class="tip-lbl">Capitale</span><span class="tip-val">'+p.capitale+'</span><span class="tip-lbl">Population</span><span class="tip-val">'+p.pop+'</span><span class="tip-lbl">Superficie</span><span class="tip-val">'+p.superficie+'</span></div>';
+    bodyH+='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+'</div>';
+    for(const ev of litEvts){
+      const ct=ev.cityNom?'<span class="tip-city-badge">'+ev.cityNom+'</span>':"";
+      bodyH+='<div class="tip-lit-event"><div class="tip-lit-year">'+formatYear(ev.year)+ct+'</div><div class="tip-lit-text">'+ev.title+'</div></div>';
+    }
+    bodyH+='</div>';
   }
+  document.getElementById("tip-body").innerHTML=bodyH;
   const tt=document.getElementById("tooltip");tt.classList.add("visible");positionTip(evt,tt);
 }
 
 function showCityTip(evt,c){
-  const p=PAYS[c.countryId];
   document.getElementById("t-flag").textContent="📍";
   document.getElementById("t-name").textContent=c._resolvedNom+(c._resolvedLocal?" ("+c._resolvedLocal+")":"");
-  document.getElementById("t-sub").textContent=p?p.nom:"";
-  let h='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+' — '+c._resolvedNom+'</div>';
+  const sub=[];
+  if(c.histTerrName)sub.push(c.histTerrName);
+  if(c.cityCountryId&&c.cityCountryId!==c.countryId){
+    const cp=PAYS[c.cityCountryId];const op=PAYS[c.countryId];
+    if(cp)sub.push("Publié : "+cp.nom);
+    if(op)sub.push("Auteur : "+op.nom);
+  }
+  document.getElementById("t-sub").textContent=sub.join(" · ");
+  let h='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+'</div>';
   for(const ev of c.events){h+='<div class="tip-lit-event"><div class="tip-lit-year">'+formatYear(ev.year)+'</div><div class="tip-lit-text">'+ev.title+'</div></div>';}
   h+='</div>';
   document.getElementById("tip-body").innerHTML=h;
@@ -378,6 +621,7 @@ function positionTip(evt,tt){const m=16;let x=evt.clientX+m,y=evt.clientY+m;tt.s
 document.addEventListener("mousemove",evt=>{const tt=document.getElementById("tooltip");if(tt.classList.contains("visible"))positionTip(evt,tt);});
 function hideTip(){document.getElementById("tooltip").classList.remove("visible");}
 
+/* --- Globe drag --- */
 function addGlobeDrag(svg,proj,g){
   let ox=0,oy=0,r0;
   svg.call(d3.drag()
@@ -388,23 +632,29 @@ function addGlobeDrag(svg,proj,g){
       g.selectAll(".city-group").each(function(){
         const dot=d3.select(this).select("circle"),lbl=d3.select(this).select("text");
         const lon=+dot.attr("data-lon"),lat=+dot.attr("data-lat");
-        if(!isNaN(lon)&&!isNaN(lat)){const pt=proj([lon,lat]);if(pt){dot.attr("cx",pt[0]).attr("cy",pt[1]);lbl.attr("x",pt[0]).attr("y",pt[1]+8);const vis=d3.geoDistance([lon,lat],[-proj.rotate()[0],-proj.rotate()[1]])<Math.PI/2;d3.select(this).style("display",vis?null:"none");}}
+        if(!isNaN(lon)&&!isNaN(lat)){
+          const pt=proj([lon,lat]);
+          if(pt){dot.attr("cx",pt[0]).attr("cy",pt[1]);lbl.attr("x",pt[0]).attr("y",pt[1]+8);
+          const vis=d3.geoDistance([lon,lat],[-proj.rotate()[0],-proj.rotate()[1]])<Math.PI/2;
+          d3.select(this).style("display",vis?null:"none");}
+        }
       });
     })
   );
 }
 
-function formatYear(y){return y<0?Math.abs(y)+" av. J.-C.":String(y);}
-
+/* --- Timeline --- */
 function buildTimeline(){
   const form=getForm(),tl=form.timeline;
   const wrapper=document.getElementById("tl-track-wrapper");
   wrapper.querySelectorAll(".timeline-marker").forEach(m=>m.remove());
+  const showEvery=Math.max(1,Math.ceil(tl.length/20));
   tl.forEach((entry,i)=>{
     const pct=tl.length===1?50:(i/(tl.length-1))*100;
     const mk=document.createElement("div");mk.className="timeline-marker"+(i===currentDateIdx?" active":"");mk.style.left=pct+"%";mk.dataset.idx=i;
-    const yr=document.createElement("div");yr.className="timeline-marker-year";yr.textContent=formatYear(entry.year);mk.appendChild(yr);
-    mk.addEventListener("click",()=>goToDate(i));wrapper.appendChild(mk);
+    const yr=document.createElement("div");yr.className="timeline-marker-year";
+    if(tl.length<=25||i%showEvery===0||i===tl.length-1||i===currentDateIdx)yr.textContent=formatYear(entry.year);
+    mk.appendChild(yr);mk.addEventListener("click",()=>goToDate(i));wrapper.appendChild(mk);
   });
   updateTimelineUI();
 }
@@ -414,7 +664,11 @@ function updateTimelineUI(){
   document.getElementById("timeline-year").textContent=formatYear(tl[currentDateIdx].year);
   const pct=tl.length===1?50:(currentDateIdx/(tl.length-1))*100;
   document.getElementById("tl-fill").style.width=pct+"%";
-  document.querySelectorAll(".timeline-marker").forEach((mk,i)=>mk.classList.toggle("active",i===currentDateIdx));
+  document.querySelectorAll(".timeline-marker").forEach((mk,i)=>{
+    mk.classList.toggle("active",i===currentDateIdx);
+    const yr=mk.querySelector(".timeline-marker-year");
+    if(yr&&!yr.textContent&&i===currentDateIdx)yr.textContent=formatYear(tl[i].year);
+  });
   document.getElementById("tl-prev").disabled=currentDateIdx===0;
   document.getElementById("tl-next").disabled=currentDateIdx===tl.length-1;
   renderEventCard();
@@ -422,23 +676,42 @@ function updateTimelineUI(){
 
 function renderEventCard(){
   const entry=getForm().timeline[currentDateIdx];
+  if(currentForm==="territoires"){
+    const evt=entry.events[0];
+    document.getElementById("event-card-inner").innerHTML='<div class="event-entries"><div class="event-entry"><div class="event-flag">🗺️</div><div class="event-text"><div class="event-title">'+formatYear(entry.year)+'</div><div class="event-detail">'+evt.detail+'</div></div></div></div>';
+    return;
+  }
   let h='<div class="event-entries">';
   for(const evt of entry.events){
     const p=PAYS[evt.countryId],flag=p?p.drapeau:"🌐";
     const cityTag=evt.city?(()=>{const cn=resolveCityName(evt.city,entry.year);return'<span class="event-city-tag">📍 '+cn.nom+(cn.local?" ("+cn.local+")":"")+"</span>";})():"";
-    h+='<div class="event-entry"><div class="event-flag">'+flag+'</div><div class="event-text"><div class="event-title">'+evt.title+cityTag+'</div><div class="event-detail">'+evt.detail+'</div></div></div>';
+    /* Trouver le nom du territoire historique */
+    let terrTag="";
+    if(evt.city&&currentHistFeatures.length){
+      const ht=findHistTerritory(evt.city.lon,evt.city.lat,currentHistFeatures);
+      if(ht)terrTag='<span class="event-territory-tag">'+ht.properties.NAME+'</span>';
+    }
+    const diasTag=(evt.cityCountryId&&evt.cityCountryId!==evt.countryId)?(()=>{
+      const cp=PAYS[evt.cityCountryId];return'<span class="event-diaspora-tag">↗ publié en '+(cp?cp.nom:"?")+'</span>';})():"";
+    h+='<div class="event-entry"><div class="event-flag">'+flag+'</div><div class="event-text"><div class="event-title">'+evt.title+cityTag+terrTag+diasTag+'</div><div class="event-detail">'+evt.detail+'</div></div></div>';
   }
   h+='</div>';document.getElementById("event-card-inner").innerHTML=h;
 }
 
 function goToDate(idx){const tl=getForm().timeline;if(idx<0||idx>=tl.length)return;currentDateIdx=idx;updateTimelineUI();renderMain(currentProj,true);}
 
-function switchForm(formKey){
+function switchForm(formKey,noHash){
   if(!LITERARY_FORMS[formKey])return;currentForm=formKey;currentDateIdx=0;
+  if(!noHash)history.replaceState(null,null,"#"+formKey);
   document.querySelectorAll(".lit-btn").forEach(b=>b.classList.toggle("active",b.dataset.form===formKey));
   document.getElementById("form-desc").textContent=getForm().desc;
   buildTimeline();renderMain(currentProj,true);renderGallery();
 }
+/* Écouter les changements de hash (bouton retour du navigateur) */
+window.addEventListener("hashchange",()=>{
+  const h=location.hash.replace("#","");
+  if(LITERARY_FORMS[h]&&h!==currentForm)switchForm(h,true);
+});
 
 function setupZoomButtons(){
   const svg=d3.select("#main-map");
@@ -450,11 +723,13 @@ function setupZoomButtons(){
 function setupUI(){
   const litNav=document.getElementById("lit-nav");
   Object.entries(LITERARY_FORMS).forEach(([key,cfg])=>{
-    const btn=document.createElement("button");btn.className="lit-btn"+(key===currentForm?" active":"");btn.dataset.form=key;btn.textContent=cfg.label;btn.addEventListener("click",()=>switchForm(key));litNav.appendChild(btn);
+    const btn=document.createElement("button");btn.className="lit-btn"+(key===currentForm?" active":"");btn.dataset.form=key;btn.textContent=cfg.label;
+    btn.addEventListener("click",()=>switchForm(key));litNav.appendChild(btn);
   });
   const projNav=document.getElementById("proj-nav");
   Object.entries(PROJ_CONFIG).forEach(([key,cfg])=>{
-    const btn=document.createElement("button");btn.className="proj-btn"+(key===currentProj?" active":"");btn.dataset.proj=key;btn.textContent=cfg.label;btn.addEventListener("click",()=>renderMain(key,true));projNav.appendChild(btn);
+    const btn=document.createElement("button");btn.className="proj-btn"+(key===currentProj?" active":"");btn.dataset.proj=key;btn.textContent=cfg.label;
+    btn.addEventListener("click",()=>renderMain(key,true));projNav.appendChild(btn);
   });
   document.getElementById("tl-prev").addEventListener("click",()=>goToDate(currentDateIdx-1));
   document.getElementById("tl-next").addEventListener("click",()=>goToDate(currentDateIdx+1));
@@ -466,8 +741,11 @@ async function init(){
     const world=await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
     COUNTRIES=topojson.feature(world,world.objects.countries).features;
     document.getElementById("loading").style.display="none";
+    /* Lire le hash pour aller directement à une forme : atlas.html#haiku */
+    const hash=location.hash.replace("#","");
+    if(hash&&LITERARY_FORMS[hash]){currentForm=hash;}
     document.getElementById("form-desc").textContent=getForm().desc;
-    setupUI();buildTimeline();renderMain("naturalEarth1",false);renderGallery();
+    setupUI();buildTimeline();await renderMain("naturalEarth1",false);renderGallery();
   }catch(err){
     document.getElementById("loading").innerHTML='<div style="color:#c07a50;font-family:Cinzel,serif;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;text-align:center;padding:20px">Erreur de chargement<br><span style="font-family:EB Garamond,serif;font-style:italic;font-size:1rem;letter-spacing:0;text-transform:none;color:#7a6e5f;margin-top:8px;display:block">Vérifiez votre connexion et rechargez la page.</span></div>';
     console.error(err);
