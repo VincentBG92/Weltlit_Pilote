@@ -210,30 +210,6 @@ footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid
    – Hachures diasporiques sur territoire historique d'origine
    ═══════════════════════════════════════════════════════════ */
 
-/* --- Patch donnees.js : cityCountryId pour diaspora --- */
-(function patchDiaspora(){
-  const patches={
-    versLibre:[
-      {year:1912,match:"Imagisme",cityCountryId:"826"},
-      {year:1939,match:"Poemas humanos",cityCountryId:"250"}
-    ],
-    haiku:[
-      {year:1913,match:"Ezra Pound",cityCountryId:"826"}
-    ]
-  };
-  for(const[fk,pl]of Object.entries(patches)){
-    const form=LITERARY_FORMS[fk];if(!form)continue;
-    for(const p of pl){
-      for(const entry of form.timeline){
-        if(entry.year!==p.year)continue;
-        for(const evt of entry.events){
-          if(evt.title.includes(p.match)){evt.cityCountryId=p.cityCountryId;}
-        }
-      }
-    }
-  }
-})();
-
 /* --- Ajout forme "Territoires historiques" --- */
 if(!LITERARY_FORMS.territoires){
   const tYears=[-3000,-2000,-1000,-500,-300,-1,100,400,800,1000,1200,1400,1500,1650,1800,1880,1914,1945,1994,2010];
