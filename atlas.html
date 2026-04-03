@@ -373,34 +373,40 @@ function computeHighlighted(histFeatures){
   }
 }
 
-/* --- Auto-zoom sur villes --- */
-function computeAutoBounds(){
-  const form=getForm(),entry=form.timeline[currentDateIdx];
-  if(!entry||currentForm==="territoires")return null;
-  const pts=[];
-  for(const evt of entry.events){if(evt.city)pts.push([evt.city.lon,evt.city.lat]);}
-  if(pts.length>0){
-    const lons=pts.map(p=>p[0]),lats=pts.map(p=>p[1]);
-    const pad=8;
-    return{type:"FeatureCollection",features:[{type:"Feature",geometry:{type:"Polygon",
-      coordinates:[[[Math.min(...lons)-pad,Math.min(...lats)-pad],[Math.max(...lons)+pad,Math.min(...lats)-pad],
-      [Math.max(...lons)+pad,Math.max(...lats)+pad],[Math.min(...lons)-pad,Math.max(...lats)+pad],
-      [Math.min(...lons)-pad,Math.min(...lats)-pad]]]}}]};
-  }
-  return null;
-}
+/* --- Auto-zoom sur villes de la date courante --- */
 function autoZoom(svg,proj,path,animate){
-  const fc=computeAutoBounds();if(!fc||!mainZoom)return;
-  const bounds=path.bounds(fc);
-  const dx=bounds[1][0]-bounds[0][0],dy=bounds[1][1]-bounds[0][1];
-  const cx=(bounds[0][0]+bounds[1][0])/2,cy=(bounds[0][1]+bounds[1][1])/2;
-  const pad=60;const scale=Math.max(1,Math.min(MW/(dx+pad*2),MH/(dy+pad*2),8));
+  if(!mainZoom)return;
+  const form=getForm(),entry=form.timeline[currentDateIdx];
+  if(!entry||currentForm==="territoires")return;
+
+  /* Projeter les villes en coordonnées pixel */
+  const pts=[];
+  for(const evt of entry.events){
+    if(evt.city){
+      const p=proj([evt.city.lon,evt.city.lat]);
+      if(p&&!isNaN(p[0]))pts.push(p);
+    }
+  }
+  if(pts.length===0)return;
+
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  const x0=Math.min(...xs),x1=Math.max(...xs);
+  const y0=Math.min(...ys),y1=Math.max(...ys);
+
+  /* Empêcher un zoom infini quand toutes les villes sont au même point */
+  const dx=Math.max(x1-x0,30);
+  const dy=Math.max(y1-y0,30);
+
+  const pad=100;
+  const scale=Math.max(1,Math.min(MW/(dx+pad*2),MH/(dy+pad*2),6));
+  const cx=(x0+x1)/2,cy=(y0+y1)/2;
   const tx=MW/2-cx*scale,ty=MH/2-cy*scale;
   const t=d3.zoomIdentity.translate(tx,ty).scale(scale);
+
   if(animate)svg.transition().duration(700).call(mainZoom.transform,t);
   else svg.call(mainZoom.transform,t);
 }
-
+  
 function mergeCities(cities){
   const map={};
   for(const c of cities){
