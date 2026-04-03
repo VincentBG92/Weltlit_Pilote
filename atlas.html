@@ -103,7 +103,7 @@ header{text-align:center;padding:28px 20px 4px}
 /* Territoires historiques */
 .hist-territory{opacity:.5;stroke-width:.6;stroke:rgba(0,0,0,.5);cursor:pointer;transition:opacity .18s}
 .hist-territory:hover{opacity:.72}
-.hist-territory.lit-active{opacity:.85;stroke:var(--gold);stroke-width:1.4;filter:drop-shadow(0 0 6px rgba(212,168,73,.4))}
+.hist-territory.lit-active{opacity:.88;stroke:rgba(0,0,0,.5);stroke-width:1.4;filter:none}
 .hist-territory.lit-active:hover{opacity:.95}
 .hist-territory.lit-hatch{opacity:.65;stroke:var(--gold);stroke-width:1;stroke-dasharray:4,3}
 .sphere-border{fill:none;stroke:rgba(201,162,39,.3);stroke-width:.8}
@@ -437,16 +437,24 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
     g.selectAll(".hist-territory").data(histFeatures).join("path")
       .attr("d",path)
       .attr("class",d=>{
-        const n=d.properties?.NAME;
-        if(interactive&&litActiveNames.has(n))return"hist-territory lit-active";
-        if(interactive&&litHatchNames.has(n))return"hist-territory lit-hatch";
-        return"hist-territory";
-      })
+    const n=d.properties?.NAME;
+    if(interactive&&litActiveNames.has(n))return"hist-territory lit-active";
+    if(interactive&&litHatchNames.has(n))return"hist-territory lit-hatch";
+    return"hist-territory";
+})
       .attr("fill",d=>{
-        const n=d.properties?.NAME;
-        if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
-        return histColor(n);
-      })
+    const n=d.properties?.NAME;
+    if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
+    const base=histColor(n);
+    if(interactive&&litActiveNames.has(n)){
+      // Mélanger la couleur du territoire avec un doré
+      const c=d3.color(base);
+      const gold=d3.color("#d4a849");
+      const mix=d3.interpolateRgb(c,gold)(0.45);
+      return mix;
+    }
+    return base;
+})
       .attr("stroke-dasharray",d=>{
         const n=d.properties?.NAME;
         if(interactive&&litHatchNames.has(n))return"4,3";
@@ -547,16 +555,16 @@ async function renderMain(projName,animate){
 if(animate){
     await svg.transition().duration(180).style("opacity",0).end();
     doRender();
-    await svg.transition().duration(280).style("opacity",1).end();
+    // Zoom INSTANTANÉ avant que la carte ne réapparaisse
     if(currentProj==="naturalEarth1"&&mainZoom&&currentForm!=="territoires")
-      autoZoom(svg,mainProj,mainPath,true);
+      autoZoom(svg,mainProj,mainPath,false);  // false = pas d'animation
+    await svg.transition().duration(280).style("opacity",1).end();
 }else{
     doRender();
     mapEl.style.display="block";
     mapEl.style.opacity="1";
     if(currentProj==="naturalEarth1"&&mainZoom&&currentForm!=="territoires")
-      autoZoom(svg,mainProj,mainPath,false);}
-
+      autoZoom(svg,mainProj,mainPath,false);
 }
 
 function renderGallery(){
