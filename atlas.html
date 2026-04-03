@@ -40,7 +40,7 @@ header{text-align:center;padding:28px 20px 4px}
 .lit-btn.active,.proj-btn.active{background:var(--gold);border-color:var(--gold);color:var(--bg)}
 .lit-btn{font-size:.82rem;padding:10px 26px}
 .thin-divider{max-width:700px;margin:6px auto;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.12),transparent)}
-.form-desc{text-align:center;font-style:italic;color:var(--text-dim);font-size:1.02rem;padding:4px 30px 14px;max-width:800px;margin:0 auto;min-height:28px;line-height:1.6}
+.form-desc{text-align:center;font-style:italic;color:var(--text-dim);font-size:1.326rem;padding:4px 30px 14px;max-width:800px;margin:0 auto;min-height:28px;line-height:1.6}
 .map-wrapper{display:flex;justify-content:center;padding:0 16px;position:relative}
 #main-map{width:100%;max-width:1080px;display:none;cursor:default;overflow:hidden}
 #main-map.is-globe{cursor:grab}
@@ -79,7 +79,7 @@ header{text-align:center;padding:28px 20px 4px}
 .event-entry{display:flex;gap:14px;align-items:flex-start}
 .event-flag{font-size:1.6rem;line-height:1;flex-shrink:0;margin-top:2px}
 .event-title{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--gold-light);letter-spacing:.06em;margin-bottom:4px}
-.event-detail{font-size:1.02rem;color:var(--cream);line-height:1.6;opacity:.88}
+.event-detail{font-size:1.326rem;color:var(--cream);line-height:1.6;opacity:.88}
 .event-city-tag{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;color:var(--city-color);margin-left:4px}
 .event-territory-tag{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:rgba(100,180,220,.8);margin-left:6px;border:1px solid rgba(100,180,220,.25);padding:1px 6px}
 .event-diaspora-tag{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:rgba(201,162,39,.7);margin-left:6px;border:1px solid rgba(201,162,39,.25);padding:1px 6px}
@@ -156,6 +156,7 @@ footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid
 <div class="thin-divider"></div>
 <div class="section-label">Projection cartographique</div>
 <div class="btn-row" id="proj-nav"></div>
+<p class="proj-info-bar" id="proj-info"></p>
 <div class="map-wrapper">
   <div class="loading-screen" id="loading">
     <div class="loading-spinner"></div>
@@ -170,7 +171,6 @@ footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid
 </div>
 <p class="globe-hint" id="globe-hint">Cliquez et faites glisser pour faire pivoter le globe</p>
 <p class="hist-loading" id="hist-loading"></p>
-<p class="proj-info-bar" id="proj-info"></p>
 <div class="timeline-section">
   <div class="timeline-year-display"><div class="timeline-year" id="timeline-year"></div></div>
   <div class="timeline-controls">
@@ -477,7 +477,8 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
       mainZoom=null;svg.on(".zoom",null);
       document.getElementById("zoom-controls").style.display="none";
       addGlobeDrag(svg,proj,g);
-    }else{
+    }else if(projName==="naturalEarth1"){
+      /* Natural Earth uniquement : zoom + auto-zoom */
       svg.on(".drag",null);
       mainZoom=d3.zoom().scaleExtent([1,12]).on("zoom",evt=>{
         currentTransform=evt.transform;g.attr("transform",evt.transform);
@@ -492,6 +493,10 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
       svg.call(mainZoom);
       if(currentForm!=="territoires")autoZoom(svg,proj,path,false);
       document.getElementById("zoom-controls").style.display="flex";
+    }else{
+      /* Autres projections : pas de zoom */
+      mainZoom=null;svg.on(".drag",null);
+      document.getElementById("zoom-controls").style.display="none";
     }
   }
   return{proj,path};
@@ -536,7 +541,7 @@ async function renderMain(projName,animate){
     await svg.transition().duration(180).style("opacity",0).end();
     doRender();
     await svg.transition().duration(280).style("opacity",1).end();
-    if(currentProj!=="orthographic"&&currentForm!=="territoires")autoZoom(svg,mainProj,mainPath,true);
+    if(currentProj==="naturalEarth1"&&mainZoom)autoZoom(svg,mainProj,mainPath,true);
   }else{doRender();mapEl.style.display="block";mapEl.style.opacity="1";}
 }
 
