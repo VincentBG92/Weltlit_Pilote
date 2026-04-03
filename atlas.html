@@ -492,7 +492,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
         });
       });
       svg.call(mainZoom);
-      if(currentForm!=="territoires")autoZoom(svg,proj,path,false);
+      /* if(currentForm!=="territoires")autoZoom(svg,proj,path,false); */
       document.getElementById("zoom-controls").style.display="flex";
     }else{
       /* Autres projections : pas de zoom */
@@ -538,12 +538,19 @@ async function renderMain(projName,animate){
     document.querySelectorAll(".gallery-card").forEach(c=>c.classList.toggle("active",c.dataset.proj===projName));
   };
 
-  if(animate){
+if(animate){
     await svg.transition().duration(180).style("opacity",0).end();
     doRender();
     await svg.transition().duration(280).style("opacity",1).end();
-    if(currentProj==="naturalEarth1"&&mainZoom)autoZoom(svg,mainProj,mainPath,true);
-  }else{doRender();mapEl.style.display="block";mapEl.style.opacity="1";}
+    if(currentProj==="naturalEarth1"&&mainZoom&&currentForm!=="territoires")
+      autoZoom(svg,mainProj,mainPath,true);
+}else{
+    doRender();
+    mapEl.style.display="block";
+    mapEl.style.opacity="1";
+    if(currentProj==="naturalEarth1"&&mainZoom&&currentForm!=="territoires")
+      autoZoom(svg,mainProj,mainPath,false);}
+
 }
 
 function renderGallery(){
