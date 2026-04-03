@@ -479,6 +479,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
       addGlobeDrag(svg,proj,g);
     }else if(projName==="naturalEarth1"){
       /* Natural Earth uniquement : zoom + auto-zoom */
+      svg.on(".zoom",null); 
       svg.on(".drag",null);
       mainZoom=d3.zoom().scaleExtent([1,12]).on("zoom",evt=>{
         currentTransform=evt.transform;g.attr("transform",evt.transform);
