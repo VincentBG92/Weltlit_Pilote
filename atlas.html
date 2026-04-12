@@ -631,10 +631,17 @@ function renderGallery(){
 /* ═══════════════════════════════════════════════════════════
    TOOLTIPS
    ═══════════════════════════════════════════════════════════ */
+function setTipIcon(iconData){
+  const el=document.getElementById("t-flag");
+  if(!iconData){el.textContent="🗺️";el.innerHTML="🗺️";}
+  else if(typeof iconData==="string"){el.textContent=iconData;}
+  else{el.innerHTML='<img src="'+iconData.img+'" alt="'+iconData.alt+'" style="width:2rem;height:2rem;object-fit:cover;border-radius:3px;vertical-align:middle">';}
+}
+
 function showHistTip(evt,d){
   const props=d.properties||{};
   const name=props.NAME||"Territoire inconnu";
-  document.getElementById("t-flag").textContent="🗺️";
+  setTipIcon(TERRITORY_ICONS[name]);
   document.getElementById("t-name").textContent=name;
   const sub=[];
   if(props.SUBJECTO&&props.SUBJECTO!==name)sub.push("Suzerain : "+props.SUBJECTO);

@@ -185,6 +185,147 @@ const PAYS={
 "894":{nom:"Zambie",capitale:"Lusaka",pop:"19,5 M",superficie:"752 618 km²",drapeau:"🇿🇲"},
 };
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   TERRITORY_ICONS — icônes d'illustration pour les territoires Ourednik
+   ─────────────────────────────────────────────────────────────────────────
+   Valeurs acceptées :
+     • chaîne emoji                    → "🇫🇷"
+     • objet image personnalisée       → {img:"donnees-atlas/img/jomon.jpg", alt:"Poterie Jōmon"}
+   Fallback : "🗺️" si le nom n'est pas dans cette table.
+   Ne pas modifier les fichiers GeoJSON Ourednik : cette table est notre
+   propre couche de métadonnées d'affichage.
+═══════════════════════════════════════════════════════════════════════════ */
+const TERRITORY_ICONS = {
+
+  /* ── Pays modernes (noms anglais Ourednik → drapeau emoji) ── */
+  "Afghanistan":"🇦🇫","Albania":"🇦🇱","Algeria":"🇩🇿","Algeria (FR)":"🇩🇿",
+  "Algeria (France)":"🇩🇿","Andorra":"🇦🇩","Angola":"🇦🇴","Angola (Portugal)":"🇦🇴",
+  "Argentina":"🇦🇷","Armenia":"🇦🇲","Australia":"🇦🇺","Austria":"🇦🇹",
+  "Azerbaijan":"🇦🇿","Bahrain":"🇧🇭","Bangladesh":"🇧🇩","Belgium":"🇧🇪",
+  "Belize":"🇧🇿","Benin":"🇧🇯","Bhutan":"🇧🇹","Bolivia":"🇧🇴",
+  "Bosnia and Herzegovina":"🇧🇦","Bosnia-Herzegovina":"🇧🇦","Botswana":"🇧🇼",
+  "Brazil":"🇧🇷","Brunei":"🇧🇳","Bulgaria":"🇧🇬","Burundi":"🇧🇮",
+  "Byelarus":"🇧🇾","Cambodia":"🇰🇭","Cameroon":"🇨🇲","Canada":"🇨🇦",
+  "Cape Verde":"🇨🇻","Central African Republic":"🇨🇫","Chad":"🇹🇩","Chile":"🇨🇱",
+  "China":"🇨🇳","Colombia":"🇨🇴","Congo":"🇨🇬","Costa Rica":"🇨🇷",
+  "Croatia":"🇭🇷","Cuba":"🇨🇺","Cyprus":"🇨🇾","Czech Republic":"🇨🇿",
+  "Czechoslovakia":"🇨🇿","Denmark":"🇩🇰","Denmark-Norway":"🇩🇰","Djibouti":"🇩🇯",
+  "Dominican Republic":"🇩🇴","Ecuador":"🇪🇨","Egypt":"🇪🇬","El Salvador":"🇸🇻",
+  "Eritrea":"🇪🇷","Estonia":"🇪🇪","Ethiopia":"🇪🇹","Abyssinia":"🇪🇹",
+  "Fiji":"🇫🇯","Finland":"🇫🇮","France":"🇫🇷","Gabon":"🇬🇦",
+  "Gambia":"🇬🇲","Gambia, The":"🇬🇲","Georgia":"🇬🇪","Germany":"🇩🇪",
+  "West Germany":"🇩🇪","East Germany":"🇩🇪","Ghana":"🇬🇭","Greece":"🇬🇷",
+  "Greenland":"🇬🇱","Guatemala":"🇬🇹","Guinea":"🇬🇳","Guinea-Bissau":"🇬🇼",
+  "Guyana":"🇬🇾","Haiti":"🇭🇹","Honduras":"🇭🇳","Hungary":"🇭🇺",
+  "Iceland":"🇮🇸","India":"🇮🇳","Indonesia":"🇮🇩","Iran":"🇮🇷","Persia":"🇮🇷",
+  "Iraq":"🇮🇶","Ireland":"🇮🇪","Israel":"🇮🇱","Italy":"🇮🇹",
+  "Ivory Coast":"🇨🇮","Jamaica":"🇯🇲","Japan":"🇯🇵","Jordan":"🇯🇴",
+  "Kazakhstan":"🇰🇿","Kenya":"🇰🇪",
+  "Korea":"🇰🇷","Korea, Republic of":"🇰🇷","Korea, Democratic People's Republic of":"🇰🇵",
+  "Kuwait":"🇰🇼","Kyrgyzstan":"🇰🇬","Laos":"🇱🇦","Latvia":"🇱🇻",
+  "Lebanon":"🇱🇧","Lesotho":"🇱🇸","Liberia":"🇱🇷","Libya":"🇱🇾",
+  "Liechtenstein":"🇱🇮","Lithuania":"🇱🇹","Luxembourg":"🇱🇺",
+  "Madagascar":"🇲🇬","Malawi":"🇲🇼","Malaysia":"🇲🇾","Mali":"🇲🇱",
+  "Malta":"🇲🇹","Mauritania":"🇲🇷","Mexico":"🇲🇽","Moldova":"🇲🇩",
+  "Mongolia":"🇲🇳","Montenegro":"🇲🇪","Morocco":"🇲🇦","Mozambique":"🇲🇿",
+  "Myanmar":"🇲🇲","Burma":"🇲🇲","Namibia":"🇳🇦","Nepal":"🇳🇵",
+  "Netherlands":"🇳🇱","New Zealand":"🇳🇿","Nicaragua":"🇳🇮","Niger":"🇳🇪",
+  "Nigeria":"🇳🇬","Norway":"🇳🇴","Oman":"🇴🇲","Pakistan":"🇵🇰",
+  "Panama":"🇵🇦","Papua New Guinea":"🇵🇬","Paraguay":"🇵🇾","Peru":"🇵🇪",
+  "Philippines":"🇵🇭","Poland":"🇵🇱","Portugal":"🇵🇹","Qatar":"🇶🇦",
+  "Romania":"🇷🇴","Russia":"🇷🇺","Rwanda":"🇷🇼","Saudi Arabia":"🇸🇦",
+  "Arabia":"🇸🇦","Senegal":"🇸🇳","Serbia":"🇷🇸","Sierra Leone":"🇸🇱",
+  "Slovakia":"🇸🇰","Slovenia":"🇸🇮","Somalia":"🇸🇴","South Africa":"🇿🇦",
+  "Spain":"🇪🇸","Sri Lanka":"🇱🇰","Sudan":"🇸🇩","Suriname":"🇸🇷",
+  "Swaziland":"🇸🇿","Sweden":"🇸🇪","Sweden–Norway":"🇸🇪","Switzerland":"🇨🇭",
+  "Syria":"🇸🇾","Taiwan":"🇹🇼","Tajikistan":"🇹🇯",
+  "Tanzania, United Republic of":"🇹🇿","Thailand":"🇹🇭","Siam":"🇹🇭",
+  "Togo":"🇹🇬","Tonga":"🇹🇴","Tunisia":"🇹🇳","Tunis":"🇹🇳",
+  "Turkey":"🇹🇷","Turkmenistan":"🇹🇲","Uganda":"🇺🇬","Ukraine":"🇺🇦",
+  "United Arab Emirates":"🇦🇪","United Kingdom":"🇬🇧",
+  "United Kingdom of Great Britain and Ireland":"🇬🇧",
+  "United States":"🇺🇸","United States of America":"🇺🇸","Uruguay":"🇺🇾",
+  "Uzbekistan":"🇺🇿","Venezuela":"🇻🇪","Vietnam":"🇻🇳",
+  "Đại Việt":"🇻🇳","Annam":"🇻🇳","Tonkin":"🇻🇳",
+  "Yemen":"🇾🇪","Yugoslavia":"🇷🇸","Zaire":"🇨🇩","Zambia":"🇿🇲",
+  "Zimbabwe":"🇿🇼","Rhodesia":"🇿🇼",
+
+  /* ── Entités coloniales / protectorats (héritent du colonisateur) ── */
+  "British Raj":"🇬🇧","British East India Company":"🇬🇧","British Empire":"🇬🇧",
+  "British Protectorate":"🇬🇧","Anglo-Egyption Sudan":"🇬🇧",
+  "French Indochina":"🇫🇷","French Indo-China":"🇫🇷","French West Africa":"🇫🇷",
+  "French Equatorial Africa":"🇫🇷","French Guiana":"🇫🇷","French Somaliland":"🇫🇷",
+  "French Cameroons":"🇫🇷","Syria (France)":"🇫🇷","Morocco (France)":"🇲🇦",
+  "Dutch East Indies":"🇳🇱","Netherlands Indies":"🇳🇱",
+  "Belgian Congo":"🇧🇪","Portuguese East Africa":"🇵🇹","Portuguese Guinea":"🇵🇹",
+  "German Empire":"🇩🇪","German E. Africa (Tanganyika)":"🇩🇪",
+  "German South-West Africa":"🇩🇪","Kamerun":"🇩🇪",
+  "Empire of Japan":"🇯🇵","Imperial Japan":"🇯🇵","Japan (USA)":"🇯🇵",
+
+  /* ── Empires et états historiques → emoji thématique ── */
+  /* Proche-Orient antique */
+  "Ur":"🏺","Sumer":"🏺","Babylon":"🏺","Assyria":"🏺",
+  "Mesopotamia (GB)":"🏺","Semites":"🏺","Elam":"🏺",
+  "Indus valley civilization":"🏺",
+  "Achaemenid Empire":"🦁","Persian Empire":"🦁","Sassanid Empire":"🦁",
+  "Parthian Empire":"🦁",
+
+  /* Égypte antique */
+  "Ancient Egypt":"⚱️",
+
+  /* Grèce et Rome */
+  "Greek city-states":"🏛️","Macedonian Empire":"🏛️","Hellenistic states":"🏛️",
+  "Roman Empire":"🏛️","Western Roman Empire":"🏛️","Eastern Roman Empire":"🏛️",
+  "Byzantine Empire":"✝️","Latin Empire":"✝️",
+
+  /* Monde islamique */
+  "Abbasid Caliphate":"☪️","Umayyad Caliphate":"☪️","Almohad Caliphate":"☪️",
+  "Almoravid dynasty":"☪️","Aghlabid Emirate":"☪️","Fatimids":"☪️",
+  "Ottoman Empire":"☪️","Ottoman Sultanate":"☪️",
+  "Buwayhid Emirates":"☪️","Buyid":"☪️",
+
+  /* Chine */
+  "Sinic":"🏮","Zhoa":"🏮","Zhou states":"🏮","Han (dynasty)":"🏮",
+  "Tang (dynasty)":"🏮","Song":"🏮","Ming":"🏮","Qing Empire":"🏮",
+  "Manchu Empire":"🏮","Chinese Warlords":"🏮","Chinese warlords":"🏮",
+  "Republic of China":"🏮","Han":"🏮","Tang":"🏮",
+
+  /* Japon */
+  "Yamato":"🇯🇵","Heian Japan":"🇯🇵",
+
+  /* Corée */
+  "Silla":"🇰🇷","Goryeo":"🇰🇷","Joseon":"🇰🇷","Paekche":"🇰🇷",
+  "Koguryo":"🇰🇷","Gaya":"🇰🇷",
+
+  /* Inde médiévale */
+  "Gupta Empire":"🕉️","Maurya Empire":"🕉️","Magadha":"🕉️",
+  "Maratha Confederacy":"🕉️","Mughal Empire":"🕉️","Vijayanagara":"🕉️",
+  "Chola":"🕉️","Delhi Sultanate":"🕉️",
+
+  /* Empires des steppes */
+  "Mongol Empire":"🐎","Timurid Empire":"🐎","Ilkhanate":"🐎",
+  "Golden Horde":"🐎","Chagatai Khanate":"🐎","Bokhara Khanate":"🐎",
+
+  /* Empires africains */
+  "Mali Empire":"🌍","Songhai":"🌍","Kanem-Bornu":"🌍","Bornu-Kanem":"🌍",
+  "Sokoto Caliphate":"🌍","Ashanti":"🌍","Asante":"🌍","Zulu":"🌍",
+
+  /* Amériques précoloniales */
+  "Aztec Empire":"☀️","Inca Empire":"☀️","Maya":"☀️",
+  "Maya chiefdoms and states":"☀️","Teotihuacán":"☀️",
+
+  /* Russes / Europe de l'Est */
+  "Russian Empire":"🦅","USSR":"☭","Kievan Rus":"🦅",
+  "Austro-Hungarian Empire":"🦅","Austria Hungary":"🦅","Austrian Empire":"🦅",
+
+  /* Scandinavie médiévale */
+  "Norse":"⚔️","Vikings":"⚔️","Varangians":"⚔️",
+
+  /* Autres entités notables */
+  "Papal States":"✝️","Holy Roman Empire":"✝️","Kingdom of Ireland":"☘️",
+  "Tibet":"🏔️","Xinjiang":"🏔️",
+};
+
 /* ── Résolveur de noms historiques de villes ── */
 function resolveCityName(city, year) {
   if (city.noms) {
