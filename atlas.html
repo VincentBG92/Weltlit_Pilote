@@ -98,14 +98,14 @@ header{text-align:center;padding:28px 20px 4px}
 .gallery-card svg{width:100%;display:block}
 .sphere-fill{fill:var(--ocean)}
 .graticule{fill:none;stroke:rgba(100,155,200,.08);stroke-width:.4}
-.country-base{fill:none;stroke:rgba(180,180,180,.22);stroke-width:.5}
+.country-borders{fill:none;stroke:rgba(180,180,180,.22);stroke-width:.5}
 .hist-territory{opacity:.5;stroke-width:.6;stroke:rgba(0,0,0,.5);cursor:pointer;transition:opacity .18s}
 .hist-territory:hover{opacity:.72}
 .hist-territory.lit-active{opacity:.88;stroke:rgba(0,0,0,.5);stroke-width:.6;filter:none}
 .hist-territory.lit-active:hover{opacity:.95}
 .hist-territory.lit-hatch{opacity:.65;stroke:var(--gold);stroke-width:1;stroke-dasharray:4,3}
 .sphere-border{fill:none;stroke:rgba(201,162,39,.3);stroke-width:.8}
-.gallery-card .country-base,.gallery-card .hist-territory{transition:none;pointer-events:none}
+.gallery-card .country-borders,.gallery-card .hist-territory{transition:none;pointer-events:none}
 .city-dot{fill:var(--city-color);stroke:rgba(0,0,0,.5);stroke-width:.8;cursor:pointer;filter:drop-shadow(0 0 3px rgba(224,96,64,.4))}
 .city-dot:hover{fill:var(--city-hover)}
 .city-label{font-family:'Cinzel',serif;font-size:9px;fill:var(--cream);pointer-events:none;text-anchor:middle;dominant-baseline:text-before-edge;opacity:.9}
@@ -376,7 +376,7 @@ function modernCountryCenter(countryId){
 }
 
 /* --- État global --- */
-let COUNTRIES=[],currentProj="naturalEarth1",currentForm="ecritures",currentDateIdx=0;
+let COUNTRIES=[],WORLD_TOPO=null,currentProj="naturalEarth1",currentForm="ecritures",currentDateIdx=0;
 let litActiveNames=new Set(),litHatchNames=new Set();
 let cityList=[],mainProj=null,mainPath=null,mainZoom=null;
 let currentTransform=d3.zoomIdentity,currentHistFeatures=[];
@@ -481,9 +481,10 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-fill").attr("d",path);
   g.append("path").datum(GRAT()).attr("class","graticule").attr("d",path);
 
-  if(!histFeatures||histFeatures.length===0){
-    g.selectAll(".country-base").data(COUNTRIES).join("path")
-      .attr("d",path).attr("class","country-base");
+  if(WORLD_TOPO){
+    g.append("path")
+      .datum(topojson.mesh(WORLD_TOPO,WORLD_TOPO.objects.countries,(a,b)=>a!==b))
+      .attr("class","country-borders").attr("d",path);
   }
 
   if(histFeatures&&histFeatures.length>0){
@@ -547,7 +548,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
         const k=evt.transform.k;
         g.selectAll(".city-dot").attr("r",4/k);
         g.selectAll(".city-label").style("font-size",(9/k)+"px");
-        g.selectAll(".country-base").style("stroke-width",(0.5/k)+"px");
+        g.selectAll(".country-borders").style("stroke-width",(0.5/k)+"px");
         g.selectAll(".hist-territory").style("stroke-width",(0.6/k)+"px");
       });
       svg.call(mainZoom);
@@ -798,6 +799,7 @@ function setupUI(){
 async function init(){
   try{
     const world=await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
+    WORLD_TOPO=world;
     COUNTRIES=topojson.feature(world,world.objects.countries).features;
     document.getElementById("loading").style.display="none";
     const hash=location.hash.replace("#","");
