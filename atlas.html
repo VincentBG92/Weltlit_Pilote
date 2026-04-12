@@ -481,8 +481,10 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-fill").attr("d",path);
   g.append("path").datum(GRAT()).attr("class","graticule").attr("d",path);
 
-  g.selectAll(".country-base").data(COUNTRIES).join("path")
-    .attr("d",path).attr("class","country-base");
+  if(!histFeatures||histFeatures.length===0){
+    g.selectAll(".country-base").data(COUNTRIES).join("path")
+      .attr("d",path).attr("class","country-base");
+  }
 
   if(histFeatures&&histFeatures.length>0){
     g.selectAll(".hist-territory").data(histFeatures).join("path")
