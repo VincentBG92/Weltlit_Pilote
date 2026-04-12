@@ -311,13 +311,27 @@ function computeGraphColoring(features){
     }catch(e){return{minLon:0,minLat:0,maxLon:0,maxLat:0};}
   });
 
-  /* 2. Graphe d'adjacence (bboxes qui se chevauchent) */
+  /* 2. Graphe d'adjacence — gestion de l'antiméridien */
+  function lonOverlap(a, b, margin){
+    /* Détecte si deux intervalles de longitude se chevauchent.
+       Cas antiméridien : east < west (ex. Russie : west=27, east=-170).
+       On décompose alors en deux bandes [west,180] ∪ [-180,east]. */
+    function intersects(a0,a1,b0,b1){
+      return a0 <= b1 + margin && a1 >= b0 - margin;
+    }
+    const aWraps = a.maxLon < a.minLon;
+    const bWraps = b.maxLon < b.minLon;
+    if(!aWraps && !bWraps) return intersects(a.minLon,a.maxLon,b.minLon,b.maxLon);
+    const aBands = aWraps ? [[a.minLon,180],[-180,a.maxLon]] : [[a.minLon,a.maxLon]];
+    const bBands = bWraps ? [[b.minLon,180],[-180,b.maxLon]] : [[b.minLon,b.maxLon]];
+    return aBands.some(([a0,a1])=>bBands.some(([b0,b1])=>intersects(a0,a1,b0,b1)));
+  }
   const adj=Array.from({length:n},()=>new Set());
+  const margin=0.5;
   for(let i=0;i<n;i++){
     for(let j=i+1;j<n;j++){
       const a=boxes[i],b=boxes[j];
-      const margin=0.5;
-      if(a.minLon<=b.maxLon+margin && a.maxLon>=b.minLon-margin &&
+      if(lonOverlap(a,b,margin) &&
          a.minLat<=b.maxLat+margin && a.maxLat>=b.minLat-margin){
         adj[i].add(j);
         adj[j].add(i);
@@ -348,11 +362,12 @@ function computeGraphColoring(features){
   return mapping;
 }
 
-function histColor(name,features){
+function histColor(name,features,histYear){
   if(!name)return HIST_PALETTE[0];
   if(!features||!features.length)return HIST_PALETTE[0];
-  /* Clé de cache basée sur le nombre de features (proxy par fichier historique) */
-  const key=features.length;
+  /* Clé de cache = année historique chargée (évite les collisions entre
+     fichiers ayant le même nombre de features) */
+  const key=histYear!=null?histYear:features.length;
   if(!HIST_COLOR_CACHE[key]){
     HIST_COLOR_CACHE[key]=computeGraphColoring(features);
   }
@@ -473,7 +488,7 @@ function mergeCities(cities){
 }
 
 /* --- Construction carte --- */
-function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
+function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
   const svg=d3.select(svgEl),proj=PROJ_CONFIG[projName].make(w,h,pad),path=d3.geoPath().projection(proj);
   svg.selectAll("g.map-g").remove();
   const g=svg.append("g").attr("class","map-g");
@@ -499,7 +514,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
       .attr("fill",d=>{
         const n=d.properties?.NAME;
         if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
-        const base=histColor(n,histFeatures);
+        const base=histColor(n,histFeatures,histYear);
         if(interactive&&litActiveNames.has(n)){
           const c=d3.color(base);
           const gold=d3.color("#d4a849");
@@ -589,7 +604,7 @@ async function renderMain(projName,animate){
 
   const doRender=()=>{
     currentTransform=d3.zoomIdentity;
-    buildMap(mapEl,projName,MW,MH,MPAD,true,currentHistFeatures);
+    buildMap(mapEl,projName,MW,MH,MPAD,true,currentHistFeatures,hist.year);
     document.getElementById("proj-info").textContent=PROJ_CONFIG[projName].desc;
     document.getElementById("globe-hint").classList.toggle("visible",projName==="orthographic");
     mapEl.classList.toggle("is-globe",projName==="orthographic");
