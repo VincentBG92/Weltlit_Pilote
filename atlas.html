@@ -301,64 +301,66 @@ const HIST_COLOR_CACHE={};
 
 function computeGraphColoring(features){
   if(!features||!features.length)return{};
-  const n=features.length;
 
-  /* 1. Bounding boxes */
-  const boxes=features.map(f=>{
+  /* 1. Regrouper les features par nom et fusionner leurs bboxes.
+        Russie, USA, Italie etc. peuvent avoir plusieurs polygones séparés ;
+        les traiter comme une seule entité évite les collisions de couleur. */
+  function lonOverlap(a,b,margin){
+    function intersects(a0,a1,b0,b1){return a0<=b1+margin&&a1>=b0-margin;}
+    const aW=a.maxLon<a.minLon,bW=b.maxLon<b.minLon;
+    if(!aW&&!bW)return intersects(a.minLon,a.maxLon,b.minLon,b.maxLon);
+    const aB=aW?[[a.minLon,180],[-180,a.maxLon]]:[[a.minLon,a.maxLon]];
+    const bB=bW?[[b.minLon,180],[-180,b.maxLon]]:[[b.minLon,b.maxLon]];
+    return aB.some(([a0,a1])=>bB.some(([b0,b1])=>intersects(a0,a1,b0,b1)));
+  }
+
+  const nameBoxes=new Map(); /* nom → liste de bboxes individuelles */
+  for(const f of features){
+    const name=f.properties?.NAME;
+    if(!name)continue;
     try{
       const b=d3.geoBounds(f);
-      return{minLon:b[0][0],minLat:b[0][1],maxLon:b[1][0],maxLat:b[1][1]};
-    }catch(e){return{minLon:0,minLat:0,maxLon:0,maxLat:0};}
-  });
-
-  /* 2. Graphe d'adjacence — gestion de l'antiméridien */
-  function lonOverlap(a, b, margin){
-    /* Détecte si deux intervalles de longitude se chevauchent.
-       Cas antiméridien : east < west (ex. Russie : west=27, east=-170).
-       On décompose alors en deux bandes [west,180] ∪ [-180,east]. */
-    function intersects(a0,a1,b0,b1){
-      return a0 <= b1 + margin && a1 >= b0 - margin;
-    }
-    const aWraps = a.maxLon < a.minLon;
-    const bWraps = b.maxLon < b.minLon;
-    if(!aWraps && !bWraps) return intersects(a.minLon,a.maxLon,b.minLon,b.maxLon);
-    const aBands = aWraps ? [[a.minLon,180],[-180,a.maxLon]] : [[a.minLon,a.maxLon]];
-    const bBands = bWraps ? [[b.minLon,180],[-180,b.maxLon]] : [[b.minLon,b.maxLon]];
-    return aBands.some(([a0,a1])=>bBands.some(([b0,b1])=>intersects(a0,a1,b0,b1)));
+      const box={minLon:b[0][0],minLat:b[0][1],maxLon:b[1][0],maxLat:b[1][1]};
+      if(!nameBoxes.has(name))nameBoxes.set(name,[]);
+      nameBoxes.get(name).push(box);
+    }catch(e){}
   }
+
+  const names=[...nameBoxes.keys()];
+  const n=names.length;
+
+  /* 2. Graphe d'adjacence au niveau du NOM.
+        Deux noms sont voisins si au moins une bbox de l'un chevauche
+        au moins une bbox de l'autre (lon + lat). */
   const adj=Array.from({length:n},()=>new Set());
   const margin=0.5;
   for(let i=0;i<n;i++){
     for(let j=i+1;j<n;j++){
-      const a=boxes[i],b=boxes[j];
-      if(lonOverlap(a,b,margin) &&
-         a.minLat<=b.maxLat+margin && a.maxLat>=b.minLat-margin){
-        adj[i].add(j);
-        adj[j].add(i);
+      let found=false;
+      outer:for(const a of nameBoxes.get(names[i])){
+        for(const b of nameBoxes.get(names[j])){
+          if(lonOverlap(a,b,margin)&&a.minLat<=b.maxLat+margin&&a.maxLat>=b.minLat-margin){
+            found=true;break outer;
+          }
+        }
       }
+      if(found){adj[i].add(j);adj[j].add(i);}
     }
   }
 
   /* 3. Welsh-Powell : trier par degré décroissant */
   const order=[...Array(n).keys()].sort((a,b)=>adj[b].size-adj[a].size);
   const colors=new Array(n).fill(-1);
-
   for(const i of order){
-    const usedByNeighbors=new Set();
-    for(const j of adj[i]){
-      if(colors[j]>=0)usedByNeighbors.add(colors[j]);
-    }
-    let c=0;
-    while(usedByNeighbors.has(c))c++;
+    const used=new Set();
+    for(const j of adj[i])if(colors[j]>=0)used.add(colors[j]);
+    let c=0;while(used.has(c))c++;
     colors[i]=c;
   }
 
-  /* 4. Mapping nom → couleur */
+  /* 4. Mapping nom → couleur (un seul résultat par nom) */
   const mapping={};
-  for(let i=0;i<n;i++){
-    const name=features[i].properties?.NAME;
-    if(name)mapping[name]=HIST_PALETTE[colors[i]%HIST_PALETTE.length];
-  }
+  for(let i=0;i<n;i++)mapping[names[i]]=HIST_PALETTE[colors[i]%HIST_PALETTE.length];
   return mapping;
 }
 

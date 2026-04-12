@@ -324,6 +324,11 @@ const TERRITORY_ICONS = {
   /* Autres entités notables */
   "Papal States":"✝️","Holy Roman Empire":"✝️","Kingdom of Ireland":"☘️",
   "Tibet":"🏔️","Xinjiang":"🏔️",
+
+  /* ── Pôles et territoires non souverains ── */
+  "Antarctica":"🇦🇶","Faroe Islands":"🇫🇴","Greenland":"🇬🇱",
+  "Hong Kong":"🇭🇰","Macao":"🇲🇴","Puerto Rico":"🇵🇷",
+  "Western Sahara":"🏜️",
 };
 
 /* ── Résolveur de noms historiques de villes ── */
