@@ -124,6 +124,11 @@ header{text-align:center;padding:28px 20px 4px}
 .tip-lit-year{font-family:'Cinzel',serif;font-size:.78rem;color:var(--gold-light)}
 .tip-lit-text{font-size:.9rem;color:var(--cream);opacity:.85;line-height:1.4}
 .tip-city-badge{display:inline-block;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;color:var(--city-color);border:1px solid rgba(224,96,64,.3);padding:1px 6px;margin-left:6px}
+.lang-switcher{display:flex;gap:4px;align-items:center}
+.lang-btn{background:transparent;border:1px solid var(--border-subtle);color:var(--text-dim);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;padding:4px 8px;cursor:pointer;transition:all .2s}
+.lang-btn:hover{color:var(--gold-light);border-color:var(--border-gold)}
+.lang-btn.active{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.lang-btn[title="À venir"]{opacity:.4;cursor:default}
 footer{text-align:center;padding:16px 20px 24px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(122,110,95,.35);line-height:2}
 footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid rgba(201,162,39,.2)}
 </style>
@@ -137,6 +142,13 @@ footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid
     <a href="trees.html" class="nav-link">Arborescences</a>
     <a href="contributeurs.html" class="nav-link">Contributeurs</a>
     <a href="contact.html" class="nav-link">Contact</a>
+  </div>
+  <div class="lang-switcher" id="lang-switcher">
+    <button class="lang-btn active" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="es" title="À venir">ES</button>
+    <button class="lang-btn" data-lang="zh" title="À venir">中</button>
+    <button class="lang-btn" data-lang="ar" title="À venir">AR</button>
   </div>
 </nav>
 <header>
@@ -193,6 +205,7 @@ footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<script src="donnees-atlas/i18n.js"></script>
 <script src="donnees-atlas/commun.js"></script>
 <script src="donnees-atlas/ecritures.js"></script>
 <script src="donnees-atlas/haiku.js"></script>
@@ -301,58 +314,75 @@ const HIST_COLOR_CACHE={};
 
 function computeGraphColoring(features){
   if(!features||!features.length)return{};
-  const n=features.length;
 
-  /* 1. Bounding boxes */
-  const boxes=features.map(f=>{
+  /* 1. Regrouper les features par nom et fusionner leurs bboxes.
+        Russie, USA, Italie etc. peuvent avoir plusieurs polygones séparés ;
+        les traiter comme une seule entité évite les collisions de couleur. */
+  function lonOverlap(a,b,margin){
+    function intersects(a0,a1,b0,b1){return a0<=b1+margin&&a1>=b0-margin;}
+    const aW=a.maxLon<a.minLon,bW=b.maxLon<b.minLon;
+    if(!aW&&!bW)return intersects(a.minLon,a.maxLon,b.minLon,b.maxLon);
+    const aB=aW?[[a.minLon,180],[-180,a.maxLon]]:[[a.minLon,a.maxLon]];
+    const bB=bW?[[b.minLon,180],[-180,b.maxLon]]:[[b.minLon,b.maxLon]];
+    return aB.some(([a0,a1])=>bB.some(([b0,b1])=>intersects(a0,a1,b0,b1)));
+  }
+
+  const nameBoxes=new Map(); /* nom → liste de bboxes individuelles */
+  for(const f of features){
+    const name=f.properties?.NAME;
+    if(!name)continue;
     try{
       const b=d3.geoBounds(f);
-      return{minLon:b[0][0],minLat:b[0][1],maxLon:b[1][0],maxLat:b[1][1]};
-    }catch(e){return{minLon:0,minLat:0,maxLon:0,maxLat:0};}
-  });
+      const box={minLon:b[0][0],minLat:b[0][1],maxLon:b[1][0],maxLat:b[1][1]};
+      if(!nameBoxes.has(name))nameBoxes.set(name,[]);
+      nameBoxes.get(name).push(box);
+    }catch(e){}
+  }
 
-  /* 2. Graphe d'adjacence (bboxes qui se chevauchent) */
+  const names=[...nameBoxes.keys()];
+  const n=names.length;
+
+  /* 2. Graphe d'adjacence au niveau du NOM.
+        Deux noms sont voisins si au moins une bbox de l'un chevauche
+        au moins une bbox de l'autre (lon + lat). */
   const adj=Array.from({length:n},()=>new Set());
+  const margin=0.5;
   for(let i=0;i<n;i++){
     for(let j=i+1;j<n;j++){
-      const a=boxes[i],b=boxes[j];
-      const margin=0.5;
-      if(a.minLon<=b.maxLon+margin && a.maxLon>=b.minLon-margin &&
-         a.minLat<=b.maxLat+margin && a.maxLat>=b.minLat-margin){
-        adj[i].add(j);
-        adj[j].add(i);
+      let found=false;
+      outer:for(const a of nameBoxes.get(names[i])){
+        for(const b of nameBoxes.get(names[j])){
+          if(lonOverlap(a,b,margin)&&a.minLat<=b.maxLat+margin&&a.maxLat>=b.minLat-margin){
+            found=true;break outer;
+          }
+        }
       }
+      if(found){adj[i].add(j);adj[j].add(i);}
     }
   }
 
   /* 3. Welsh-Powell : trier par degré décroissant */
   const order=[...Array(n).keys()].sort((a,b)=>adj[b].size-adj[a].size);
   const colors=new Array(n).fill(-1);
-
   for(const i of order){
-    const usedByNeighbors=new Set();
-    for(const j of adj[i]){
-      if(colors[j]>=0)usedByNeighbors.add(colors[j]);
-    }
-    let c=0;
-    while(usedByNeighbors.has(c))c++;
+    const used=new Set();
+    for(const j of adj[i])if(colors[j]>=0)used.add(colors[j]);
+    let c=0;while(used.has(c))c++;
     colors[i]=c;
   }
 
-  /* 4. Mapping nom → couleur */
+  /* 4. Mapping nom → couleur (un seul résultat par nom) */
   const mapping={};
-  for(let i=0;i<n;i++){
-    const name=features[i].properties?.NAME;
-    if(name)mapping[name]=HIST_PALETTE[colors[i]%HIST_PALETTE.length];
-  }
+  for(let i=0;i<n;i++)mapping[names[i]]=HIST_PALETTE[colors[i]%HIST_PALETTE.length];
   return mapping;
 }
 
-function histColor(name,features){
+function histColor(name,features,histYear){
   if(!name)return HIST_PALETTE[0];
   if(!features||!features.length)return HIST_PALETTE[0];
-  /* Clé de cache basée sur le nombre de features (proxy par fichier historique) */
-  const key=features.length;
+  /* Clé de cache = année historique chargée (évite les collisions entre
+     fichiers ayant le même nombre de features) */
+  const key=histYear!=null?histYear:features.length;
   if(!HIST_COLOR_CACHE[key]){
     HIST_COLOR_CACHE[key]=computeGraphColoring(features);
   }
@@ -473,7 +503,7 @@ function mergeCities(cities){
 }
 
 /* --- Construction carte --- */
-function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
+function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
   const svg=d3.select(svgEl),proj=PROJ_CONFIG[projName].make(w,h,pad),path=d3.geoPath().projection(proj);
   svg.selectAll("g.map-g").remove();
   const g=svg.append("g").attr("class","map-g");
@@ -499,7 +529,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures){
       .attr("fill",d=>{
         const n=d.properties?.NAME;
         if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
-        const base=histColor(n,histFeatures);
+        const base=histColor(n,histFeatures,histYear);
         if(interactive&&litActiveNames.has(n)){
           const c=d3.color(base);
           const gold=d3.color("#d4a849");
@@ -589,7 +619,7 @@ async function renderMain(projName,animate){
 
   const doRender=()=>{
     currentTransform=d3.zoomIdentity;
-    buildMap(mapEl,projName,MW,MH,MPAD,true,currentHistFeatures);
+    buildMap(mapEl,projName,MW,MH,MPAD,true,currentHistFeatures,hist.year);
     document.getElementById("proj-info").textContent=PROJ_CONFIG[projName].desc;
     document.getElementById("globe-hint").classList.toggle("visible",projName==="orthographic");
     mapEl.classList.toggle("is-globe",projName==="orthographic");
@@ -631,11 +661,18 @@ function renderGallery(){
 /* ═══════════════════════════════════════════════════════════
    TOOLTIPS
    ═══════════════════════════════════════════════════════════ */
+function setTipIcon(iconData){
+  const el=document.getElementById("t-flag");
+  if(!iconData){el.textContent="🗺️";el.innerHTML="🗺️";}
+  else if(typeof iconData==="string"){el.textContent=iconData;}
+  else{el.innerHTML='<img src="'+iconData.img+'" alt="'+iconData.alt+'" style="width:2rem;height:2rem;object-fit:cover;border-radius:3px;vertical-align:middle">';}
+}
+
 function showHistTip(evt,d){
   const props=d.properties||{};
   const name=props.NAME||"Territoire inconnu";
-  document.getElementById("t-flag").textContent="🗺️";
-  document.getElementById("t-name").textContent=name;
+  setTipIcon(TERRITORY_ICONS[name]);
+  document.getElementById("t-name").textContent=localName(name)||name;
   const sub=[];
   if(props.SUBJECTO&&props.SUBJECTO!==name)sub.push("Suzerain : "+props.SUBJECTO);
   if(props.PARTOF)sub.push("Partie de : "+props.PARTOF);
@@ -806,6 +843,14 @@ async function init(){
     if(hash&&LITERARY_FORMS[hash]){currentForm=hash;}
     document.getElementById("form-desc").textContent=getForm().desc;
     setupUI();buildTimeline();await renderMain("naturalEarth1",false);renderGallery();
+    document.querySelectorAll(".lang-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        if(btn.title==="À venir")return;
+        document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        setLang(btn.dataset.lang);
+      });
+    });
   }catch(err){
     document.getElementById("loading").innerHTML='<div style="color:#c07a50;font-family:Cinzel,serif;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;text-align:center;padding:20px">Erreur de chargement<br><span style="font-family:EB Garamond,serif;font-style:italic;font-size:1rem;letter-spacing:0;text-transform:none;color:#7a6e5f;margin-top:8px;display:block">Vérifiez votre connexion et rechargez la page.</span></div>';
     console.error(err);
