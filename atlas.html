@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-Afficher moins
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atlas · Formes Littéraires</title>
@@ -428,11 +427,10 @@ function computeHighlighted(histFeatures){
             if(ht2)litHatchNames.add(ht2.properties?.NAME);
           }
         }
-      }else{
-const cc=modernCountryCenter(evt.countryId);
+      } else {
+        const cc=modernCountryCenter(evt.countryId);
         if(cc){
           const ht=findHistTerritory(cc[0],cc[1],histFeatures);
-Afficher moins
           if(ht){
             const n=ht.properties?.NAME;
             litActiveNames.add(n);
@@ -621,7 +619,7 @@ async function renderMain(projName,animate){
     if(currentProj==="naturalEarth1"&&mainZoom&&currentForm!=="territoires")
       autoZoom(svg,mainProj,mainPath,false);
   }
-}  /* ← FIN de renderMain */
+}
 /* ═══════════════════════════════════════════════════════════
    GALERIE
    ═══════════════════════════════════════════════════════════ */
@@ -824,5 +822,3 @@ init();
 </script>
 </body>
 </html>
-
-
