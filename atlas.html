@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+Afficher moins
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atlas · Formes Littéraires</title>
@@ -99,11 +100,10 @@ header{text-align:center;padding:28px 20px 4px}
 .sphere-fill{fill:var(--ocean)}
 .graticule{fill:none;stroke:rgba(100,155,200,.08);stroke-width:.4}
 .country-borders{fill:none;stroke:rgba(180,180,180,.22);stroke-width:.5}
-.hist-territory{opacity:.5;stroke-width:.6;stroke:rgba(0,0,0,.5);cursor:pointer;transition:opacity .18s}
-.hist-territory:hover{opacity:.72}
-.hist-territory.lit-active{opacity:.88;stroke:rgba(0,0,0,.5);stroke-width:.6;filter:none}
+.hist-territory{transition:opacity .18s;pointer-events:none}
+.hist-territory.lit-active{opacity:.88;cursor:pointer;pointer-events:auto}
 .hist-territory.lit-active:hover{opacity:.95}
-.hist-territory.lit-hatch{opacity:.65;stroke:var(--gold);stroke-width:1;stroke-dasharray:4,3}
+.hist-territory.lit-hatch{opacity:.65;cursor:pointer;pointer-events:auto}
 .sphere-border{fill:none;stroke:rgba(201,162,39,.3);stroke-width:.8}
 .gallery-card .country-borders,.gallery-card .hist-territory{transition:none;pointer-events:none}
 .city-dot{fill:var(--city-color);stroke:rgba(0,0,0,.5);stroke-width:.8;cursor:pointer;filter:drop-shadow(0 0 3px rgba(224,96,64,.4))}
@@ -222,7 +222,6 @@ footer a{color:rgba(201,162,39,.45);text-decoration:none;border-bottom:1px solid
    – Coloration par graphe d'adjacence (Welsh-Powell)
    – Auto-zoom instantané (pas de mouvement visible)
    ═══════════════════════════════════════════════════════════ */
-
 /* --- Ajout forme "Territoires historiques" --- */
 if(!LITERARY_FORMS.territoires){
   const tYears=[-3000,-2000,-1000,-500,-300,-1,100,400,800,1000,1200,1400,1500,1650,1800,1880,1914,1945,1994,2010];
@@ -254,7 +253,6 @@ if(!LITERARY_FORMS.territoires){
     timeline:tYears.map(y=>({year:y,events:[{countryId:"000",title:formatYear(y),detail:tDesc[String(y)]||""}]}))
   };
 }
-
 /* --- Projections --- */
 const PROJ_CONFIG={
   naturalEarth1:{label:"Natural Earth",desc:"Projection Natural Earth — équilibre entre forme et surface.",make(w,h,p){return d3.geoNaturalEarth1().fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
@@ -262,14 +260,12 @@ const PROJ_CONFIG={
   orthographic:{label:"Orthographique",desc:"Vue depuis l'espace. Faites glisser pour pivoter le globe.",make(w,h,p){return d3.geoOrthographic().clipAngle(90).rotate([-10,-25]).fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}},
   azimuthalEqualArea:{label:"Polaire",desc:"Projection azimutale centrée sur le Pôle Nord.",make(w,h,p){return d3.geoAzimuthalEqualArea().rotate([0,-90]).clipAngle(150).fitExtent([[p,p],[w-p,h-p]],{type:"Sphere"});}}
 };
-
 /* --- Frontières historiques (Ourednik) --- */
 const HIST_BASE="donnees-atlas/geo-hist/";
 const HIST_AVAIL=[-5000,-4000,-3000,-2000,-1500,-1000,-700,-500,-400,-323,-300,-200,-100,-1,
   100,200,300,400,500,600,700,800,900,1000,1100,1200,1279,1300,1400,1492,1500,1530,
   1600,1650,1700,1715,1783,1800,1815,1880,1900,1914,1920,1930,1938,1945,1960,1994,2000,2010];
 const HIST_CACHE={};
-
 function closestHistYear(y){
   let best=HIST_AVAIL[0],bd=Math.abs(y-best);
   for(const h of HIST_AVAIL){const d=Math.abs(y-h);if(d<bd){bd=d;best=h;}}
@@ -290,7 +286,6 @@ async function loadHistGeo(targetYear){
     return{data:null,year:hy};
   }
 }
-
 /* ═══════════════════════════════════════════════════════════
    COLORATION PAR GRAPHE D'ADJACENCE (Welsh-Powell)
    Palette Wong+Tol — 12 couleurs optimisées pour daltoniens
@@ -309,12 +304,9 @@ const HIST_PALETTE=[
   "#882255",  /* pourpre */
   "#DDCC77",  /* sable */
 ];
-
 const HIST_COLOR_CACHE={};
-
 function computeGraphColoring(features){
   if(!features||!features.length)return{};
-
   /* 1. Regrouper les features par nom et fusionner leurs bboxes.
         Russie, USA, Italie etc. peuvent avoir plusieurs polygones séparés ;
         les traiter comme une seule entité évite les collisions de couleur. */
@@ -326,7 +318,6 @@ function computeGraphColoring(features){
     const bB=bW?[[b.minLon,180],[-180,b.maxLon]]:[[b.minLon,b.maxLon]];
     return aB.some(([a0,a1])=>bB.some(([b0,b1])=>intersects(a0,a1,b0,b1)));
   }
-
   const nameBoxes=new Map(); /* nom → liste de bboxes individuelles */
   for(const f of features){
     const name=f.properties?.NAME;
@@ -338,10 +329,8 @@ function computeGraphColoring(features){
       nameBoxes.get(name).push(box);
     }catch(e){}
   }
-
   const names=[...nameBoxes.keys()];
   const n=names.length;
-
   /* 2. Graphe d'adjacence au niveau du NOM.
         Deux noms sont voisins si au moins une bbox de l'un chevauche
         au moins une bbox de l'autre (lon + lat). */
@@ -360,7 +349,6 @@ function computeGraphColoring(features){
       if(found){adj[i].add(j);adj[j].add(i);}
     }
   }
-
   /* 3. Welsh-Powell : trier par degré décroissant */
   const order=[...Array(n).keys()].sort((a,b)=>adj[b].size-adj[a].size);
   const colors=new Array(n).fill(-1);
@@ -370,13 +358,11 @@ function computeGraphColoring(features){
     let c=0;while(used.has(c))c++;
     colors[i]=c;
   }
-
   /* 4. Mapping nom → couleur (un seul résultat par nom) */
   const mapping={};
   for(let i=0;i<n;i++)mapping[names[i]]=HIST_PALETTE[colors[i]%HIST_PALETTE.length];
   return mapping;
 }
-
 function histColor(name,features,histYear){
   if(!name)return HIST_PALETTE[0];
   if(!features||!features.length)return HIST_PALETTE[0];
@@ -388,7 +374,6 @@ function histColor(name,features,histYear){
   }
   return HIST_COLOR_CACHE[key][name]||HIST_PALETTE[0];
 }
-
 /* --- Point-in-polygon --- */
 function findHistTerritory(lon,lat,features){
   if(!features||!features.length)return null;
@@ -397,14 +382,12 @@ function findHistTerritory(lon,lat,features){
   }
   return null;
 }
-
 function modernCountryCenter(countryId){
   const c=COUNTRIES.find(d=>String(d.id).padStart(3,"0")===countryId);
   if(!c)return null;
   const b=d3.geoBounds(c);
   return[(b[0][0]+b[1][0])/2,(b[0][1]+b[1][1])/2];
 }
-
 /* --- État global --- */
 let COUNTRIES=[],WORLD_TOPO=null,currentProj="naturalEarth1",currentForm="ecritures",currentDateIdx=0;
 let litActiveNames=new Set(),litHatchNames=new Set();
@@ -412,19 +395,16 @@ let cityList=[],mainProj=null,mainPath=null,mainZoom=null;
 let currentTransform=d3.zoomIdentity,currentHistFeatures=[];
 let territoryLitEvents={};
 const GRAT=d3.geoGraticule(),MW=960,MH=520,MPAD=28,GW=360,GH=190,GPAD=10;
-
 function cid(d){return String(d.id).padStart(3,"0");}
 function getPays(d){const r=String(d.id),p=r.padStart(3,"0");return PAYS[r]||PAYS[p]||null;}
 function getForm(){return LITERARY_FORMS[currentForm];}
 function formatYear(y){return y<0?Math.abs(y)+" av. J.-C.":String(y);}
-
 /* --- Calcul highlight sur territoires historiques --- */
 function computeHighlighted(histFeatures){
   const form=getForm(),maxYear=form.timeline[currentDateIdx].year;
   litActiveNames=new Set();litHatchNames=new Set();
   territoryLitEvents={};cityList=[];
   if(currentForm==="territoires")return;
-
   for(const entry of form.timeline){
     if(entry.year>maxYear)break;
     for(const evt of entry.events){
@@ -449,9 +429,10 @@ function computeHighlighted(histFeatures){
           }
         }
       }else{
-        const cc=modernCountryCenter(evt.countryId);
+const cc=modernCountryCenter(evt.countryId);
         if(cc){
           const ht=findHistTerritory(cc[0],cc[1],histFeatures);
+Afficher moins
           if(ht){
             const n=ht.properties?.NAME;
             litActiveNames.add(n);
@@ -463,7 +444,6 @@ function computeHighlighted(histFeatures){
     }
   }
 }
-
 /* --- Auto-zoom sur villes de la date courante --- */
 function autoZoom(svg,proj,path,animate){
   if(!mainZoom)return;
@@ -490,7 +470,6 @@ function autoZoom(svg,proj,path,animate){
   if(animate)svg.transition().duration(700).call(mainZoom.transform,t);
   else svg.call(mainZoom.transform,t);
 }
-
 function mergeCities(cities){
   const map={};
   for(const c of cities){
@@ -501,22 +480,18 @@ function mergeCities(cities){
   }
   return Object.values(map);
 }
-
 /* --- Construction carte --- */
 function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
   const svg=d3.select(svgEl),proj=PROJ_CONFIG[projName].make(w,h,pad),path=d3.geoPath().projection(proj);
   svg.selectAll("g.map-g").remove();
   const g=svg.append("g").attr("class","map-g");
-
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-fill").attr("d",path);
   g.append("path").datum(GRAT()).attr("class","graticule").attr("d",path);
-
   if(WORLD_TOPO){
     g.append("path")
       .datum(topojson.mesh(WORLD_TOPO,WORLD_TOPO.objects.countries,(a,b)=>a!==b))
       .attr("class","country-borders").attr("d",path);
   }
-
   if(histFeatures&&histFeatures.length>0){
     g.selectAll(".hist-territory").data(histFeatures).join("path")
       .attr("d",path)
@@ -529,6 +504,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
       .attr("fill",d=>{
         const n=d.properties?.NAME;
         if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
+        if(interactive&&!litActiveNames.has(n))return"none";
         const base=histColor(n,histFeatures,histYear);
         if(interactive&&litActiveNames.has(n)){
           const c=d3.color(base);
@@ -537,18 +513,26 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
         }
         return base;
       })
+      .attr("stroke",d=>{
+        const n=d.properties?.NAME;
+        if(interactive&&!litActiveNames.has(n)&&!litHatchNames.has(n))return"none";
+        return litHatchNames.has(n)?"var(--gold)":"rgba(0,0,0,.5)";
+      })
+      .attr("stroke-width",d=>{
+        const n=d.properties?.NAME;
+        if(interactive&&!litActiveNames.has(n)&&!litHatchNames.has(n))return null;
+        return litHatchNames.has(n)?1:0.6;
+      })
       .attr("stroke-dasharray",d=>{
         const n=d.properties?.NAME;
         if(interactive&&litHatchNames.has(n))return"4,3";
-        const bp=d.properties?.BORDERPRECISION;
-        return(bp&&bp<=1)?"3,2":null;
+        if(!interactive){const bp=d.properties?.BORDERPRECISION;return(bp&&bp<=1)?"3,2":null;}
+        return null;
       })
       .on("mousemove",(evt,d)=>{if(interactive)showHistTip(evt,d);})
       .on("mouseleave",()=>{if(interactive)hideTip();});
   }
-
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-border").attr("d",path);
-
   if(interactive&&cityList.length>0){
     const cityG=g.append("g").attr("class","cities-layer");
     const merged=mergeCities(cityList);
@@ -563,7 +547,6 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
       cg.append("text").attr("class","city-label").attr("x",pt[0]).attr("y",pt[1]+8).text(c._resolvedNom);
     }
   }
-
   if(interactive){
     mainProj=proj;mainPath=path;
     if(projName==="orthographic"){
@@ -590,7 +573,6 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
   }
   return{proj,path};
 }
-
 /* --- Defs SVG (hachures) --- */
 function ensureDefs(svgEl){
   const svg=d3.select(svgEl);
@@ -605,7 +587,6 @@ function ensureDefs(svgEl){
       .attr("stroke","rgba(212,168,73,0.55)").attr("stroke-width",2);
   }
 }
-
 /* ═══════════════════════════════════════════════════════════
    RENDU PRINCIPAL
    ═══════════════════════════════════════════════════════════ */
@@ -616,7 +597,6 @@ async function renderMain(projName,animate){
   const hist=await loadHistGeo(year);
   currentHistFeatures=hist.data?hist.data.features:[];
   computeHighlighted(currentHistFeatures);
-
   const doRender=()=>{
     currentTransform=d3.zoomIdentity;
     buildMap(mapEl,projName,MW,MH,MPAD,true,currentHistFeatures,hist.year);
@@ -627,7 +607,6 @@ async function renderMain(projName,animate){
     document.querySelectorAll(".proj-btn").forEach(b=>b.classList.toggle("active",b.dataset.proj===projName));
     document.querySelectorAll(".gallery-card").forEach(c=>c.classList.toggle("active",c.dataset.proj===projName));
   };
-
   if(animate){
     await svg.transition().duration(180).style("opacity",0).end();
     doRender();
@@ -643,7 +622,6 @@ async function renderMain(projName,animate){
       autoZoom(svg,mainProj,mainPath,false);
   }
 }  /* ← FIN de renderMain */
-
 /* ═══════════════════════════════════════════════════════════
    GALERIE
    ═══════════════════════════════════════════════════════════ */
@@ -657,7 +635,6 @@ function renderGallery(){
     card.addEventListener("click",()=>renderMain(key,true));grid.appendChild(card);
   });
 }
-
 /* ═══════════════════════════════════════════════════════════
    TOOLTIPS
    ═══════════════════════════════════════════════════════════ */
@@ -667,22 +644,20 @@ function setTipIcon(iconData){
   else if(typeof iconData==="string"){el.textContent=iconData;}
   else{el.innerHTML='<img src="'+iconData.img+'" alt="'+iconData.alt+'" style="width:2rem;height:2rem;object-fit:cover;border-radius:3px;vertical-align:middle">';}
 }
-
 function showHistTip(evt,d){
   const props=d.properties||{};
-  const name=props.NAME||"Territoire inconnu";
+  const name=props.NAME||"";
+  if(!litActiveNames.has(name)&&!litHatchNames.has(name))return;
   setTipIcon(TERRITORY_ICONS[name]);
   document.getElementById("t-name").textContent=localName(name)||name;
   const sub=[];
   if(props.SUBJECTO&&props.SUBJECTO!==name)sub.push("Suzerain : "+props.SUBJECTO);
   if(props.PARTOF)sub.push("Partie de : "+props.PARTOF);
   document.getElementById("t-sub").textContent=sub.join(" · ");
-
   let bodyH="";
   const bp=props.BORDERPRECISION;
   const bpT=bp==1?"approximatives":bp==2?"modérément précises":bp==3?"fixées par traité":"";
   if(bpT)bodyH+='<div class="tip-rows"><span class="tip-lbl">Frontières</span><span class="tip-val">'+bpT+'</span></div>';
-
   const litEvts=territoryLitEvents[name];
   if(litEvts&&litEvts.length>0){
     bodyH+='<div class="tip-lit-section"><div class="tip-lit-label">'+getForm().label+'</div>';
@@ -695,7 +670,6 @@ function showHistTip(evt,d){
   document.getElementById("tip-body").innerHTML=bodyH;
   const tt=document.getElementById("tooltip");tt.classList.add("visible");positionTip(evt,tt);
 }
-
 function showCityTip(evt,c){
   document.getElementById("t-flag").textContent="📍";
   document.getElementById("t-name").textContent=c._resolvedNom+(c._resolvedLocal?" ("+c._resolvedLocal+")":"");
@@ -713,11 +687,9 @@ function showCityTip(evt,c){
   document.getElementById("tip-body").innerHTML=h;
   const tt=document.getElementById("tooltip");tt.classList.add("visible");positionTip(evt,tt);
 }
-
 function positionTip(evt,tt){const m=16;let x=evt.clientX+m,y=evt.clientY+m;tt.style.left="0";tt.style.top="0";const r=tt.getBoundingClientRect();if(x+r.width>window.innerWidth)x=evt.clientX-r.width-m;if(y+r.height>window.innerHeight)y=evt.clientY-r.height-m;tt.style.left=x+"px";tt.style.top=y+"px";}
 document.addEventListener("mousemove",evt=>{const tt=document.getElementById("tooltip");if(tt.classList.contains("visible"))positionTip(evt,tt);});
 function hideTip(){document.getElementById("tooltip").classList.remove("visible");}
-
 /* --- Globe drag --- */
 function addGlobeDrag(svg,proj,g){
   let ox=0,oy=0,r0;
@@ -739,7 +711,6 @@ function addGlobeDrag(svg,proj,g){
     })
   );
 }
-
 /* ═══════════════════════════════════════════════════════════
    TIMELINE
    ═══════════════════════════════════════════════════════════ */
@@ -757,7 +728,6 @@ function buildTimeline(){
   });
   updateTimelineUI();
 }
-
 function updateTimelineUI(){
   const form=getForm(),tl=form.timeline;
   document.getElementById("timeline-year").textContent=formatYear(tl[currentDateIdx].year);
@@ -772,7 +742,6 @@ function updateTimelineUI(){
   document.getElementById("tl-next").disabled=currentDateIdx===tl.length-1;
   renderEventCard();
 }
-
 function renderEventCard(){
   const entry=getForm().timeline[currentDateIdx];
   if(currentForm==="territoires"){
@@ -795,9 +764,7 @@ function renderEventCard(){
   }
   h+='</div>';document.getElementById("event-card-inner").innerHTML=h;
 }
-
 function goToDate(idx){const tl=getForm().timeline;if(idx<0||idx>=tl.length)return;currentDateIdx=idx;updateTimelineUI();renderMain(currentProj,true);}
-
 function switchForm(formKey,noHash){
   if(!LITERARY_FORMS[formKey])return;currentForm=formKey;currentDateIdx=0;
   if(!noHash)history.replaceState(null,null,"#"+formKey);
@@ -809,14 +776,12 @@ window.addEventListener("hashchange",()=>{
   const h=location.hash.replace("#","");
   if(LITERARY_FORMS[h]&&h!==currentForm)switchForm(h,true);
 });
-
 function setupZoomButtons(){
   const svg=d3.select("#main-map");
   document.getElementById("z-in").addEventListener("click",()=>{if(mainZoom)svg.transition().duration(300).call(mainZoom.scaleBy,1.5);});
   document.getElementById("z-out").addEventListener("click",()=>{if(mainZoom)svg.transition().duration(300).call(mainZoom.scaleBy,0.67);});
   document.getElementById("z-reset").addEventListener("click",()=>{if(mainZoom)svg.transition().duration(500).call(mainZoom.transform,d3.zoomIdentity);});
 }
-
 function setupUI(){
   const litNav=document.getElementById("lit-nav");
   Object.entries(LITERARY_FORMS).forEach(([key,cfg])=>{
@@ -832,7 +797,6 @@ function setupUI(){
   document.getElementById("tl-next").addEventListener("click",()=>goToDate(currentDateIdx+1));
   setupZoomButtons();
 }
-
 async function init(){
   try{
     const world=await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
@@ -860,3 +824,5 @@ init();
 </script>
 </body>
 </html>
+
+
