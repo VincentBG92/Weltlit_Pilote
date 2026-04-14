@@ -99,12 +99,12 @@ header{text-align:center;padding:28px 20px 4px}
 .sphere-fill{fill:var(--ocean)}
 .graticule{fill:none;stroke:rgba(100,155,200,.08);stroke-width:.4}
 .country-borders{fill:none;stroke:rgba(180,180,180,.22);stroke-width:.5}
-.hist-territory{opacity:.18;stroke-width:.6;stroke:rgba(0,0,0,.3);pointer-events:none;transition:opacity .18s}
-.hist-territory.lit-active{opacity:.88;stroke:rgba(0,0,0,.5);stroke-width:.6;filter:none;cursor:pointer;pointer-events:auto}
+.hist-territory{opacity:.5;stroke-width:.6;stroke:rgba(0,0,0,.5);cursor:pointer;transition:opacity .18s}
+.hist-territory:hover{opacity:.72}
+.hist-territory.hist-unknown{opacity:.12;stroke:rgba(0,0,0,.15);pointer-events:none;cursor:default}
+.hist-territory.lit-active{opacity:.88;stroke:rgba(0,0,0,.5);stroke-width:.6;filter:none}
 .hist-territory.lit-active:hover{opacity:.95}
-.hist-territory.lit-hatch{opacity:.65;stroke:var(--gold);stroke-width:1;stroke-dasharray:4,3;cursor:pointer;pointer-events:auto}
-.hist-territory.terr-visible{opacity:.5;cursor:pointer;pointer-events:auto}
-.hist-territory.terr-visible:hover{opacity:.72}
+.hist-territory.lit-hatch{opacity:.65;stroke:var(--gold);stroke-width:1;stroke-dasharray:4,3}
 .sphere-border{fill:none;stroke:rgba(201,162,39,.3);stroke-width:.8}
 .gallery-card .country-borders,.gallery-card .hist-territory{transition:none;pointer-events:none}
 .city-dot{fill:var(--city-color);stroke:rgba(0,0,0,.5);stroke-width:.8;cursor:pointer;filter:drop-shadow(0 0 3px rgba(224,96,64,.4))}
@@ -523,9 +523,9 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
       .attr("d",path)
       .attr("class",d=>{
         const n=d.properties?.NAME;
+        if(!n)return"hist-territory hist-unknown";
         if(interactive&&litActiveNames.has(n))return"hist-territory lit-active";
         if(interactive&&litHatchNames.has(n))return"hist-territory lit-hatch";
-        if(interactive&&currentForm==="territoires")return"hist-territory terr-visible";
         return"hist-territory";
       })
       .attr("fill",d=>{
@@ -672,8 +672,8 @@ function setTipIcon(iconData){
 
 function showHistTip(evt,d){
   const props=d.properties||{};
-  const name=props.NAME||"Territoire inconnu";
-  if(currentForm!=="territoires"&&!litActiveNames.has(name)&&!litHatchNames.has(name))return;
+  const name=props.NAME;
+  if(!name)return;
   setTipIcon(TERRITORY_ICONS[name]);
   document.getElementById("t-name").textContent=localName(name)||name;
   const sub=[];
