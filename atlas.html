@@ -485,7 +485,11 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
   const g=svg.append("g").attr("class","map-g");
   g.append("path").datum({type:"Sphere"}).attr("class","sphere-fill").attr("d",path);
   g.append("path").datum(GRAT()).attr("class","graticule").attr("d",path);
+  /* Couche de terre remplie — visible sous les territoires à fill:none */
   if(WORLD_TOPO){
+    g.append("path")
+      .datum(topojson.feature(WORLD_TOPO,WORLD_TOPO.objects.countries))
+      .attr("fill","var(--land)").attr("stroke","none").attr("d",path);
     g.append("path")
       .datum(topojson.mesh(WORLD_TOPO,WORLD_TOPO.objects.countries,(a,b)=>a!==b))
       .attr("class","country-borders").attr("d",path);
@@ -502,7 +506,7 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
       .attr("fill",d=>{
         const n=d.properties?.NAME;
         if(interactive&&litHatchNames.has(n))return"url(#hatch-origin)";
-        if(interactive&&!litActiveNames.has(n))return"none";
+        if(interactive&&currentForm!=="territoires"&&!litActiveNames.has(n))return"none";
         const base=histColor(n,histFeatures,histYear);
         if(interactive&&litActiveNames.has(n)){
           const c=d3.color(base);
@@ -513,12 +517,12 @@ function buildMap(svgEl,projName,w,h,pad,interactive,histFeatures,histYear){
       })
       .attr("stroke",d=>{
         const n=d.properties?.NAME;
-        if(interactive&&!litActiveNames.has(n)&&!litHatchNames.has(n))return"none";
+        if(interactive&&currentForm!=="territoires"&&!litActiveNames.has(n)&&!litHatchNames.has(n))return"none";
         return litHatchNames.has(n)?"var(--gold)":"rgba(0,0,0,.5)";
       })
       .attr("stroke-width",d=>{
         const n=d.properties?.NAME;
-        if(interactive&&!litActiveNames.has(n)&&!litHatchNames.has(n))return null;
+        if(interactive&&currentForm!=="territoires"&&!litActiveNames.has(n)&&!litHatchNames.has(n))return null;
         return litHatchNames.has(n)?1:0.6;
       })
       .attr("stroke-dasharray",d=>{
