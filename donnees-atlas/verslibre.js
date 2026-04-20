@@ -82,6 +82,10 @@ LITERARY_FORMS.versLibre = {
       {countryId:"076", title:"Semaine d'Art Moderne — São Paulo",
         detail:"Fondation du modernisme brésilien. Mário de Andrade : Paulicéia Desvairada. Oswald de Andrade : vers syncopé cannibale. Rupture radicale avec le Parnasse portugais.",
         city:{lat:-23.55,lon:-46.63,nom_actuel:"São Paulo"}},
+    ]},
+
+      /* ── 1923 : modernismes mondiaux ── */
+    {year:1923, events:[
       {countryId:"156", title:"Bing Xin (冰心) — Étoiles et Printemps",
         detail:"Bing Xin (Xie Wanying, 1900–1999) publie Fanxing (繁星, 1923) et Chunshui (春水, 1923), courts poèmes en vers libres inspirés de Tagore et Whitman. Après Hu Shi (1917) et Guo Moruo (1921), elle représente une troisième voie du xinshi : prose lyrique fragmentée, concision proche du haïku. Première grande poétesse chinoise moderne.",
         city:{lat:39.91,lon:116.39,nom_actuel:"Pékin"}}
