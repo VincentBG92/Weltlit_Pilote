@@ -94,17 +94,31 @@ header{text-align:center;padding:30px 20px 4px}
 .node-circle{stroke-width:1.8;transition:r .2s}
 /* Halo de fond derrière les étiquettes pour éviter les chevauchements illisibles */
 .node-label{
-  font-family:'Cinzel',serif;font-size:13px;fill:var(--cream);
+  font-family:'Cinzel',serif;font-size:12px;fill:var(--cream);
   pointer-events:none;dominant-baseline:middle;
-  paint-order:stroke fill;
-  stroke:rgba(12,18,32,0.88);stroke-width:5px;stroke-linejoin:round}
+  paint-order:stroke fill;stroke:rgba(12,18,32,0.92);
+  stroke-width:4.5px;stroke-linejoin:round}
 .node-year{
-  font-family:'Cinzel',serif;font-size:11px;fill:var(--text-dim);
+  font-family:'Cinzel',serif;font-size:10px;fill:var(--text-dim);
   pointer-events:none;dominant-baseline:middle;
-  paint-order:stroke fill;
-  stroke:rgba(12,18,32,0.88);stroke-width:4px;stroke-linejoin:round}
-.tree-link{fill:none;stroke:rgba(201,162,39,.22);stroke-width:1.4}
-.tree-link-hybrid{stroke-dasharray:5,3;stroke:rgba(224,96,64,.32);stroke-width:1.4}
+  paint-order:stroke fill;stroke:rgba(12,18,32,0.92);
+  stroke-width:3.5px;stroke-linejoin:round}
+.tree-link{fill:none;stroke:rgba(201,162,39,.28);stroke-width:1.2}
+.tree-link-hybrid{stroke-dasharray:5,3;stroke:rgba(224,96,64,.38);stroke-width:1.2}
+.tree-cross-link{fill:none;stroke:rgba(232,175,80,.55);stroke-width:1.7;
+  stroke-dasharray:9,4;pointer-events:stroke;cursor:pointer;
+  transition:stroke .15s,stroke-width .15s}
+.tree-cross-link:hover{stroke:rgba(232,175,80,.95);stroke-width:2.4}
+.tree-link.has-detail,.tree-link-hybrid.has-detail,.tree-cross-link.has-detail{
+  cursor:pointer;pointer-events:stroke;stroke-width:2;
+  transition:stroke .15s,stroke-width .15s}
+.tree-link.has-detail:hover{stroke:rgba(201,162,39,.8);stroke-width:3}
+.tree-link-hybrid.has-detail:hover{stroke:rgba(224,96,64,.85);stroke-width:3}
+.tree-link.has-detail.selected{stroke:rgba(201,162,39,.95);stroke-width:3.2}
+.tree-link-hybrid.has-detail.selected{stroke:rgba(224,96,64,1);stroke-width:3.2}
+.tree-cross-link.has-detail.selected{stroke:rgba(232,175,80,1);stroke-width:3}
+.detail-link-marker{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.16em;
+  text-transform:uppercase;color:#c47a3a;margin-bottom:6px}
 
 .detail-panel{max-width:900px;margin:0 auto;padding:0 30px 20px}
 .detail-inner{background:var(--card-bg);border:1px solid var(--border-subtle);
@@ -221,6 +235,8 @@ const TYPE_LABEL = {
 
 let currentTree = null;
 let selectedNodeId = null;
+let selectedLinkId = null;
+
 
 /* ── Construction des onglets ─────────────────────────────────────────── */
 function buildTabs() {
@@ -298,33 +314,93 @@ function renderTree(tree) {
   svg.selectAll("*").remove();
 
   const hier = d3.hierarchy(tree.root, d => d.children);
-  /* nodeSize[0] = espacement vertical entre frères, nodeSize[1] = profondeur horizontale */
-  const treeLayout = d3.tree().nodeSize([120, 320]);
-  treeLayout(hier);
+  const ROW = 32, COL = 210;
+  d3.tree().nodeSize([ROW, COL])(hier);
 
   const nodes = hier.descendants();
-  const links  = hier.links();
+  const links = hier.links();
+
+  const nodeById = {};
+  nodes.forEach(n => { if (n.data.id) nodeById[n.data.id] = n; });
+
+  const crossLinks = [];
+  nodes.forEach(n => {
+    if (n.data.crossLink && nodeById[n.data.crossLink]) {
+      crossLinks.push({
+        source: n, target: nodeById[n.data.crossLink],
+        kind: "cross",
+        linkId: "cross:" + n.data.id + ">" + n.data.crossLink,
+        linkTitle: n.data.crossLinkTitle || null,
+        linkDetail: n.data.crossLinkDetail || null
+      });
+    }
+  });
 
   const xs = nodes.map(n => n.x), ys = nodes.map(n => n.y);
   const xMin = Math.min(...xs), xMax = Math.max(...xs);
-  const yMin = Math.min(...ys);
-  /* padY gauche large pour que l'étiquette du nœud racine (ci-dessous) ne soit pas coupée */
-  const padX = 70, padY = 90;
-  const W = (Math.max(...ys) - yMin) + padY * 2 + 340;
-  const H = (xMax - xMin) + padX * 2;
+  const yMin = Math.min(...ys), yMax = Math.max(...ys);
+  const padTop = 30, padBottom = 30, padLeft = 60, padRight = 280;
+  const crossSpace = crossLinks.length > 0 ? 110 : 0;
+  const W = (yMax - yMin) + padLeft + padRight;
+  const H = (xMax - xMin) + padTop + padBottom + crossSpace;
 
   svg.attr("width", W).attr("height", H);
-
   const g = svg.append("g")
-    .attr("transform", `translate(${padY - yMin},${padX - xMin})`);
+    .attr("transform", `translate(${padLeft - yMin},${padTop - xMin})`);
 
-  /* Liens */
+  /* Liens génériques. Chaque lien obtient un identifiant stable
+     parent>enfant pour pouvoir matérialiser sélection et données. */
   const linkGen = d3.linkHorizontal().x(d => d.y).y(d => d.x);
   g.selectAll(".tree-link")
     .data(links)
     .join("path")
-    .attr("class", d => "tree-link" + (d.target.data.hybrid ? " tree-link-hybrid" : ""))
-    .attr("d", linkGen);
+    .attr("class", d => {
+      const has = d.target.data.linkDetail ? " has-detail" : "";
+      const hyb = d.target.data.hybrid ? " tree-link-hybrid" : "";
+      const id  = d.source.data.id + ">" + d.target.data.id;
+      const sel = id === selectedLinkId ? " selected" : "";
+      return "tree-link" + hyb + has + sel;
+    })
+    .attr("d", linkGen)
+    .on("click", (evt, d) => {
+      if (!d.target.data.linkDetail) return;
+      evt.stopPropagation();
+      selectLink({
+        id: d.source.data.id + ">" + d.target.data.id,
+        kind: d.target.data.hybrid ? "hybrid" : "filiation",
+        sourceLabel: d.source.data.label,
+        targetLabel: d.target.data.label,
+        linkTitle: d.target.data.linkTitle,
+        linkDetail: d.target.data.linkDetail
+      });
+    });
+
+  /* Liens transversaux (crossLink) */
+  const dropY = xMax + 80;
+  const crossGen = d => {
+    const sx = d.source.y, sy = d.source.x;
+    const tx = d.target.y, ty = d.target.x;
+    return `M${sx},${sy} C${sx},${dropY} ${tx},${dropY} ${tx},${ty}`;
+  };
+  g.selectAll(".tree-cross-link")
+    .data(crossLinks)
+    .join("path")
+    .attr("class", d => "tree-cross-link" +
+      (d.linkDetail ? " has-detail" : "") +
+      (d.linkId === selectedLinkId ? " selected" : ""))
+    .attr("d", crossGen)
+    .on("click", (evt, d) => {
+      evt.stopPropagation();
+      selectLink({
+        id: d.linkId, kind: "cross",
+        sourceLabel: d.source.data.label,
+        targetLabel: d.target.data.label,
+        linkTitle: d.linkTitle,
+        linkDetail: d.linkDetail || "Lien transversal entre deux nœuds éloignés de l'arbre."
+      });
+    })
+    .append("title")
+    .text(d => `${d.source.data.label} → ${d.target.data.label}`);
 
   /* Nœuds */
   const nodeG = g.selectAll(".node-group")
@@ -332,41 +408,34 @@ function renderTree(tree) {
     .join("g")
     .attr("class", "node-group")
     .attr("transform", d => `translate(${d.y},${d.x})`)
-    .on("click", (evt, d) => selectNode(d.data));
+    .on("click", (evt, d) => { evt.stopPropagation(); selectNode(d.data); });
 
   nodeG.each(function(d) {
     const tc = TYPE_COLOR[d.data.type] || TYPE_COLOR.branch;
     const sel = d.data.id === selectedNodeId;
+    const baseR = d.data.type === "root" ? 8 : (d.data.type === "main" ? 6 : 5);
     d3.select(this).append("circle")
       .attr("class", "node-circle")
-      .attr("r", sel ? tc.r * 1.45 : tc.r)
-      .style("fill", sel ? tc.stroke.replace(")", ",0.25)").replace("rgb","rgba") : tc.fill)
+      .attr("r", sel ? baseR * 1.6 : baseR)
+      .style("fill", sel ? tc.stroke : tc.fill)
       .style("stroke", tc.stroke)
-      .style("stroke-width", sel ? 3 : 1.8);
+      .style("stroke-width", sel ? 2.4 : 1.5);
   });
 
-  /* Labels :
-     - nœud racine (depth 0) : centré EN DESSOUS du cercle
-     - nœuds parents (depth > 0, avec enfants) : à gauche, text-anchor:end
-     - feuilles : à droite, text-anchor:start
-  */
+  const truncate = (s, n) => s && s.length > n ? s.slice(0, n - 1) + "…" : s;
+
   nodeG.append("text")
     .attr("class", "node-label")
-    .attr("x", d => d.depth === 0 ? 0 : (d.children ? -22 : 22))
-    .attr("y", d => d.depth === 0 ? 26 : 0)
-    .attr("text-anchor", d => d.depth === 0 ? "middle" : (d.children ? "end" : "start"))
-    .attr("dominant-baseline", d => d.depth === 0 ? "auto" : "middle")
-    .text(d => d.data.label);
+    .attr("x", 12).attr("y", -6)
+    .attr("text-anchor", "start")
+    .text(d => truncate(d.data.label, 40));
 
   nodeG.append("text")
     .attr("class", "node-year")
-    .attr("x", d => d.depth === 0 ? 0 : (d.children ? -22 : 22))
-    .attr("y", d => d.depth === 0 ? 40 : 18)
-    .attr("text-anchor", d => d.depth === 0 ? "middle" : (d.children ? "end" : "start"))
-    .attr("dominant-baseline", d => d.depth === 0 ? "auto" : "middle")
+    .attr("x", 12).attr("y", 7)
+    .attr("text-anchor", "start")
     .text(d => d.data.year || "");
 
-  /* Mise à jour du scroll custom */
   updateScrollUI();
 }
 
@@ -448,6 +517,7 @@ function initScroll() {
 /* ── Sélection d'un nœud ─────────────────────────────────────────────── */
 function selectNode(data) {
   selectedNodeId = data.id;
+  selectedLinkId = null;
   const tc = TYPE_COLOR[data.type] || TYPE_COLOR.branch;
   document.getElementById("detail-inner").innerHTML = `
     <div class="detail-title">${data.label}</div>
@@ -455,6 +525,28 @@ function selectNode(data) {
       ${TYPE_LABEL[data.type] || ""}${data.year ? " · " + data.year : ""}
     </div>
     <div class="detail-text">${data.detail || "<em style='color:var(--text-faint)'>Détail à documenter.</em>"}</div>
+  `;
+  renderTree(TREES[currentTree]);
+}
+
+function selectLink(link) {
+  selectedLinkId = link.id;
+  selectedNodeId = null;
+  const kindLabel = link.kind === "cross" ? "Lien transversal"
+                  : link.kind === "hybrid" ? "Hybridation / emprunt"
+                  : "Filiation directe";
+  const kindColor = link.kind === "cross" ? "#e8af50"
+                  : link.kind === "hybrid" ? "#e06040"
+                  : "#c9a227";
+  document.getElementById("detail-inner").innerHTML = `
+    <div class="detail-link-marker" style="color:${kindColor}">
+      ▸ ${kindLabel}
+    </div>
+    <div class="detail-title">
+      ${link.sourceLabel} <span style="opacity:.55">→</span> ${link.targetLabel}
+    </div>
+    ${link.linkTitle ? `<div class="detail-meta" style="color:${kindColor}">${link.linkTitle}</div>` : ""}
+    <div class="detail-text">${link.linkDetail}</div>
   `;
   renderTree(TREES[currentTree]);
 }
