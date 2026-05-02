@@ -65,11 +65,12 @@ const TREES = {
        William J. Higginson, The Haiku Handbook (1985)
        Haruo Shirane & Tomi Suzuki (dir.), Inventing the Classics (2000)
   ─────────────────────────────────────────────────────────────────────── */
+  
   haiku: {
     status: "ready",
     label: "Haïku",
-    desc: "Du waka classique au haïku mondial : généalogie d'une forme brève japonaise et de sa circulation internationale. Filiation interne japonaise d'après Shirane (1998), Ueda (1970, 2004) et Keene (1976) ; diffusion internationale d'après Higginson (1985) et les données de l'atlas.",
-    sources: "Shirane, <em>Traces of Dreams</em> (1998) · Ueda, <em>Matsuo Bashō</em> (1970) · Keene, <em>World Within Walls</em> (1976) · Beichman, <em>Masaoka Shiki</em> (2002) · Higginson, <em>The Haiku Handbook</em> (1985)",
+    desc: "Du waka classique au haïku mondial : généalogie d'une forme brève japonaise et de sa circulation internationale. Filiation interne japonaise d'après Shirane (1998), Ueda (1970, 2004) et Keene (1976) ; diffusion internationale d'après Higginson (1985), Bossi (<em>Une formule voyageuse</em>, Genève 2022) et les données de l'atlas.",
+    sources: "Shirane, <em>Traces of Dreams</em> (1998) · Ueda, <em>Matsuo Bashō</em> (1970) · Keene, <em>World Within Walls</em> (1976) · Beichman, <em>Masaoka Shiki</em> (2002) · Higginson, <em>The Haiku Handbook</em> (1985) · Bossi, <em>Une formule voyageuse</em> (Genève, 2022) · Ota, <em>José Juan Tablada: su haikú y su japonismo</em> (UNAM, 2014) · Paz, « La tradición del haikú » (1970)",
     root: {
       id: "waka",
       label: "Waka (和歌)",
@@ -140,7 +141,7 @@ const TREES = {
                       label: "Réforme Shiki",
                       year: "1892–1902",
                       type: "main",
-                      detail: "Masaoka Shiki (1867–1902) est le réformateur décisif. Il forge le terme « haïku » (distinguant le genre autonome du <em>hokku</em> de renga), fonde la revue <em>Hototogisu</em> (1897) et prône le <em>shasei</em> (croquis sur le vif, emprunté à la peinture réaliste occidentale) contre l'imitation nostalgique de Bashō. Il réhabilite Buson comme modèle alternatif. Beichman (<em>Masaoka Shiki</em>, 2002) montre comment cette réforme s'inscrit dans la modernisation Meiji : le haïku doit devenir un art national rigoureux et transmissible.",
+                      detail: "Masaoka Shiki (1867–1902) est le réformateur décisif. Il forge le terme « haïku » (distinguant le genre autonome du <em>hokku</em> de renga), fonde la revue <em>Hototogisu</em> (1897) et prône le <em>shasei</em> (croquis sur le vif, emprunté à la peinture réaliste occidentale) contre l'imitation nostalgique de Bashō. Il réhabilite Buson comme modèle alternatif. Beichman (<em>Masaoka Shiki</em>, 2002) montre comment cette réforme s'inscrit dans la modernisation Meiji : le haïku doit devenir un art national rigoureux et transmissible. Bossi (2022), suivant Lozerand, insiste : ce qui circule vers l'Europe à partir des années 1900 n'est pas le haïku classique de Bashō mais le haïku <em>refondé</em> de Shiki — forme nationalisée, autonomisée, déconnectée du renga, inscrite dans le champ littéraire moderne japonais.",
                       children: [
                         {
                           id: "kyoshi",
@@ -163,7 +164,7 @@ const TREES = {
                           label: "École Hekigotō — vers libre",
                           year: "1910–",
                           type: "branch",
-                          detail: "Kawahigashi Hekigotō (1873–1937), autre disciple de Shiki, pousse la réforme jusqu'à l'abandon du 5-7-5 (<em>jiyuritsu haiku</em>) et du <em>kigo</em>. Haïku sans centre fixe, parfois long, jouant sur la discontinuité syntaxique. Cette radicalisation moderniste ouvre la voie aux avant-gardes japonaises des années 1920-30 et, indirectement, au haïku international qui cherchera ses propres équivalents formels.",
+                          detail: "Kawahigashi Hekigotō (1873–1937), autre disciple de Shiki, pousse la réforme jusqu'à l'abandon du 5-7-5 (<em>jiyuritsu haiku</em>) et du <em>kigo</em>. Haïku sans centre fixe, parfois long, jouant sur la discontinuité syntaxique. Cette radicalisation moderniste ouvre la voie aux avant-gardes japonaises des années 1920–30 et constitue le pôle interne d'expérimentation formelle, parallèle à la diffusion internationale qui passera, elle, par d'autres voies.",
                           children: [
                             {
                               id: "seisensui",
@@ -180,60 +181,95 @@ const TREES = {
                                   detail: "Santōka (1882–1940), moine mendiant bouddhiste zen, buveur et marcheur, est le poète le plus radical de la lignée Seisensui. Ses haïkus — souvent une ligne unique — naissent de l'errance et de la pauvreté volontaire. « Simplement en marchant / je marche » est sa formule paradigmatique. Redécouvert dans les années 1970, il est aujourd'hui considéré comme une voix majeure, dont l'économie extrême influence les haïkus minimalistes contemporains.",
                                 }
                               ]
+                            }
+                          ]
+                        },
+                        {
+                          id: "couchoud",
+                          label: "Couchoud — diffusion internationale",
+                          year: "1905–",
+                          type: "hybrid",
+                          hybrid: true,
+                          detail: "Paul-Louis Couchoud (1879–1959), médecin-philosophe et passeur, est le pivot de la diffusion internationale du haïku. Au retour d'un séjour au Japon (1903–1904), il publie <em>Au fil de l'eau</em> (juillet 1905) — première plaquette de haïkus en français, écrits avec Albert Poncin et André Faure pendant une croisière en péniche sur les canaux de France. Le texte critique fondateur n'est cependant pas cette plaquette confidentielle (30 exemplaires hors commerce) mais « Les épigrammes lyriques du Japon » paru dans <em>Les Lettres</em> (avril–août 1906), repris ensuite dans <em>Sages et poètes d'Asie</em> (Calmann-Lévy, 1916), volume qui deviendra la matrice indirecte du haïku hispanique via la bibliothèque de Tablada. Maublanc qualifie dès 1923 les pièces d'<em>Au fil de l'eau</em> de « tercets irréguliers et sans rimes » : Couchoud n'invente pas un tercet métrique mais une <em>disposition typographique en trois lignes</em> sans contrainte syllabique stricte — geste typographique fondateur dont la dissociation d'avec la métrique japonaise (5-7-5 mores sur ligne unique verticale) constitue l'opération constitutive du haïku occidental. Magali Bossi (<em>Une formule voyageuse</em>, Genève 2022) propose la notion de <em>formule</em>, empruntée à Baxandall, pour rendre compte de cette plasticité : ce qui circule n'est pas une forme fixe mais un faisceau négociable de quatre traits (formel, rapport au Japon, thématique, usage), dont chaque réception ne reprend qu'une combinaison. Couchoud lance la première vague française (1905–1939) et, par <em>Sages et poètes d'Asie</em>, la chaîne hispanique.",
+                          linkTitle: "Shiki → Couchoud · médiation savante et voyage colonial",
+                          linkDetail: "La transmission ne passe pas par un contact direct avec Shiki, mort en 1902 alors que Couchoud séjourne au Japon (1903-1904) sur une bourse de la fondation Albert-Kahn. Couchoud apprend le haïku par trois canaux concomitants : les conversations avec son maître japonais à Tokyo (jamais nommé dans ses textes), les anthologies anglaises de Basil Hall Chamberlain (« Bashō and the Japanese Poetical Epigram », <em>TASJ</em>, 1902, qu'il cite explicitement), et la fréquentation des cercles littéraires de Tokyo, où la réforme de Shiki et la revue <em>Hototogisu</em> (1897) sont les références vivantes. La bourse Kahn — destinée à former une élite intellectuelle française à la connaissance directe des civilisations non-européennes — fonctionne ici comme infrastructure coloniale du transfert littéraire : Couchoud n'aurait pas pu faire le voyage sans elle. La Société autour des frères Kahn fournit aussi le réseau parisien (rue Champollion, chez Couchoud lui-même) où la forme sera diffusée à Vocance, Faure, Poncin entre 1903 et 1905.",
+                          children: [
+                            {
+                              id: "vocance",
+                              label: "Vocance — Cent visions de guerre",
+                              year: "1916",
+                              type: "branch",
+                              detail: "Julien Vocance (Joseph Seguin, 1878–1954), ami de Couchoud, publie « Cent visions de guerre » dans <em>La Grande Revue</em> (mai 1916). Premiers haïkus écrits depuis les tranchées : la brièveté du genre devient un outil adapté à la contingence matérielle de l'écriture au front, et son origine japonaise permet un regard neuf sur une violence sans précédent narratif disponible. Bossi (2022) consacre à Vocance un chapitre central : avec lui émerge un <em>vecteur de tranchée</em> distinct du japonisme symboliste, et le haïku connaît une seconde naissance en français, ancrée dans l'urgence existentielle plutôt que dans l'esthétique. Vocance restera la figure de proue du haïku militant français de l'entre-deux-guerres.",
+                              linkTitle: "Couchoud → Vocance · cercle parisien et tranchée",
+                              linkDetail: "Vocance (Joseph Seguin) appartient au cercle parisien initial : il est l'un des étudiants qui se réunissaient rue Champollion chez Couchoud dès 1900-1903 pour boire du saké et apprendre le haïkaï. La transmission est orale, conviviale, militante — pas livresque. Quand Vocance est mobilisé en 1914, il porte la forme avec lui dans les tranchées comme outil d'écriture de l'urgence : la brièveté du haïku rend possible l'écriture sous bombardement, dans les conditions matérielles d'un carnet humide tenu sur les genoux entre deux relèves. La publication des « Cent visions de guerre » dans <em>La Grande Revue</em> (mai 1916) bénéficie de la légitimité antérieure de Couchoud : la rédaction de la revue a déjà publié des haïkus avant 1914, le terrain est préparé. Le vecteur ici est triple : amitié personnelle, contrainte matérielle de l'écriture au front, infrastructure éditoriale parisienne. Bossi (2022) souligne que cette mobilisation du haïku par la guerre constitue une rupture avec le japonisme symboliste de la décennie précédente."
                             },
                             {
-                              id: "diffusion",
-                              label: "Diffusion internationale",
-                              year: "1905–",
-                              type: "hybrid",
-                              hybrid: true,
-                              detail: "Le haïku quitte le Japon par trois vecteurs principaux : les traductions savantes européennes (Chamberlain, 1902 ; Revon, 1910), les modernistes occidentaux qui le réinterprètent comme technique poétique (Pound, 1913), et les recueils de vulgarisation (Couchoud, 1905-1916 ; Blyth, 1949-52). Chaque réception nationale produit une variation : le kigo est souvent abandonné, le compte syllabique adapté aux phonèmes locaux, l'horizon référentiel transformé.",
+                              id: "paulhan",
+                              label: "Paulhan — anthologie NRF",
+                              year: "1920",
+                              type: "branch",
+                              detail: "Jean Paulhan (1884–1968), secrétaire de <em>La Nouvelle Revue Française</em>, publie le 1<sup>er</sup> septembre 1920 une anthologie de haïkaï français en tête de numéro — onze auteurs dont Couchoud, Vocance, Éluard, Jean-Richard Bloch, Pierre Albert-Birot. Moment de consécration littéraire du genre en France. La fascination de Paulhan est nourrie par son intérêt parallèle pour le <em>hain-teny</em> malgache, qu'il a pratiqué entre 1908 et 1910 à Tananarive : il pense le haïku dans un cadre comparatiste extra-occidental. Bossi (2022) consacre un chapitre entier à Paulhan, qu'elle identifie comme le théoricien le plus important du haïku français des années 1920. Le débat formel qui s'ouvre dans ces années — entre liberté (Maublanc, <em>Le Pampre</em>, 1923) et forme fixe (Bloch, <em>Europe</em>, 1924) — est la première théorisation explicite en français du problème du 5-7-5.",
+                              linkTitle: "Couchoud → Paulhan · NRF et infrastructure éditoriale",
+                              linkDetail: "Paulhan ne fait pas partie du cercle initial de Couchoud — il est plus jeune (né en 1884 vs 1879) et arrive au haïku par une voie comparatiste. Entre 1908 et 1910, il enseigne le français à Tananarive et collecte les <em>hain-teny</em> malgaches (publiés en 1913 chez Geuthner). Le rapprochement entre forme courte malgache et forme courte japonaise lui vient de cette expérience coloniale, pas de Couchoud directement. La transmission devient effective quand Paulhan, secrétaire de la <em>NRF</em> à partir de 1920, dispose du levier éditorial pour consacrer le haïku français : l'anthologie de septembre 1920 réunit Couchoud (génération 1900), Vocance (génération de guerre), Éluard (avant-garde) et Paulhan lui-même dans une même livraison. Le vecteur matériel est la <em>NRF</em> comme institution : un organe de Gaston Gallimard, à fort tirage (15 000 exemplaires par numéro à l'époque), qui légitime la forme auprès de la République des Lettres parisienne. Sans ce relais éditorial, le haïku français serait probablement resté un genre confidentiel de cercles privés.",
                               children: [
                                 {
-                                  id: "couchoud",
-                                  label: "Couchoud — haïku français",
-                                  year: "1905–",
+                                  id: "haiku-fr",
+                                  label: "Haïku francophone contemporain",
+                                  year: "1990–",
                                   type: "branch",
-                                  detail: "Paul-Louis Couchoud (1879–1959) publie <em>Au fil de l'eau</em> (1905), premier recueil de haïkus composés en français, puis <em>Sages et poètes d'Asie</em> (1916), première présentation systématique du genre en Europe. Il pose la question fondatrice du haïku francophone : quelle équivalence entre la syllabe japonaise (mora) et la syllabe française ? L'hésitation entre respect du 5-7-5 et liberté formelle traverse tout le haïku francophone jusqu'à aujourd'hui.",
-                                  children: [
-                                    {
-                                      id: "haiku-fr",
-                                      label: "Haïku francophone contemporain",
-                                      year: "1990–",
-                                      type: "branch",
-                                      detail: "Le haïku francophone contemporain s'organise autour de revues (<em>Haïku</em>, fondée 2003 ; <em>Ploc ! La lettre du haïku</em>) et de l'Association francophone de haïku. Poètes : Jean Antonini, Dominique Chipot, Gilles Fabre. Question centrale persistante : quel <em>kigo</em> culturellement français ? (châtaignes, Toussaint, TGV, Tour de France…). Le haïku francophone développe une identité propre, distincte du modèle japonais et du modèle anglophone.",
-                                    }
-                                  ]
+                                  detail: "Le haïku francophone contemporain s'organise autour de revues (<em>Haïku</em>, fondée 2003 ; <em>Ploc ! La lettre du haïku</em>) et de l'Association francophone de haïku. Poètes : Jean Antonini, Dominique Chipot, Gilles Fabre. Question centrale persistante : quel <em>kigo</em> culturellement français ? (châtaignes, Toussaint, TGV, Tour de France…). Conrad Meili (<em>Cahiers du Sud</em>, 1951) constitue le texte-pivot entre la première vague (1905–1939) et la seconde : premier emploi français de « haïku » sans accent, première introduction du <em>kireji</em> en français, première influence anglophone (Blyth) et zen (Suzuki). Le haïku francophone développe alors une identité propre, distincte du modèle japonais et du modèle anglophone.",
+                                }
+                              ]
+                            },
+                            {
+                              id: "claudel",
+                              label: "Claudel — Cent phrases pour éventails",
+                              year: "1927/1942",
+                              type: "branch",
+                              detail: "Paul Claudel (1868–1955), ambassadeur de France au Japon de 1921 à 1927, publie <em>Cent phrases pour éventails</em> à Tokyo en 1927 (édition revue chez Gallimard, 1942). Les pièces, calligraphiées et mises en page de manière à incorporer la matérialité visuelle de l'écriture, occupent un espace intermédiaire entre haïga et haïku. Claudel lui-même précise : « ce n'est pas le haïkaï ». Bossi (2022) le traite comme cas-limite de la formule voyageuse — illustration de la plasticité extrême du genre, à la frontière de ce qui peut encore être nommé haïku, et exemple de la tension entre fidélité matérielle (calligraphie, support) et fidélité formelle (tercet, syllabe).",
+                            },
+                            {
+                              id: "pound",
+                              label: "Imagisme — Ezra Pound",
+                              year: "1913–",
+                              type: "branch",
+                              detail: "Ezra Pound décrit explicitement « In a Station of the Metro » (<em>Poetry</em>, avril 1913) — « The apparition of these faces in the crowd / Petals on a wet, black bough » — comme un poème « hokku-like ». Le poème est en réalité un <em>distique</em> condensé (12 + 7 syllabes), non un tercet : c'est avec Amy Lowell (<em>Twenty-Four Hokku on a Modern Theme</em>, <em>Poetry</em>, juin 1921) que le tercet anglophone s'installe véritablement, là encore sans contrainte syllabique stricte. La filiation française est documentée par F. S. Flint, spécialiste de la poésie française moderne dès 1908, qui utilise le terme français <em>haikai</em> dans le « Secession Club » londonien dès 1909. L'Imagisme codifie l'influence du haïku sur le modernisme anglophone : image directe, économie du mot, abandon de l'ornement métrique. Pound relie cette poétique à ses traductions de la poésie chinoise (<em>Cathay</em>, 1915), créant une synthèse sino-japonaise-occidentale.",
+                              children: [
+                                {
+                                  id: "beat-haiku",
+                                  label: "Haïku Beat — Kerouac, Ginsberg",
+                                  year: "1955–",
+                                  type: "branch",
+                                  detail: "Jack Kerouac compose des haïkus américains tout au long des années 1950 (publiés posthumément dans <em>Book of Haikus</em>, 2003), intégrant bouddhisme zen, improvisation jazz et spontanéité beatnik. Sa définition : « Haiku = not 17 syllables but 3 short lines ». Allen Ginsberg pratique également la forme. Le haïku Beat rompt avec la contrainte syllabique japonaise et redéfinit la brièveté comme intensité d'attention plutôt que comme décompte.",
                                 },
                                 {
-                                  id: "pound",
-                                  label: "Imagisme — Ezra Pound",
-                                  year: "1913–",
+                                  id: "hsa",
+                                  label: "Haiku Society of America",
+                                  year: "1968–",
                                   type: "branch",
-                                  detail: "Ezra Pound décrit explicitement son poème « In a Station of the Metro » (<em>Poetry</em>, 1913) — « The apparition of these faces in the crowd / Petals on a wet, black bough » — comme un haïku en anglais. L'Imagisme codifie l'influence du haïku sur le modernisme anglophone : image directe, économie du mot, abandon de l'ornement métrique. Pound relie cette poétique à ses traductions de la poésie chinoise (<em>Cathay</em>, 1915), créant une synthèse sino-japonaise-occidentale.",
-                                  children: [
-                                    {
-                                      id: "beat-haiku",
-                                      label: "Haïku Beat — Kerouac, Ginsberg",
-                                      year: "1955–",
-                                      type: "branch",
-                                      detail: "Jack Kerouac compose des haïkus américains tout au long des années 1950 (publiés posthumément dans <em>Book of Haikus</em>, 2003), intégrant bouddhisme zen, improvisation jazz et spontanéité beatnik. Sa définition : « Haiku = not 17 syllables but 3 short lines ». Allen Ginsberg pratique également la forme. Le haïku Beat rompt avec la contrainte syllabique japonaise et redéfinit la brièveté comme intensité d'attention plutôt que comme décompte.",
-                                    },
-                                    {
-                                      id: "hsa",
-                                      label: "Haiku Society of America",
-                                      year: "1968–",
-                                      type: "branch",
-                                      detail: "Fondée en 1968 à New York, la Haiku Society of America publie la revue <em>Frogpond</em> et organise des concours annuels. Elle stabilise et rayonne le haïku anglophone dans le monde entier. Elle cristallise aussi le débat permanent : compter les syllabes (anglaises vs japonaises) ? conserver le <em>kigo</em> ? La HSA penche progressivement vers un haïku libre des contraintes syllabiques formelles, privilégiant la qualité de l'image et l'instant capturé.",
-                                    }
-                                  ]
-                                },
+                                  detail: "Fondée en 1968 à New York, la Haiku Society of America publie la revue <em>Frogpond</em> et organise des concours annuels. Elle stabilise et rayonne le haïku anglophone dans le monde entier. Elle cristallise aussi le débat permanent : compter les syllabes (anglaises vs japonaises) ? conserver le <em>kigo</em> ? La HSA penche progressivement vers un haïku libre des contraintes syllabiques formelles, privilégiant la qualité de l'image et l'instant capturé.",
+                                }
+                              ]
+                            },
+                            {
+                              id: "tablada",
+                              label: "Tablada — haïku hispanique",
+                              year: "1919–",
+                              type: "branch",
+                              detail: "José Juan Tablada (1871–1945) publie <em>Un día…</em> (Caracas, 1919), premier recueil de haïkus en espagnol, suivi de <em>Li-Po y otros poemas</em> (1920) et de <em>El jarro de flores</em> (New York, 1922). Sa filiation française est documentée par Seiko Ota (<em>José Juan Tablada: su haikú y su japonismo</em>, UNAM, 2014) : Tablada possédait <em>Sages et poètes d'Asie</em> de Couchoud dans sa bibliothèque personnelle, plusieurs de ses haïkus sont des réécritures de traductions de Couchoud (libellule, papillon, grain de piment), et son séjour parisien de 1911–1912 — où il fréquente Apollinaire — est constitutif. Octavio Paz, dans « La tradición del haikú » (1970), reconnaît explicitement ce « contagio francés ». Le naturalisme tropical de Tablada — lézards, perroquets, orchidées — adapte le <em>kigo</em> japonais à la faune américaine et fonde le haïku hispano-américain, qui rayonne ensuite vers Borges, Benedetti, Paz lui-même.",
+                              linkTitle: "Couchoud → Tablada · vecteur livresque transatlantique",
+                              linkDetail: "Le vecteur est strictement bibliographique : aucune correspondance directe entre les deux hommes, aucune rencontre attestée. Tablada possède dans sa bibliothèque personnelle (aujourd'hui conservée à l'UNAM, partiellement numérisée) un exemplaire de <em>Sages et poètes d'Asie</em> de Couchoud (Calmann-Lévy, 1916), probablement acquis lors de son séjour parisien de 1911-1912 ou commandé depuis le Mexique dans les années suivantes. Plusieurs haïkus d'<em>Un día…</em> (1919) sont des réécritures directes de traductions données par Couchoud — la libellule, le papillon (depuis Moritake), le grain de piment — documentées par Seiko Ota (<em>José Juan Tablada: su haikú y su japonismo</em>, UNAM, 2014). Conditions matérielles de la circulation : édition Calmann-Lévy in-12, à 3,50 francs en 1916, distribution libraire courante via les circuits coloniaux français en Amérique latine. Tablada lui-même, dans des entretiens tardifs, prétendait son entreprise indépendante des expériences françaises ; Octavio Paz (<em>La tradición del haikú</em>, 1970) corrige cette dénégation en parlant explicitement de « contagio francés » et en s'appuyant sur la chronologie. Le passage par Paris (1911-1912) est constitutif : Tablada y fréquente Apollinaire, qui lui révèle aussi le calligramme — autre forme courte qui se mêlera au haïku dans <em>Li-Po y otros poemas</em> (1920).",
+                              children: [
                                 {
-                                  id: "tablada",
-                                  label: "Tablada — haïku hispanique",
-                                  year: "1919–",
+                                  id: "paz-renga",
+                                  label: "Paz, Roubaud, Sanguineti, Tomlinson — Renga (Paris)",
+                                  year: "1969",
                                   type: "branch",
-                                  detail: "José Juan Tablada (1871–1945) publie <em>Un día</em> (1919) au Mexique, premier recueil de haïkus en espagnol, suivi de <em>Li Po y otros poemas</em> (1920). Son naturalisme tropical — lézards, perroquets, orchidées — adapte le <em>kigo</em> japonais à la faune et flore américaines. Influence directe sur Octavio Paz (qui lui consacre un essai) et tout le haïku hispano-américain. Le haïku hispanique se développe ensuite de façon autonome en Argentine, Espagne et Cuba.",
+                                  hybrid: true,
+                                  crossLink: "renga",
+                                  detail: "En avril 1969, Octavio Paz organise à Paris la composition collective d'un <em>renga</em> en quatre langues — espagnol (Paz), français (Jacques Roubaud), italien (Edoardo Sanguineti), anglais (Charles Tomlinson). Publication : <em>Renga</em>, Gallimard, 1971, avec préfaces des quatre auteurs et de Claude Roy. Selon Paz lui-même (« La tradición del haikú », 1970), c'est « le premier renga d'Occident ». Geste métapoétique conscient : un demi-siècle après Couchoud, un poète mexicain nobélisé rapatrie à Paris la forme japonaise originelle (le renga, ancêtre du haïku) et en fait un manifeste collectif anti-individualiste — « critique de l'auteur et de la propriété privée intellectuelle », écrit Paz. L'opération boucle la circulation : la diffusion francophone du haïku (1905) fait retour, par l'hispanophonie (Tablada → Paz), vers la matrice rengaïque dont le hokku autonome avait jadis émergé. Liaison conceptuelle (en pointillés) avec le nœud <em>renga</em>.",
+                                  crossLinkTitle: "Paris 1969 → Renga japonais · ressaisie métapoétique",
+                                  crossLinkDetail: "Le lien transversal franchit sept siècles et trois continents pour rapprocher deux pratiques collectives. Le renga classique japonais (XIIIe-XVIe s.) est composé en présence physique des poètes, dans des séances ritualisées (<em>kaiseki</em>) tenues dans une demeure aristocratique ou un temple : conditions matérielles de l'oralité raffinée, du papier de luxe, du maître de séance qui consigne. Le renga collectif organisé par Paz à Paris en avril 1969 reproduit cette présence physique — les quatre poètes (Paz, Roubaud, Sanguineti, Tomlinson) se réunissent dans un sous-sol de l'hôtel Saint-Simon — mais transpose le geste dans des conditions radicalement différentes : machine à écrire, traduction simultanée entre quatre langues, publication chez Gallimard l'année suivante. Le geste métapoétique conscient — Paz parle dans son introduction d'« archéologie d'une forme » — fait du renga occidental une opération critique sur la notion d'auteur et de propriété intellectuelle, dans le contexte intellectuel français post-1968 (les quatre auteurs sont tous proches, à divers titres, des avant-gardes textualistes parisiennes). Le vecteur ici n'est pas une transmission lente mais une <em>réactivation savante</em> : Paz a lu le renga japonais via les anthologies de Donald Keene (<em>Anthology of Japanese Literature</em>, 1955) et via sa propre traduction de Bashō avec Hayashiya. La circulation passe par l'universitaire japonologue américain, étape silencieuse de la chaîne."
                                 }
                               ]
                             }
@@ -250,7 +286,6 @@ const TREES = {
       ]
     }
   }, /* fin haiku */
-
 
   /* ── FORMES EN CONSTRUCTION ──────────────────────────────────────────── */
 
