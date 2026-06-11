@@ -1,0 +1,139 @@
+[
+  {
+    "id": "shirane1998",
+    "type": "book",
+    "title": "Traces of Dreams: Landscape, Cultural Memory, and the Poetry of Bashō",
+    "author": [{ "family": "Shirane", "given": "Haruo" }],
+    "publisher": "Stanford University Press",
+    "publisher-place": "Stanford",
+    "issued": { "date-parts": [[1998]] },
+    "ISBN": "978-0804731591"
+  },
+  {
+    "id": "ueda1970",
+    "type": "book",
+    "title": "Matsuo Bashō",
+    "author": [{ "family": "Ueda", "given": "Makoto" }],
+    "publisher": "Twayne Publishers",
+    "publisher-place": "New York",
+    "issued": { "date-parts": [[1970]] }
+  },
+  {
+    "id": "ueda2004",
+    "type": "book",
+    "title": "Dew on the Grass: The Life and Poetry of Kobayashi Issa",
+    "author": [{ "family": "Ueda", "given": "Makoto" }],
+    "publisher": "Brill",
+    "publisher-place": "Leiden",
+    "issued": { "date-parts": [[2004]] },
+    "ISBN": "978-9004138773"
+  },
+  {
+    "id": "keene1976",
+    "type": "book",
+    "title": "World Within Walls: Japanese Literature of the Pre-Modern Era, 1600–1867",
+    "author": [{ "family": "Keene", "given": "Donald" }],
+    "publisher": "Holt, Rinehart and Winston",
+    "publisher-place": "New York",
+    "issued": { "date-parts": [[1976]] }
+  },
+  {
+    "id": "beichman2002",
+    "type": "book",
+    "title": "Masaoka Shiki: His Life and Works",
+    "author": [{ "family": "Beichman", "given": "Janine" }],
+    "publisher": "Cheng & Tsui",
+    "publisher-place": "Boston",
+    "edition": "2",
+    "issued": { "date-parts": [[2002]] },
+    "ISBN": "978-0887273766"
+  },
+  {
+    "id": "higginson1985",
+    "type": "book",
+    "title": "The Haiku Handbook: How to Write, Share, and Teach Haiku",
+    "author": [
+      { "family": "Higginson", "given": "William J." },
+      { "family": "Harter", "given": "Penny" }
+    ],
+    "publisher": "McGraw-Hill",
+    "publisher-place": "New York",
+    "issued": { "date-parts": [[1985]] },
+    "ISBN": "978-0070288645"
+  },
+  {
+    "id": "bossi2022",
+    "type": "thesis",
+    "title": "Une formule voyageuse : le haïku en français, en espagnol et en anglais (1905–1970)",
+    "author": [{ "family": "Bossi", "given": "Magali" }],
+    "publisher": "Université de Genève",
+    "publisher-place": "Genève",
+    "issued": { "date-parts": [[2022]] },
+    "genre": "Thèse de doctorat",
+    "note": "Sous la direction de Jean-Louis Jeannelle"
+  },
+  {
+    "id": "ota2014",
+    "type": "book",
+    "title": "José Juan Tablada: su haikú y su japonismo",
+    "author": [{ "family": "Ota", "given": "Seiko" }],
+    "publisher": "UNAM",
+    "publisher-place": "Mexico",
+    "issued": { "date-parts": [[2014]] }
+  },
+  {
+    "id": "paz1970",
+    "type": "chapter",
+    "title": "La tradición del haikú",
+    "author": [{ "family": "Paz", "given": "Octavio" }],
+    "container-title": "Lectura y contemplación",
+    "publisher": "Joaquín Mortiz",
+    "publisher-place": "Mexico",
+    "issued": { "date-parts": [[1970]] }
+  },
+  {
+    "id": "chamberlain1902",
+    "type": "article-journal",
+    "title": "Bashō and the Japanese Poetical Epigram",
+    "author": [{ "family": "Chamberlain", "given": "Basil Hall" }],
+    "container-title": "Transactions of the Asiatic Society of Japan",
+    "volume": "30",
+    "issued": { "date-parts": [[1902]] },
+    "page": "243–362"
+  },
+  {
+    "id": "lombez2008",
+    "type": "article-journal",
+    "title": "Traduire la poésie étrangère en France au XIXe siècle : enjeux et pratiques",
+    "author": [{ "family": "Lombez", "given": "Christine" }],
+    "container-title": "Romantisme",
+    "volume": "139",
+    "issued": { "date-parts": [[2008]] },
+    "page": "63–74",
+    "DOI": "10.3917/rom.139.0063"
+  },
+  {
+    "id": "lozerand2014",
+    "type": "chapter",
+    "title": "Le haïku, une forme internationale ?",
+    "author": [{ "family": "Lozerand", "given": "Emmanuel" }],
+    "container-title": "Penser la littérature mondiale",
+    "editor": [{ "family": "Wilfert-Portal", "given": "Blaise" }],
+    "publisher": "Presses universitaires de Vincennes",
+    "publisher-place": "Saint-Denis",
+    "issued": { "date-parts": [[2014]] }
+  },
+  {
+    "id": "shirane2000",
+    "type": "book",
+    "title": "Inventing the Classics: Modernity, National Identity, and Japanese Literature",
+    "author": [
+      { "family": "Shirane", "given": "Haruo" },
+      { "family": "Suzuki", "given": "Tomi" }
+    ],
+    "publisher": "Stanford University Press",
+    "publisher-place": "Stanford",
+    "issued": { "date-parts": [[2000]] },
+    "ISBN": "978-0804740227"
+  }
+]
