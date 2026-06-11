@@ -1,0 +1,74 @@
+[
+  {
+    "key": "haiku",
+    "label": "Haïku",
+    "status": "ready",
+    "file": "donnees-arbres/haiku.json"
+  },
+  {
+    "key": "versLibre",
+    "label": "Vers libre",
+    "status": "stub",
+    "file": "donnees-arbres/versLibre.json"
+  },
+  {
+    "key": "romanPolicier",
+    "label": "Roman policier",
+    "status": "stub",
+    "file": "donnees-arbres/romanPolicier.json"
+  },
+  {
+    "key": "dialoguePhilo",
+    "label": "Dialogue philosophique",
+    "status": "stub",
+    "file": "donnees-arbres/dialoguePhilo.json"
+  },
+  {
+    "key": "sonnet",
+    "label": "Sonnet",
+    "status": "stub",
+    "file": "donnees-arbres/sonnet.json"
+  },
+  {
+    "key": "ghazal",
+    "label": "Ghazal",
+    "status": "stub",
+    "file": "donnees-arbres/ghazal.json"
+  },
+  {
+    "key": "muwashshah",
+    "label": "Muwashshah",
+    "status": "stub",
+    "file": "donnees-arbres/muwashshah.json"
+  },
+  {
+    "key": "taziyeh",
+    "label": "Ta'ziyeh",
+    "status": "stub",
+    "file": "donnees-arbres/taziyeh.json"
+  },
+  {
+    "key": "biji",
+    "label": "Biji (筆記)",
+    "status": "ready",
+    "file": "donnees-arbres/biji.json"
+  },
+  {
+    "key": "romanChoral",
+    "label": "Roman polyphonique choral",
+    "status": "stub",
+    "file": "donnees-arbres/romanChoral.json"
+  },
+  {
+    "key": "phraseLongue",
+    "label": "Phrase longue en prose",
+    "status": "stub",
+    "file": "donnees-arbres/phraseLongue.json"
+  },
+  {
+    "key": "poemeProletarien",
+    "label": "Poème épique prolétarien",
+    "status": "stub",
+    "file": "donnees-arbres/poemeProletarien.json"
+  }
+]
