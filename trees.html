@@ -132,7 +132,8 @@ header{text-align:center;padding:30px 20px 4px}
 .detail-text{font-size:1.03rem;color:var(--cream);line-height:1.7;opacity:.88}
 .detail-placeholder{font-style:italic;color:var(--text-faint);font-size:.95rem;padding:14px 0}
 
-.moretti-note{max-width:860px;margin:24px auto 0;padding:0 30px;color:rgba(200,170,120,0.65);font-size:.98rem;line-height:1.6;text-align:center}
+.moretti-note{max-width:860px;margin:24px auto 0;padding:0 30px;
+  font-style:italic;color:rgba(200,170,120,0.65);font-size:.88rem;line-height:1.6;text-align:center}
 .orn-div{display:flex;align-items:center;gap:18px;max-width:900px;margin:0 auto;padding:0 30px}
 .orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.15),transparent)}
 .orn-text{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;
@@ -248,7 +249,7 @@ footer{text-align:center;padding:30px 20px 24px;font-family:'Cinzel',serif;
   <div class="orn-line"></div>
 </div>
 <p class="moretti-note">
-  Ces arborescences s'inspirent de celles proposées par Franco Moretti dans « The Slaughterhouse of Literature » (<em>MLQ</em>, 2000) et <em>Graphs, Maps, Trees</em> (2005) : les formes littéraires y sont traitées comme des espèces qui se ramifient, et qui peuvent aussi s'hybrider. Les liens continus indiquent des filiations formelles directes et documentées ; les liens tiretés, des emprunts ou des filiations hypothétiques, ou des liens entre traditions nettement distinctes.
+  Ces arborescences s'inspirent de la méthode de Franco Moretti dans « The Slaughterhouse of Literature » (<em>MLQ</em>, 2000) et <em>Graphs, Maps, Trees</em> (2005) : les formes littéraires y sont traitées comme des espèces qui se ramifient, s'hybrident et parfois disparaissent. Les liens tiretés indiquent des hybridations ou emprunts documentés entre traditions distinctes ; les liens continus, des filiations génériques directes au sein d'une même tradition.
 </p>
 
 <footer>Données provisoires</footer>
@@ -358,7 +359,6 @@ async function switchTree(key) {
   } catch (err) {
     setTabActive(key);
     document.getElementById("tree-desc").textContent = "";
-    document.getElementById("sources-bar").innerHTML = "";
     document.getElementById("detail-inner").innerHTML =
       `<p class="detail-placeholder" style="color:#c07a50">
         Erreur de chargement (${err.message}).
@@ -368,8 +368,6 @@ async function switchTree(key) {
 
   setTabActive(key);
   document.getElementById("tree-desc").innerHTML = tree.desc || "";
-  document.getElementById("sources-bar").innerHTML =
-    tree.sources ? "Sources : " + tree.sources : "";
   document.getElementById("detail-inner").innerHTML =
     '<p class="detail-placeholder">Cliquez sur un nœud pour afficher les détails.</p>';
 
