@@ -1,338 +1,388 @@
 {
-  "key": "versLibre",
-  "label": "Vers libre",
-  "status": "draft",
-  "desc": "Triple histoire du vers libre : pseudotraductions romantiques (masque de l'étranger pour passer des formes nouvelles en contrebande), vers libre littéraire mondial (Whitman, Maïakovski, modernismes brésilien et chinois, Beat), et vers libre en traduction savante ou littéraire (hexamètre grec, parallélismes bibliques, épopées extra-européennes). Les trois fils se nouent en 1886 dans <em>La Vogue</em>.",
-  "sources": "Dobbs-Allsopp, <em>Divine Style: Walt Whitman and the King James Bible</em> (2024) · Lombez, « La traduction supposée » (<em>Linguistica Antverpiensia</em>, 2005) · Lombez, « Le vers libre comme « forme-sens » » (<em>Romantisme</em>, 2008) · Allen, « Biblical Analogies for Walt Whitman's Prosody » (1933) · Asselineau, <em>The Evolution of Walt Whitman</em> (1962) · Reynolds, <em>Walt Whitman's America</em> (1995) · Michelle Yeh, <em>Modern Chinese Poetry</em> (Yale UP, 1991) · Kā. Nā. Subramanyam (théorie du <em>pudu kavitai</em> tamoul) · Meschonnic, <em>Pour la poétique II</em> (1973)",
-  "root": {
-    "id": "bible-hebraique",
-    "label": "Parallélisme biblique hébraïque",
-    "year": "Ier millénaire av. J.-C.",
-    "type": "root",
-    "detail": "La poésie biblique hébraïque repose non sur le mètre mais sur le parallélisme syntaxique : reprise, variation ou inversion d'une structure dans le verset suivant. Robert Lowth en propose la première théorisation savante dans ses <em>Lectures on the Sacred Poetry of the Hebrews</em> (1753, trad. anglaise 1787). Dobbs-Allsopp (<em>Divine Style</em>, 2024) affirme catégoriquement : « La poésie biblique n'est pas métrique. C'est du vers libre. » Le parallélisme biblique constitue la source formelle directe de Whitman via la chaîne Lowth → Emerson → Whitman, et le modèle prosodique que Meschonnic s'efforcera de rendre en français dans ses traductions (1970). Source parallèle non hébraïque : la poésie akkadienne (parallélismes de l'épopée de Gilgamesh), qui entre dans le vers libre français par la contrainte philologique de la traduction savante (Dhorme, 1907).",
+"key": "versLibre",
+"label": "Vers libre",
+"status": "draft",
+"desc": "Triple histoire du vers libre : pseudotraductions romantiques (masque de l'étranger pour passer des formes nouvelles en contrebande), vers libre littéraire mondial (Whitman, Maïakovski, modernismes brésilien et chinois, Beat), et vers libre en traduction savante ou littéraire (hexamètre grec, parallélismes bibliques, épopées extra-européennes). Les trois fils se nouent en 1886 dans <em>La Vogue</em>.",
+"sources": "Dobbs-Allsopp, <em>Divine Style: Walt Whitman and the King James Bible</em> (2024) · Lombez, « La traduction supposée » (<em>Linguistica Antverpiensia</em>, 2005) · Lombez, « Le vers libre comme forme-sens » (<em>Romantisme</em>, 2008) · Peterson, « Mayakovsky and Whitman: The Icon and the Mosaic » (<em>Slavic Review</em>, 1969) · Allen, « Biblical Analogies for Walt Whitman's Prosody » (1933) · Asselineau, <em>The Evolution of Walt Whitman</em> (1962) · Michelle Yeh, <em>Modern Chinese Poetry</em> (Yale UP, 1991) · Kā. Nā. Subramanyam (théorie du <em>pudu kavitai</em> tamoul) · Meschonnic, <em>Pour la poétique II</em> (1973) · Blasing, <em>Nâzım Hikmet: The Life and Times of Turkey's World Poet</em> (2013)",
+"root": {
+"id": "_virtual",
+"hidden": true,
+"children": [
+
+{
+"id": "pseudotraduction",
+"label": "Pseudotraduction romantique",
+"year": "1827–1831",
+"type": "root",
+"detail": "Premier tronc. Lombez (<em>Linguistica Antverpiensia</em>, 2005) montre que la pseudotraduction — texte original présenté comme traduit — a servi de vecteur clandestin pour introduire des formes prosodiques déviantes dans un système littéraire français réfractaire à l'innovation formelle directe. La marge de tolérance du lectorat est plus grande pour une déviance attribuée à l'étranger. Les pseudotraductions fonctionnent comme des « révélateurs d'îlots manquants » dans la littérature d'accueil. Macpherson (<em>Ossian</em>, 1762) est le prédécesseur fondateur de cette stratégie, mais ses textes sont en prose cadencée, pas en vers libre : c'est la <em>stratégie</em> d'Ossian qui est héritée, non sa prosodie. Ce fil converge avec le vers libre littéraire en 1886 dans <em>La Vogue</em>, où la traduction réelle (Laforgue traduit Whitman) et le vers libre d'auteur naissent simultanément — la pseudotraduction ayant préparé le terrain de la tolérance.",
+"children": [
+  {
+  "id": "merimee",
+  "label": "Mérimée — La Guzla",
+  "year": "1827",
+  "type": "branch",
+  "detail": "Poèmes illyriens fictifs présentés comme traduits de la Dalmatie. Mérimée invente un style « barbare », sans rime ni mètre régulier, impossible à publier sous signature française directe. Mystifie Goethe et Pouchkine. <em>La Guzla</em> s'inscrit dans la lignée de Macpherson (<em>Ossian</em>, 1762), mais en radicalise le geste : là où Macpherson imitait une prose épique, Mérimée expérimente une prosodie fragmentée et dépouillée. La pseudotraduction fonctionne comme révélateur d'un « îlot manquant » (Lombez) dans le système littéraire français."
+  },
+  {
+  "id": "nerval",
+  "label": "Nerval — pseudotraductions de l'allemand",
+  "year": "1831",
+  "type": "branch",
+  "detail": "Gérard de Nerval publie dans le <em>Mercure de France</em> des poèmes attribués à Jean-Paul Richter et à Bürger, dont aucun original allemand n'a jamais été retrouvé. L'un d'eux, d'abord en prose, sera réapproprié en vers dans les <em>Odelettes</em>. La frontière entre vraie et fausse traduction révèle l'espace d'expérimentation que la pseudotraduction ouvre au poète. Nerval illustre le passage de la prose d'emprunt au vers personnel via le masque de l'étranger."
+  }
+]
+},
+
+{
+"id": "vl-litteraire",
+"label": "Vers libre littéraire mondial",
+"year": "XIXe–XXIe s.",
+"type": "root",
+"detail": "Deuxième tronc. Deux origines indépendantes convergent : la filiation Bible hébraïque → Whitman (parallélismes non métriques, voie anglo-américaine) et le cubo-futurisme russe → Maïakovski (rupture typographique-accentuelle endogène). Peterson (<em>Slavic Review</em>, 1969) a solidement établi que la rupture métrique de Maïakovski est d'abord endogène ; la comparaison avec Whitman fonctionne mieux comme analogie fonctionnelle (mêmes ambitions orales, même « je » hyperbolique) que comme filiation formelle directe.",
+"children": [
+
+{
+"id": "bible-hebraique",
+"label": "Parallélisme biblique hébraïque",
+"year": "Ier millénaire av. J.-C.",
+"type": "main",
+"detail": "La poésie biblique hébraïque repose non sur le mètre mais sur le parallélisme syntaxique : reprise, variation ou inversion d'une structure dans le verset suivant. Robert Lowth en propose la première théorisation savante dans ses <em>Lectures on the Sacred Poetry of the Hebrews</em> (1753, trad. anglaise 1787). Dobbs-Allsopp (<em>Divine Style</em>, 2024) affirme catégoriquement : « La poésie biblique n'est pas métrique. C'est du vers libre. » Le parallélisme biblique constitue la source formelle directe de Whitman via la chaîne Lowth → Emerson → Whitman. Source parallèle non hébraïque : la poésie akkadienne (parallélismes de l'épopée de Gilgamesh), qui entre dans le vers libre français par la traduction savante (R. P. Paul Dhorme, 1907 — voir tronc 3).",
+"children": [
+  {
+  "id": "lowth",
+  "label": "Robert Lowth — théorisation du parallélisme",
+  "year": "1753",
+  "type": "main",
+  "detail": "Lowth, évêque d'Oxford, identifie dans ses <em>Praelectiones</em> (1753) le <em>parallelismus membrorum</em> comme principe organisateur de la poésie hébraïque, distinct de tout mètre quantitatif ou accentuel. Il distingue trois types (synonymique, antithétique, synthétique). Cette théorisation a deux effets historiques décisifs : elle fournit un modèle de « poésie sans mètre » qui sera lu par les transcendantalistes américains, et elle légitime intellectuellement l'idée qu'une grande poésie puisse exister sans versification régulière.",
+  "children": [
+    {
+    "id": "emerson",
+    "label": "Emerson — « The Poet »",
+    "year": "1844",
+    "type": "main",
+    "detail": "Ralph Waldo Emerson, qui a lu Lowth étudiant, énonce dans « The Poet » (1844) le principe organique : le poème doit « bourgeonner de lui-même comme des lilas ou des roses sur un buisson », développant ses propres lois formelles plutôt que de se couler dans un moule préexistant. Whitman déclarera : « I was simmering, simmering, simmering ; Emerson brought me to a boil » (à Trowbridge, 1860).",
     "children": [
       {
-        "id": "lowth",
-        "label": "Robert Lowth — théorisation",
-        "year": "1753",
+      "id": "whitman",
+      "label": "Walt Whitman — Leaves of Grass",
+      "year": "1855",
+      "type": "main",
+      "detail": "Fondation du vers libre moderne. Long verset blanc fondé sur le parallélisme, le catalogue et l'anaphore, directement dérivé de la prosodie biblique via Emerson. Whitman s'adresse au lecteur dans un « je » démesuré et démocratique. Ignoré en Amérique à sa sortie (1855), redécouvert en Europe (Rossetti en Angleterre, Laforgue en France) avant de conquérir son propre pays — parcours de « circulation de retour ». Allen (1933) a le premier démontré les analogies prosodiques bibliques ; Dobbs-Allsopp (2024) fournit la synthèse définitive. Whitman est le nœud à partir duquel le vers libre se diffuse mondialement.",
+      "children": [
+        {
+        "id": "laforgue",
+        "label": "Laforgue traduit Whitman — La Vogue",
+        "year": "1886",
         "type": "main",
-        "detail": "Lowth, évêque d'Oxford, identifie dans ses <em>Praelectiones</em> (1753) le <em>parallelismus membrorum</em> comme principe organisateur de la poésie hébraïque, distinct de tout mètre quantitatif ou accentuel. Il distingue trois types (synonymique, antithétique, synthétique). Cette théorisation a deux effets historiques décisifs : elle fournit un modèle de « poésie sans mètre » qui sera lu par les transcendantalistes américains, et elle légitime intellectuellement l'idée qu'une grande poésie puisse exister sans versification régulière.",
+        "detail": "Jules Laforgue publie ses traductions de <em>Leaves of Grass</em> dans <em>La Vogue</em> en juin 1886. La semaine suivante paraissent ses premiers vers libres personnels dans la même revue. Kahn et Moréas publient simultanément des vers libres dans d'autres livraisons. Moment fondateur : la traduction comme catalyseur du vers libre français (Lombez, <em>Romantisme</em>, 2008). C'est dans <em>La Vogue</em> que convergent pseudotraduction (tolérance acquise — voir tronc 1), traduction réelle (Laforgue traduit Whitman) et vers libre d'auteur.",
+        "linkTitle": "Whitman → Laforgue · traduction comme catalyseur",
+        "linkDetail": "Laforgue traduit Whitman à Berlin en 1886, où il est lecteur de l'impératrice Augusta. Il publie dans <em>La Vogue</em>, petite revue symboliste parisienne fondée par Gustave Kahn. La proximité temporelle entre la traduction et les premiers vers libres personnels de Laforgue (même mois, même revue) est le fait central. Lombez (2008) montre que la traduction fonctionne ici comme opération de légitimation.",
         "children": [
           {
-            "id": "emerson",
-            "label": "Emerson — « The Poet »",
-            "year": "1844",
+          "id": "kahn",
+          "label": "Gustave Kahn — théorisation",
+          "year": "1886–1897",
+          "type": "branch",
+          "detail": "Kahn, fondateur de <em>La Vogue</em>, revendique la paternité du vers libre français et en propose la première théorisation dans la préface de ses <em>Premiers poèmes</em> (1897). Il définit le vers libre par la substitution du rythme personnel au mètre collectif. Son rôle est plus théorique que poétique."
+          },
+          {
+          "id": "verhaeren",
+          "label": "Émile Verhaeren",
+          "year": "1887–1911",
+          "type": "main",
+          "detail": "Verhaeren (1855–1916) s'empare du vers libre symboliste avec une puissance rythmique qui en fait une forme majeure et non expérimentale. <em>Les Soirs</em> (1887), <em>Les Débâcles</em>, <em>Les Flambeaux noirs</em>, <em>Les Villes tentaculaires</em> (1895). Premier francophone à donner au vers libre une ampleur épique comparable à celle de Whitman. Influence considérable sur Zweig, Rolland, les expressionnistes allemands. Très présent en Russie symboliste, où il est considéré comme un « poète russe » d'adoption (Tchoukovksi le cite aux côtés de Whitman) — ce qui en fait un maillon possible, quoique non démontré, de la chaîne vers Maïakovski. Ai Qing le découvre à Paris (1929–1932).",
+          "children": [
+            {
+            "id": "cesaire",
+            "label": "Aimé Césaire — Cahier d'un retour au pays natal",
+            "year": "1939/1947",
             "type": "main",
-            "detail": "Ralph Waldo Emerson, qui a lu Lowth étudiant, énonce dans « The Poet » (1844) le principe organique : le poème doit « bourgeonner de lui-même comme des lilas ou des roses sur un buisson », développant ses propres lois formelles plutôt que de se couler dans un moule préexistant. Whitman déclarera : « I was simmering, simmering, simmering ; Emerson brought me to a boil » (à Trowbridge, 1860). Le lien Lowth → Emerson → Whitman est la chaîne généalogique la plus documentée du vers libre.",
+            "detail": "Long verset surréaliste et africain. Césaire forge un vers libre qui dévore toutes les langues pour restituer la violence coloniale et l'élan de la négritude. Publié d'abord en 1939 dans <em>Volontés</em>, édition définitive avec préface de Breton en 1947. Descend à la fois de Whitman (souffle du catalogue), du surréalisme (Breton, Lautréamont) et de Verhaeren (ampleur déclamatoire). Ouvre la voie au vers libre francophone postcolonial.",
             "children": [
               {
-                "id": "whitman",
-                "label": "Walt Whitman — Leaves of Grass",
-                "year": "1855",
-                "type": "main",
-                "detail": "Fondation du vers libre moderne. Long verset blanc fondé sur le parallélisme, le catalogue et l'anaphore, directement dérivé de la prosodie biblique via Emerson. Whitman s'adresse au lecteur dans un « je » démesuré et démocratique. Ignoré en Amérique à sa sortie (1855), redécouvert en Europe (notamment par les frères Rossetti en Angleterre et Laforgue en France) avant de conquérir son propre pays — parcours de « circulation de retour ». Allen (1933) a le premier démontré les analogies prosodiques bibliques ; Dobbs-Allsopp (2024) fournit la synthèse définitive. Triple causalité : Bible hébraïque (forme), Emerson (théorie), voix prophétique-épique (ambition). Whitman est le nœud à partir duquel le vers libre se diffuse mondialement en au moins cinq directions indépendantes (France, Angleterre, Chine, Brésil, Amérique hispanique).",
-                "children": [
-                  {
-                    "id": "laforgue",
-                    "label": "Laforgue traduit Whitman — La Vogue",
-                    "year": "1886",
-                    "type": "main",
-                    "detail": "Jules Laforgue publie ses traductions de <em>Leaves of Grass</em> dans <em>La Vogue</em> en juin 1886. La semaine suivante paraissent ses premiers vers libres personnels dans la même revue. Kahn et Moréas publient simultanément des vers libres dans d'autres livraisons. Moment fondateur : la traduction comme catalyseur du vers libre français (Lombez, <em>Romantisme</em>, 2008). C'est dans <em>La Vogue</em> que convergent les trois fils du vers libre : la pseudotraduction (tolérance acquise pour les formes déviantes depuis Mérimée et Nerval), la traduction réelle (Laforgue traduit Whitman), et le vers libre d'auteur (Laforgue, Kahn, Moréas). Le nœud de 1886 est le moment de cristallisation du vers libre français.",
-                    "linkTitle": "Whitman → Laforgue · traduction comme catalyseur",
-                    "linkDetail": "Laforgue traduit Whitman à Berlin en 1886, où il est lecteur de l'impératrice Augusta. Il publie dans <em>La Vogue</em>, petite revue symboliste parisienne fondée par Gustave Kahn. La proximité temporelle entre la traduction et les premiers vers libres personnels de Laforgue (même mois, même revue) est le fait central. Lombez (2008) montre que la traduction fonctionne ici comme opération de légitimation : la forme déviante est d'abord importée comme forme étrangère, puis réappropriée. Le vecteur matériel est la petite revue symboliste, infrastructure éditoriale à faible tirage mais à forte influence sur les pairs.",
-                    "children": [
-                      {
-                        "id": "kahn",
-                        "label": "Gustave Kahn — théorisation",
-                        "year": "1886–1897",
-                        "type": "branch",
-                        "detail": "Kahn, fondateur de <em>La Vogue</em>, revendique la paternité du vers libre français et en propose la première théorisation dans la préface de ses <em>Premiers poèmes</em> (1897). Il définit le vers libre par la substitution du rythme personnel au mètre collectif. Son rôle est plus théorique que poétique : la qualité de ses vers ne soutient pas la comparaison avec Laforgue ou Verhaeren, mais sa position de fondateur-théoricien-éditeur lui assure un rôle institutionnel décisif."
-                      },
-                      {
-                        "id": "verhaeren",
-                        "label": "Émile Verhaeren",
-                        "year": "1887–1911",
-                        "type": "main",
-                        "detail": "Verhaeren (1855–1916) s'empare du vers libre symboliste avec une puissance rythmique qui en fait une forme majeure et non expérimentale. <em>Les Soirs</em> (1887), <em>Les Débâcles</em>, <em>Les Flambeaux noirs</em>, puis les grands recueils de la maturité (<em>Les Villes tentaculaires</em>, 1895). Il est le premier francophone à donner au vers libre une ampleur épique comparable à celle de Whitman. Influence considérable sur Stefan Zweig, Romain Rolland, les expressionnistes allemands, et — par ses traductions — sur Ai Qing qui le découvre à Paris (1929–1932).",
-                        "children": [
-                          {
-                            "id": "cesaire",
-                            "label": "Aimé Césaire — Cahier d'un retour au pays natal",
-                            "year": "1939/1947",
-                            "type": "main",
-                            "detail": "Long verset surréaliste et africain. Césaire forge un vers libre qui dévore toutes les langues pour restituer la violence coloniale et l'élan de la négritude. Publié d'abord en 1939 dans <em>Volontés</em>, l'édition définitive avec préface de Breton paraît en 1947. Le vers libre de Césaire descend à la fois de Whitman (souffle du catalogue), du surréalisme (Breton, Lautréamont) et de Verhaeren (ampleur déclamatoire). Il ouvre la voie au vers libre francophone postcolonial (Glissant, Depestre, U Tam'si).",
-                            "children": [
-                              {
-                                "id": "vl-francophone-postcolonial",
-                                "label": "Vers libre francophone postcolonial",
-                                "year": "1950–",
-                                "type": "stub",
-                                "detail": "[À développer.] Glissant, Depestre, Tchicaya U Tam'si, Sony Labou Tansi. Le vers libre comme forme de la décolonisation linguistique dans la francophonie. Question ouverte : le vers libre postcolonial francophone hérite-t-il davantage de Césaire ou de traditions orales locales reformulées à l'écrit ?"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "id": "eliot",
-                        "label": "T. S. Eliot — The Waste Land",
-                        "year": "1922",
-                        "type": "main",
-                        "detail": "Synthèse du vers libre moderniste anglophone. Eliot mêle citations (Dante, Shakespeare, Upanishads), langues (anglais, allemand, français, sanskrit) et registres dans une composition polyphonique. Profondément influencé par Laforgue (qu'il lit en 1908 à Harvard) et le symbolisme français. La filiation est double : Whitman → Laforgue → Eliot (indirecte, via le vers libre symboliste) et Whitman → Pound → Eliot (directe, via l'Imagisme). Eliot, paradoxalement, dénigre Whitman tout en héritant de sa forme.",
-                        "linkTitle": "Laforgue → Eliot · la filière symboliste",
-                        "linkDetail": "Eliot découvre Laforgue en 1908 dans le livre d'Arthur Symons <em>The Symbolist Movement in Literature</em> (1899) et le lit en français. Il adopte l'ironie laforguienne, le monologue intérieur en vers, et la liberté rythmique du vers libre symboliste. La transmission passe par le circuit livresque anglo-français (Symons comme passeur) et par Harvard (où Eliot est étudiant). Le vers libre d'Eliot est donc un vers libre de seconde génération, médiatisé par le symbolisme français, non un vers libre whitmanien direct."
-                      }
-                    ]
-                  },
-                  {
-                    "id": "imagisme",
-                    "label": "Imagisme — Pound, H.D., Lowell",
-                    "year": "1912–1917",
-                    "type": "main",
-                    "detail": "Pound fonde l'Imagisme à Londres avec Hilda Doolittle (H.D.) et Richard Aldington. Trois règles : image directe, économie de mots, liberté rythmique (« compose in the sequence of the musical phrase, not in sequence of a metronome »). Pound lie explicitement le vers libre anglophone à la traduction de la poésie chinoise (<em>Cathay</em>, 1915) et japonaise (haïku). L'Imagisme irrigue tout le vers libre anglophone du XXe siècle. La filiation avec Whitman est revendiquée et contestée à la fois (Pound : « I make a pact with you, Walt Whitman »).",
-                    "linkTitle": "Whitman → Imagisme · filiation revendiquée et contestée",
-                    "linkDetail": "Pound reconnaît explicitement la dette envers Whitman dans « A Pact » (1913) tout en s'en distanciant formellement. L'Imagisme condense le verset whitmanien en image brève ; le geste est inverse (contraction vs expansion) mais le principe de liberté rythmique est le même. Le vecteur est la revue <em>Poetry</em> (Chicago, fondée 1912 par Harriet Monroe), qui publie à la fois les imagistes et constitue le canal par lequel Hu Shi découvrira le vers libre anglophone.",
-                    "children": [
-                      {
-                        "id": "beat",
-                        "label": "Beat Generation — Ginsberg, Howl",
-                        "year": "1955–",
-                        "type": "branch",
-                        "detail": "Allen Ginsberg renoue avec le verset whitmanien lors de la lecture de <em>Howl</em> à la Gallery Six de San Francisco (octobre 1955). Catalogue, anaphore, souffle épique : retour explicite à Whitman contre le formalisme New Critical. Procès pour obscénité (1957). Acte fondateur de la contre-culture poétique américaine. Kerouac pratique simultanément le haïku Beat (croisement avec l'arbre haïku). La Beat Generation diffuse le vers libre whitmanien vers le monde entier via les traductions des années 1960–70.",
-                        "linkTitle": "Whitman → Ginsberg · retour au verset long",
-                        "linkDetail": "Ginsberg revendique explicitement Whitman comme ancêtre dans la dédicace de <em>Howl</em> (« I saw the best minds of my generation… »). Le retour au verset whitmanien se fait contre l'académisme du vers libre imagiste et du New Criticism. Le vecteur est la performance orale (Gallery Six, 1955) autant que la publication : le vers libre redevient voix publique, comme chez Whitman."
-                      }
-                    ]
-                  },
-                  {
-                    "id": "hu-shi",
-                    "label": "Hu Shi 胡適 — Changshi ji (Tentatives)",
-                    "year": "1917/1920",
-                    "type": "main",
-                    "detail": "Double rupture sans équivalent en Occident : Hu Shi abandonne simultanément la prosodie classique — schémas tonaux <em>ping/ze</em> (平仄), parallélismes obligatoires (<em>duizhang</em> 对仗), rimes codifiées — ET le chinois classique (<em>wenyan</em> 文言) pour le vernaculaire (<em>baihua</em> 白话). Son manifeste « Wenxue gailiang chuyi » (1917) théorise la révolution ; son recueil <em>Changshi ji</em> (尝试集, <em>Tentatives</em>, 1920) est le premier livre de <em>xinshi</em> (新诗, poésie nouvelle). Influencé par la revue <em>Poetry</em> de Chicago et par Whitman, qu'il lit comme étudiant à Columbia. Hu Shi conçoit le vers libre en baihua comme la « septième révolution de la poésie chinoise », après Qu Yuan, les <em>shi</em> pentasyllabiques, les <em>ci</em> des Song et le théâtre des Yuan. Réf. : Michelle Yeh, <em>Modern Chinese Poetry</em> (Yale UP, 1991).",
-                    "linkTitle": "Whitman → Hu Shi · Poetry Chicago et Columbia",
-                    "linkDetail": "Hu Shi lit Whitman et la revue <em>Poetry</em> de Chicago alors qu'il est étudiant à Columbia (1910–1917). La transmission passe par l'infrastructure universitaire américaine et la presse littéraire de Chicago. Le parallèle avec Laforgue est structurellement exact : un poète étranger découvre Whitman dans la langue source, traduit l'impulsion en vers libres dans sa propre langue, et fonde un mouvement. Mais la rupture chinoise est double (langue + prosodie) là où la rupture française n'est que prosodique.",
-                    "children": [
-                      {
-                        "id": "guo-moruo",
-                        "label": "Guo Moruo 郭沫若 — Nüshen (Les Déesses)",
-                        "year": "1921",
-                        "type": "branch",
-                        "detail": "Guo Moruo (1892–1978), formé au Japon, digère Whitman, Shelley, Goethe et Tagore dans un vers libre véhément, cosmique, déclamatoire. <em>Nüshen</em> (女神, <em>Les Déesses</em>, 1921) fait du <em>xinshi</em> une forme majeure. Guo Moruo est au vers libre chinois ce que Verhaeren est au vers libre français : celui qui transforme l'expérience de laboratoire en puissance littéraire. Cofondateur de la Société de la Création (创造社).",
-                        "children": [
-                          {
-                            "id": "wen-yiduo",
-                            "label": "[Wen Yiduo 闻一多 — contre-courant formaliste]",
-                            "year": "1926",
-                            "type": "branch",
-                            "detail": "Wen Yiduo (1899–1946) plaide pour un <em>xinshi</em> formel : vers régulier en vernaculaire, « beauté de la musique, beauté de l'architecture ». Son recueil <em>Sishui</em> (死水, <em>Eau morte</em>, 1928) impose un vers nouveau régulier et mesuré. Ce débat vers libre / vers régulier à l'intérieur du <em>xinshi</em> reproduit exactement la tension Hekigotō / Kyoshi dans le haïku japonais, et Kahn / néo-parnassiens dans le vers libre français. Wen Yiduo montre que la « libération » prosodique est toujours suivie d'un mouvement de reformalisation."
-                          }
-                        ]
-                      },
-                      {
-                        "id": "bing-xin",
-                        "label": "Bing Xin 冰心 — Étoiles / Eaux printanières",
-                        "year": "1922",
-                        "type": "branch",
-                        "detail": "Bing Xin (Xie Wanying, 1900–1999) publie <em>Fanxing</em> (繁星, <em>Étoiles</em>) et <em>Chunshui</em> (春水, <em>Eaux printanières</em>), premiers recueils de vers libres féminins en chinois. Courts poèmes fragmentés, prose lyrique d'une douceur nouvelle, inspirés de Tagore et Whitman lus en traduction anglaise. Première grande poétesse chinoise moderne ; son œuvre influencera directement Ai Qing."
-                      },
-                      {
-                        "id": "ai-qing",
-                        "label": "Ai Qing 艾青 — La Rivière de Dayan",
-                        "year": "1933",
-                        "type": "main",
-                        "detail": "Ai Qing (Jiang Haicheng, 1910–1996) écrit en prison son long poème <em>Dayanhe — wo de baomu</em> (大堰河——我的保姆, 1933). Vers libre épique en <em>baihua</em>, influencé par Apollinaire, Verhaeren et le symbolisme français, découverts lors de son séjour parisien (1929–1932). Ai Qing est la figure centrale de la poésie chinoise du XXe siècle. Il hérite de la double rupture de Hu Shi (langue + prosodie), de l'ampleur déclamatoire de Guo Moruo, et d'une veine sociale qui converge idéologiquement avec Maïakovski — sans que la forme du vers-escalier (<em>лесенка</em>) soit adoptée : Ai Qing écrit un vers libre continu, non typographiquement découpé.",
-                        "crossLink": "maiakovski",
-                        "crossLinkTitle": "Maïakovski ··· Ai Qing · convergence idéologique, pas formelle",
-                        "crossLinkDetail": "Ai Qing et Maïakovski partagent l'engagement révolutionnaire et le vers libre au service de la voix collective, mais leurs formes divergent. Le vers-escalier de Maïakovski (disposition typographique en marches) n'est pas adopté par Ai Qing, qui écrit un vers libre continu dérivé du symbolisme français (Apollinaire, Verhaeren). La convergence est idéologique et thématique, non formelle. Hikmet, en revanche, adopte directement le vers-escalier (voir branche russe). Lien en pointillés."
-                      }
-                    ]
-                  },
-                  {
-                    "id": "bresil-1922",
-                    "label": "Semaine d'Art Moderne — São Paulo",
-                    "year": "1922",
-                    "type": "main",
-                    "detail": "Fondation du modernisme brésilien (février 1922). Mário de Andrade : <em>Paulicéia Desvairada</em> (vers libre urbain, polyphonique). Oswald de Andrade : vers court, syncopé, « cannibale » (<em>Manifesto Antropófago</em>, 1928). Manuel Bandeira : vers libre mélancolique et populaire. Rupture radicale avec le Parnasse portugais, qui dominait la poésie brésilienne depuis le XIXe siècle. Whitman est une référence explicite, mais le modernisme brésilien puise aussi dans les avant-gardes européennes (futurisme, dadaïsme) et revendique la « déglutition » des influences étrangères.",
-                    "linkTitle": "Whitman → modernisme brésilien · via futurisme et avant-gardes",
-                    "linkDetail": "La filiation est indirecte : Whitman arrive au Brésil médiatisé par le futurisme italien (Marinetti) et les avant-gardes parisiennes. La Semaine de 1922 est contemporaine de <em>The Waste Land</em>, de <em>Ulysses</em> et du <em>xinshi</em> chinois — convergence mondiale des modernismes vers le vers libre, par des voies indépendantes mais partiellement interconnectées.",
-                    "children": [
-                      {
-                        "id": "bandeira",
-                        "label": "Manuel Bandeira — Libertinagem",
-                        "year": "1930",
-                        "type": "branch",
-                        "detail": "Recueil emblématique du vers libre brésilien. Bandeira, surnommé « São João Batista du modernisme brésilien », y perfectionne un vers libre intime, ironique, populaire — ni académique ni futuriste. « Vou-me embora pra Pasárgada » est devenu l'un des poèmes les plus célèbres de la langue portugaise. Bandeira montre que le vers libre peut être une forme de la simplicité et de la tendresse, et non seulement de la rupture héroïque."
-                      }
-                    ]
-                  },
-                  {
-                    "id": "vallejo",
-                    "label": "César Vallejo — Poemas humanos",
-                    "year": "1939 (posthume)",
-                    "type": "main",
-                    "detail": "Écrits à Paris entre 1923 et 1938, publiés posthumément. Vers libre espagnol d'une étrangeté syntaxique radicale : Vallejo brise la grammaire pour exprimer la douleur collective. Influence décisive sur toute la poésie hispano-américaine du XXe siècle. Vallejo absorbe le vers libre français (il vit à Paris) et le transforme en un idiome personnel inclassable. La filiation avec Whitman est médiatisée par le modernisme hispano-américain (Darío, Huidobro).",
-                    "children": [
-                      {
-                        "id": "vl-hispanoamericain",
-                        "label": "Vers libre hispano-américain",
-                        "year": "1930–",
-                        "type": "stub",
-                        "detail": "[À développer.] Huidobro (<em>Altazor</em>, 1931, créationnisme chilien), Neruda (<em>Residencia en la tierra</em>, 1933–35), Paz (<em>Piedra de sol</em>, 1957). Filière Whitman → Darío → modernisme hispano-américain. Question ouverte : la poésie gauchesca (Hernández) constitue-t-elle une source parallèle de vers libre populaire en espagnol ?"
-                      }
-                    ]
-                  }
-                ]
+              "id": "vl-francophone-postcolonial",
+              "label": "Vers libre francophone postcolonial",
+              "year": "1950–",
+              "type": "stub",
+              "detail": "[À développer.] Glissant, Depestre, Tchicaya U Tam'si, Sony Labou Tansi. Le vers libre comme forme de la décolonisation linguistique dans la francophonie."
               }
             ]
+            }
+          ]
           }
         ]
-      },
-      {
-        "id": "pseudotraduction",
-        "label": "Pseudotraduction romantique",
-        "year": "1827–1831",
-        "type": "branch",
-        "detail": "Fil autonome qui converge avec le vers libre littéraire en 1886. Lombez (<em>Linguistica Antverpiensia</em>, 2005) montre que la pseudotraduction — texte original présenté comme traduit — a servi de vecteur clandestin pour introduire des formes prosodiques déviantes dans un système littéraire français réfractaire à l'innovation formelle directe. La marge de tolérance du lectorat est plus grande pour une déviance attribuée à l'étranger. Macpherson (<em>Ossian</em>, 1762) est le prédécesseur fondateur de cette stratégie, mais ses textes ne sont pas en vers libre : ils sont en prose cadencée, et leur effet en France passe par les traductions de Letourneur (1777). C'est la <em>stratégie</em> d'Ossian qui est héritée, non sa prosodie.",
-        "children": [
-          {
-            "id": "merimee",
-            "label": "Mérimée — La Guzla",
-            "year": "1827",
-            "type": "branch",
-            "detail": "Poèmes illyriens fictifs présentés comme traduits de la Dalmatie. Mérimée invente un style « barbare », sans rime ni mètre régulier, impossible à publier sous signature française directe. Mystifie Goethe et Pouchkine. La Guzla s'inscrit dans la lignée d'Ossian (Macpherson, 1762), mais en radicalise le geste : là où Macpherson imitait une prose épique, Mérimée expérimente une prosodie fragmentée et dépouillée. La pseudotraduction fonctionne comme révélateur d'un « îlot manquant » (Lombez) dans le système littéraire français."
-          },
-          {
-            "id": "nerval",
-            "label": "Nerval — pseudotraductions de l'allemand",
-            "year": "1831",
-            "type": "branch",
-            "detail": "Gérard de Nerval publie dans le <em>Mercure de France</em> des poèmes attribués à Jean-Paul Richter et à Bürger, dont aucun original allemand n'a jamais été retrouvé. L'un d'eux, d'abord en prose, sera réapproprié en vers dans les <em>Odelettes</em>. La frontière entre vraie et fausse traduction révèle l'espace d'expérimentation que la pseudotraduction ouvre au poète. Nerval illustre le passage de la prose d'emprunt au vers personnel via le masque de l'étranger."
-          }
-        ]
-      },
-      {
-        "id": "maiakovski",
-        "label": "Maïakovski — vers-escalier (лесенка)",
-        "year": "1912–1930",
+        },
+        {
+        "id": "imagisme",
+        "label": "Imagisme — Pound, H.D., Lowell",
+        "year": "1912–1917",
         "type": "main",
-        "detail": "Branche russe indépendante de la filiation Whitman. Vladimir Maïakovski (1893–1930) invente le vers-escalier (<em>лесенка</em>), disposition typographique où chaque « marche » correspond à une unité rythmique accentuelle. Rupture radicale avec la métrique syllabo-tonique russe (Pouchkine, Lermontov). Vers libre au service d'une voix urbaine, futuriste, révolutionnaire. La rime subsiste chez Maïakovski mais change de fonction : elle devient percussion et non ornementation. Son suicide en 1930 n'interrompt pas la diffusion : ses poèmes seront traduits en vers libres dans des dizaines de langues, propageant le modèle du vers rythmique accentuel non métrique. Influence directe et formelle sur Hikmet ; convergence idéologique (mais pas formelle) avec Ai Qing.",
+        "detail": "Pound fonde l'Imagisme à Londres avec Hilda Doolittle (H.D.) et Richard Aldington. Trois règles : image directe, économie de mots, liberté rythmique (« compose in the sequence of the musical phrase, not in sequence of a metronome »). Pound lie explicitement le vers libre anglophone à la traduction de la poésie chinoise (<em>Cathay</em>, 1915) et japonaise (haïku). La filiation avec Whitman est revendiquée et contestée à la fois (Pound : « A Pact », 1913). La revue <em>Poetry</em> (Chicago, fondée 1912 par Harriet Monroe) publie les imagistes et constitue le canal par lequel Hu Shi découvrira le vers libre anglophone.",
+        "linkTitle": "Whitman → Imagisme · filiation revendiquée et contestée",
+        "linkDetail": "Pound reconnaît la dette envers Whitman dans « A Pact » (1913) tout en s'en distanciant formellement. L'Imagisme condense le verset whitmanien en image brève ; le geste est inverse (contraction vs expansion) mais le principe de liberté rythmique est le même.",
         "children": [
           {
-            "id": "hikmet",
-            "label": "Nâzım Hikmet",
-            "year": "1929–",
-            "type": "main",
-            "detail": "Hikmet (1902–1963) adopte directement le vers-escalier de Maïakovski après un séjour à Moscou (1921–1928) et l'adapte au turc. Il est le premier poète turc à écrire systématiquement en vers libre, rompant avec la prosodie arabo-persane (<em>aruz</em>) et le syllabisme populaire (<em>hece</em>). Son vers-escalier conserve la disposition typographique en marches de Maïakovski, contrairement à Ai Qing qui n'adopte pas cette forme. L'influence se prolonge vers Neruda et la poésie épique communiste mondiale.",
-            "linkTitle": "Maïakovski → Hikmet · adoption formelle directe",
-            "linkDetail": "Hikmet étudie à Moscou de 1921 à 1928, période où Maïakovski est au sommet de son influence. La transmission est directe, personnelle, dans la langue source (Hikmet lit et parle le russe). Le vers-escalier est adopté intégralement, non adapté : la disposition typographique en marches est la même. Le vecteur est l'infrastructure éducative soviétique (Université des travailleurs d'Orient) et le réseau militant international.",
-            "children": [
-              {
-                "id": "vl-epique-communiste",
-                "label": "Poésie épique communiste",
-                "year": "1930–1970",
-                "type": "stub",
-                "detail": "[À développer. Croisement avec l'arbre « épopée prolétarienne ».] Maïakovski → Hikmet → Neruda (<em>Canto general</em>, 1950) → poésie nord-coréenne d'État. Diffusion du vers libre par les réseaux politiques internationaux (Komintern, congrès d'écrivains). Question ouverte : le vers libre épique communiste constitue-t-il une forme autonome (avec ses propres contraintes : verset long, destinataire collectif, structure hymne/appel) ou une simple variante thématique du vers libre moderniste ?"
-              }
-            ]
+          "id": "eliot",
+          "label": "T. S. Eliot — The Waste Land",
+          "year": "1922",
+          "type": "main",
+          "detail": "Synthèse du vers libre moderniste anglophone. Eliot mêle citations (Dante, Shakespeare, Upanishads), langues (anglais, allemand, français, sanskrit) et registres dans une composition polyphonique. Pound édite directement le manuscrit de <em>The Waste Land</em> et en réduit le volume de moitié — collaboration décisive qui ancre Eliot dans la lignée imagiste. L'autre influence majeure est le symbolisme français : Eliot découvre Laforgue <em>le poète</em> en 1908 via Arthur Symons (<em>The Symbolist Movement in Literature</em>, 1899) et adopte son ironie, son monologue intérieur en vers et sa liberté rythmique — mais cette filiation passe par Laforgue auteur, non par Laforgue traducteur de Whitman. Eliot dénigre Whitman tout en héritant indirectement de sa forme.",
+          "crossLink": "laforgue",
+          "crossLinkTitle": "Laforgue (poète) ··· Eliot · influence symboliste, pas traductologique",
+          "crossLinkDetail": "Eliot est influencé par Laforgue le poète (ironie, monologue intérieur, <em>Complaintes</em>) et non par Laforgue le traducteur de Whitman. La transmission passe par le circuit livresque anglo-français : Symons comme passeur, Harvard comme lieu de réception. Le vers libre d'Eliot est un vers libre de seconde génération, médiatisé par le symbolisme français."
+          },
+          {
+          "id": "beat",
+          "label": "Beat Generation — Ginsberg, Howl",
+          "year": "1955–",
+          "type": "branch",
+          "detail": "Allen Ginsberg renoue avec le verset whitmanien lors de la lecture de <em>Howl</em> à la Gallery Six de San Francisco (octobre 1955). Catalogue, anaphore, souffle épique : retour explicite à Whitman contre le formalisme New Critical. Procès pour obscénité (1957). Kerouac pratique simultanément le haïku Beat (croisement avec l'arbre haïku). La Beat Generation diffuse le vers libre whitmanien vers le monde entier via les traductions des années 1960–70.",
+          "linkTitle": "Whitman → Ginsberg · retour au verset long",
+          "linkDetail": "Ginsberg revendique explicitement Whitman comme ancêtre. Le retour au verset whitmanien se fait contre l'académisme du vers libre imagiste et du New Criticism."
           }
         ]
-      },
-      {
-        "id": "traduction-savante",
-        "label": "Vers libre en traduction savante et littéraire",
-        "year": "1907–",
+        },
+        {
+        "id": "hu-shi",
+        "label": "Hu Shi 胡適 — Changshi ji (Tentatives)",
+        "year": "1917/1920",
         "type": "main",
-        "detail": "Fil parallèle au vers libre d'auteur : le vers libre naît aussi de la contrainte philologique, quand le mètre classique français (alexandrin) s'avère inapte à rendre les prosodies étrangères. Le traducteur invente un vers libre fonctionnel avant même que le terme soit pleinement légitimé. Ce fil passe par la traduction de l'akkadien (Dhorme), du grec homérique (Jaccottet, Backès), du pentamètre iambique anglais (Bonnefoy), de l'hébreu biblique (Meschonnic) et du latin ovidien (Cosnay). Il croise le fil du vers libre littéraire en 1886 (Laforgue traduit Whitman) et en 1970 (Meschonnic théorise le rythme comme organisation du discours, non comme mètre).",
+        "detail": "Double rupture sans équivalent en Occident : Hu Shi abandonne simultanément la prosodie classique — schémas tonaux <em>ping/ze</em> (平仄), parallélismes obligatoires (<em>duizhang</em> 对仗), rimes codifiées — ET le chinois classique (<em>wenyan</em> 文言) pour le vernaculaire (<em>baihua</em> 白话). Son manifeste « Wenxue gailiang chuyi » (1917) théorise la révolution ; son recueil <em>Changshi ji</em> (尝试集, 1920) est le premier livre de <em>xinshi</em> (新诗). Influencé par la revue <em>Poetry</em> de Chicago et par Whitman, lus comme étudiant à Columbia. Réf. : Michelle Yeh, <em>Modern Chinese Poetry</em> (Yale UP, 1991).",
+        "linkTitle": "Whitman → Hu Shi · Poetry Chicago et Columbia",
+        "linkDetail": "Hu Shi lit Whitman et <em>Poetry</em> à Columbia (1910–1917). Le parallèle avec Laforgue est structurellement exact : un poète étranger découvre Whitman dans la langue source, traduit l'impulsion en vers libres dans sa propre langue, et fonde un mouvement. Mais la rupture chinoise est double (langue + prosodie) là où la rupture française n'est que prosodique.",
         "children": [
           {
-            "id": "dhorme",
-            "label": "Édouard Dhorme — Gilgamesh",
-            "year": "1907",
+          "id": "guo-moruo",
+          "label": "Guo Moruo 郭沫若 — Nüshen (Les Déesses)",
+          "year": "1921",
+          "type": "branch",
+          "detail": "Guo Moruo (1892–1978), formé au Japon, digère Whitman, Shelley, Goethe et Tagore dans un vers libre véhément, cosmique, déclamatoire. <em>Nüshen</em> (女神, 1921) fait du <em>xinshi</em> une forme majeure. Cofondateur de la Société de la Création (创造社).",
+          "children": [
+            {
+            "id": "wen-yiduo",
+            "label": "[Wen Yiduo 闻一多 — contre-courant formaliste]",
+            "year": "1926",
             "type": "branch",
-            "detail": "Première traduction française de l'épopée de Gilgamesh. Vers libre savant né de la contrainte philologique : les parallélismes de la poésie akkadienne sont intraduisibles en mètre classique français. Disposition en courts segments mimant la structure originale. Le savant invente un vers libre fonctionnel avant que le terme soit pleinement légitimé en poésie."
+            "detail": "Wen Yiduo (1899–1946) plaide pour un <em>xinshi</em> formel : vers régulier en vernaculaire, « beauté de la musique, beauté de l'architecture ». Ce débat vers libre / vers régulier à l'intérieur du <em>xinshi</em> reproduit exactement la tension Hekigotō / Kyoshi dans le haïku japonais."
+            }
+          ]
           },
           {
-            "id": "jaccottet",
-            "label": "Philippe Jaccottet — Odyssée",
-            "year": "1955",
-            "type": "branch",
-            "detail": "Traduction pour le Club français du livre. Vers libres de longueur variable (souvent 14 pieds). Choix délibéré de ne pas imposer l'alexandrin à Homère. Jaccottet théorise la nécessité de laisser la syntaxe grecque respirer dans la langue d'arrivée. Moment fondateur pour la traduction littéraire en vers libres en France."
+          "id": "bing-xin",
+          "label": "Bing Xin 冰心 — Étoiles / Eaux printanières",
+          "year": "1922",
+          "type": "branch",
+          "detail": "Bing Xin (Xie Wanying, 1900–1999) publie <em>Fanxing</em> (繁星) et <em>Chunshui</em> (春水), premiers recueils de vers libres féminins en chinois. Courts poèmes fragmentés inspirés de Tagore et Whitman en traduction anglaise. Influence directe sur Ai Qing."
           },
           {
-            "id": "bonnefoy",
-            "label": "Yves Bonnefoy — Shakespeare",
-            "year": "1962–",
-            "type": "branch",
-            "detail": "<em>Hamlet</em> (1962), <em>Jules César</em>, <em>Le Roi Lear</em>, <em>Macbeth</em>. Vers libres refusant de mimer le pentamètre iambique par l'alexandrin. Bonnefoy théorise la traduction comme geste d'écriture à part entière dans <em>L'acte et le lieu de la poésie</em> : le traducteur est auteur, et le vers libre est l'espace de cette co-création."
-          },
-          {
-            "id": "meschonnic",
-            "label": "Henri Meschonnic — Les cinq rouleaux / Bible",
-            "year": "1970–",
-            "type": "main",
-            "detail": "Bible en vers libres rythmés selon l'oralité hébraïque, sans ponctuation, en lignes de longueur variable calquées sur les accents du texte massorétique. Meschonnic théorisera ce geste dans <em>Pour la poétique II</em> (1973) et <em>Critique du rythme</em> (1982) : le rythme n'est pas métrique mais organisation du discours. Ce nœud boucle la généalogie : le vers libre, parti du parallélisme biblique (racine de l'arbre), y revient par la traduction savante, conscient désormais de sa propre histoire.",
-            "linkTitle": "Bible hébraïque → Meschonnic · boucle généalogique",
-            "linkDetail": "Le parallélisme biblique, source inconsciente du vers libre via Lowth → Emerson → Whitman, devient chez Meschonnic un objet de traduction et de théorisation consciente. La boucle se ferme : le vers libre, né du parallélisme biblique importé en anglais au XIXe siècle, revient à la Bible hébraïque au XXe par la traduction en vers libres français. Le vecteur est la philologie hébraïque et la théorie du rythme."
-          },
-          {
-            "id": "backes",
-            "label": "Jean-Louis Backès — Iliade",
-            "year": "2009",
-            "type": "branch",
-            "detail": "Gallimard. Vers libres au service d'une syntaxe homérique respectée. Rejets et enjambements fonctionnels : la coupure de ligne isole des mots-clés, crée des suspensions. Backès a théorisé dans l'<em>Histoire des traductions en langue française</em> (Verdier, XIXe s.) le rôle de la traduction comme vecteur d'introduction du vers libre en France."
-          },
-          {
-            "id": "cosnay",
-            "label": "Marie Cosnay — Métamorphoses d'Ovide",
-            "year": "2017",
-            "type": "branch",
-            "detail": "Éditions de l'Ogre. 10 ans de travail. 12 000 vers d'Ovide en vers libres d'une étrangeté assumée. Décrochages de registre, syntaxe proche du latin, mots d'Ovide parfois conservés. Prix Nelly-Sachs 2018. Le vers libre comme outil de restitution de la voix orale et plurielle d'Ovide."
+          "id": "ai-qing",
+          "label": "Ai Qing 艾青 — La Rivière de Dayan",
+          "year": "1933",
+          "type": "main",
+          "detail": "Ai Qing (Jiang Haicheng, 1910–1996) écrit en prison <em>Dayanhe — wo de baomu</em> (大堰河——我的保姆, 1933). Vers libre épique en <em>baihua</em>, influencé par Apollinaire, Verhaeren et le symbolisme français, découverts lors de son séjour parisien (1929–1932). Il hérite de la double rupture de Hu Shi (langue + prosodie) et de l'ampleur de Guo Moruo. Il converge idéologiquement avec Maïakovski (engagement révolutionnaire, voix collective) mais sans adopter le vers-escalier : Ai Qing écrit un vers libre continu, non typographiquement découpé.",
+          "crossLink": "maiakovski",
+          "crossLinkTitle": "Maïakovski ··· Ai Qing · convergence idéologique, pas formelle",
+          "crossLinkDetail": "Ai Qing et Maïakovski partagent l'engagement révolutionnaire et le vers libre au service de la voix collective, mais leurs formes divergent. Le vers-escalier (<em>лесенка</em>) de Maïakovski n'est pas adopté par Ai Qing, qui écrit un vers libre continu dérivé du symbolisme français. La convergence est thématique et idéologique, non prosodique. Hikmet, en revanche, adopte directement le vers-escalier (voir branche russe). Lien en pointillés."
           }
         ]
-      },
-      {
+        },
+        {
+        "id": "bresil-1922",
+        "label": "Semaine d'Art Moderne — São Paulo",
+        "year": "1922",
+        "type": "main",
+        "detail": "Fondation du modernisme brésilien (février 1922). Mário de Andrade : <em>Paulicéia Desvairada</em> (vers libre urbain, polyphonique). Oswald de Andrade : vers court, syncopé, « cannibale » (<em>Manifesto Antropófago</em>, 1928). Rupture radicale avec le Parnasse portugais. Whitman est une référence explicite, médiatisée par le futurisme italien et les avant-gardes parisiennes.",
+        "children": [
+          {
+          "id": "bandeira",
+          "label": "Manuel Bandeira — Libertinagem",
+          "year": "1930",
+          "type": "branch",
+          "detail": "Recueil emblématique du vers libre brésilien. Bandeira perfectionne un vers libre intime, ironique, populaire — ni académique ni futuriste. « Vou-me embora pra Pasárgada » est l'un des poèmes les plus célèbres de la langue portugaise."
+          }
+        ]
+        },
+        {
+        "id": "vallejo",
+        "label": "César Vallejo — Poemas humanos",
+        "year": "1939 (posthume)",
+        "type": "main",
+        "detail": "Écrits à Paris entre 1923 et 1938, publiés posthumément. Vers libre espagnol d'une étrangeté syntaxique radicale : Vallejo brise la grammaire pour exprimer la douleur collective. Influence décisive sur toute la poésie hispano-américaine du XXe siècle. La filiation avec Whitman est médiatisée par le modernisme hispano-américain (Darío, Huidobro).",
+        "children": [
+          {
+          "id": "vl-hispanoamericain",
+          "label": "Vers libre hispano-américain",
+          "year": "1930–",
+          "type": "stub",
+          "detail": "[À développer.] Huidobro (<em>Altazor</em>, 1931), Neruda (<em>Residencia en la tierra</em>, 1933–35), Paz (<em>Piedra de sol</em>, 1957). Question ouverte : la poésie gauchesca comme source parallèle de vers libre populaire en espagnol."
+          }
+        ]
+        },
+        {
         "id": "vl-arabe",
         "label": "Shi'r hurr — vers libre arabe",
         "year": "1947–",
         "type": "stub",
-        "detail": "[À développer.] Nâzik al-Malâ'ika (« Al-Kulira », 1947) et Badr Shakir al-Sayyab (<em>Unshuda al-matar</em>, 1954) fondent le <em>shi'r hurr</em> (vers libre arabe) en rompant avec la métrique khalilienne (<em>'arud</em>). Adonis (<em>Les Chants de Mihyar le Damascène</em>, 1961) radicalise l'expérience. Mahmoud Darwich porte le vers libre arabe à une dimension épique et politique. Question ouverte : le rôle de la revue <em>Shi'r</em> (Beyrouth, 1957–1970, fondée par Yusuf al-Khal et Adonis) comme infrastructure éditoriale de la rupture — parallèle avec <em>La Vogue</em> en France."
-      },
-      {
+        "detail": "[À développer.] Nâzik al-Malâ'ika (« Al-Kulira », 1947) et Badr Shakir al-Sayyab (<em>Unshuda al-matar</em>, 1954) fondent le <em>shi'r hurr</em> en rompant avec la métrique khalilienne (<em>'arud</em>). Adonis, Darwich. Revue <em>Shi'r</em> (Beyrouth, 1957–1970) comme infrastructure éditoriale — parallèle avec <em>La Vogue</em>. Question ouverte : le rôle de la traduction de Whitman en arabe."
+        },
+        {
         "id": "vl-persan",
         "label": "She'r-e now — vers libre persan",
         "year": "1922/1937",
         "type": "stub",
-        "detail": "[À développer.] Nima Yushij (1897–1960), <em>Afsaneh</em> (1922) puis <em>Qqonous</em> (1937), fonde le <em>she'r-e now</em> (poésie nouvelle persane) en rompant avec la prosodie classique (<em>'aruz-e farsi</em>). Ahmad Shamlu (1925–2000) pousse la libération jusqu'au vers blanc non rimé. Forugh Farrokhzad (1935–1967) introduit la voix féminine et le corps dans le vers libre persan. Question ouverte : le rôle de la traduction de la poésie française (symbolisme, surréalisme) dans la genèse du <em>she'r-e now</em>."
-      },
-      {
+        "detail": "[À développer.] Nima Yushij, <em>Afsaneh</em> (1922), fonde le <em>she'r-e now</em>. Ahmad Shamlu, Forugh Farrokhzad. Question ouverte : rôle de la traduction du symbolisme français."
+        },
+        {
         "id": "vl-hebreu",
         "label": "Vers libre hébreu moderne",
         "year": "1890–",
         "type": "stub",
-        "detail": "[À développer.] Bialik (1873–1934) assouplit la métrique hébraïque ; Yehuda Amichai (1924–2000) fonde le vers libre hébreu contemporain en langue parlée. La situation est structurellement proche du <em>xinshi</em> chinois : passage d'une langue littéraire classique à une langue vernaculaire ressuscitée (hébreu moderne), avec rupture prosodique simultanée. Question ouverte : le rapport entre parallélisme biblique (racine de l'arbre) et vers libre hébreu moderne — les poètes israéliens ont-ils conscience de revenir à une prosodie pré-métrique ?"
-      },
-      {
+        "detail": "[À développer.] Bialik, Amichai. Situation structurellement proche du <em>xinshi</em> chinois : passage d'une langue littéraire classique à un vernaculaire ressuscité (hébreu moderne), avec rupture prosodique simultanée. Question ouverte : le rapport entre parallélisme biblique (racine de l'arbre) et vers libre hébreu moderne."
+        },
+        {
         "id": "vl-tamoul",
         "label": "Pudu kavitai — vers libre tamoul",
         "year": "1910–",
         "type": "stub",
-        "detail": "[À développer.] Subramania Bharati (1882–1921) initie la rupture prosodique dans un milieu lettré et classiquement formé. Nā. Piccamurti (1900–1976/77) la prolonge dans le cadre des revues <em>Manikodi</em> et <em>Ezhuthu</em>. La théorisation du <em>pudu kavitai</em> (poésie nouvelle tamoule) par Kā. Nā. Subramanyam fournit le cadre critique. Même constante sociologique que pour le <em>xinshi</em> chinois et le symbolisme français : les innovateurs prosodiques viennent des classes lettrées, anglicisées et classiquement formées. Le <em>pudu kavitai</em> se resocialise ensuite par la poésie dalit et féministe (Bama, Kutti Revathi, Malathi Maithri, années 1980–). Question ouverte : le rôle de la traduction de Whitman en tamoul dans la genèse du mouvement."
-      },
-      {
+        "detail": "[À développer.] Bharati (1882–1921), Piccamurti (1900–1976/77), revues <em>Manikodi</em> et <em>Ezhuthu</em>. Théorisation par Kā. Nā. Subramanyam. Même constante sociologique que pour le <em>xinshi</em> et le symbolisme français : innovateurs issus des classes lettrées. Resocialisation par la poésie dalit et féministe (Bama, Kutti Revathi, Malathi Maithri, 1980s–)."
+        },
+        {
         "id": "vl-japonais",
         "label": "Jiyu shi 自由詩 — vers libre japonais (hors haïku)",
         "year": "1907–",
         "type": "stub",
-        "detail": "[À développer.] Hagiwara Sakutarō (<em>Tsuki ni hoeru</em>, 1917) fonde le vers libre japonais moderne (<em>jiyu shi</em>), distinct du <em>jiyuritsu haiku</em> de Hekigotō (cf. arbre haïku). Kawaji Ryūkō, influencé par Verhaeren et le symbolisme français, introduit le vers libre en poésie longue dès 1907. Le débat entre vers libre (<em>jiyu shi</em>) et vers régulier (<em>teikei shi</em>) traverse toute la poésie japonaise du XXe siècle. Question ouverte : les interactions entre <em>jiyu shi</em> et <em>jiyuritsu haiku</em> — convergence ou développements indépendants ?"
-      },
-      {
+        "detail": "[À développer.] Hagiwara Sakutarō (<em>Tsuki ni hoeru</em>, 1917). Kawaji Ryūkō, influencé par Verhaeren. Distinct du <em>jiyuritsu haiku</em> de Hekigotō (cf. arbre haïku). Question ouverte : interactions entre <em>jiyu shi</em> et <em>jiyuritsu haiku</em>."
+        },
+        {
         "id": "vl-africain",
         "label": "Vers libre en Afrique subsaharienne",
         "year": "1940–",
         "type": "stub",
-        "detail": "[À développer.] Senghor (<em>Chants d'ombre</em>, 1945), Tchicaya U Tam'si, Okot p'Bitek (<em>Song of Lawino</em>, 1966, Ouganda). Question ouverte : le vers libre africain hérite-t-il davantage du vers libre francophone (Césaire, surréalisme) ou de traditions orales locales (chant, incantation, élégie funéraire) reformulées à l'écrit ? L'oralité constitue-t-elle une source indépendante de « vers libre » ou une catégorie anachronique appliquée rétrospectivement à des formes non textuelles ?"
+        "detail": "[À développer.] Senghor (<em>Chants d'ombre</em>, 1945), Okot p'Bitek (<em>Song of Lawino</em>, 1966). Question ouverte : héritage de Césaire vs traditions orales locales reformulées à l'écrit."
+        }
+      ]
       }
     ]
+    }
+  ]
   }
+]
+},
+
+{
+"id": "cubo-futurisme",
+"label": "Cubo-futurisme russe",
+"year": "1910–1914",
+"type": "main",
+"detail": "Source endogène de la rupture prosodique de Maïakovski — indépendante de la filiation Whitman. Le groupe Guileïa (Hylée), fondé par David Bourliouk, publie le manifeste <em>Une gifle au goût public</em> (Пощёчина общественному вкусу, 1912), qui proclame le droit de jeter Pouchkine, Dostoïevski et Tolstoï « du navire de la modernité ». Le programme est radicalement typographique et sonore : le poète doit organiser les mots comme un peintre cubiste dispose formes et couleurs sur la toile. Grammaire, syntaxe et logique sont écartées au profit des néologismes et onomatopées comme texture universelle du vers. Ce programme est antérieur à toute influence de Whitman et constitue le terreau propre de la <em>lesenka</em>.",
+"children": [
+  {
+  "id": "maiakovski",
+  "label": "Maïakovski — vers-escalier (лесенка)",
+  "year": "1912–1930",
+  "type": "main",
+  "detail": "Vladimir Maïakovski (1893–1930) invente le vers-escalier (<em>лесенка</em>, <em>lesenka</em>), disposition typographique où chaque « marche » correspond à un mot-clé portant un accent, qui se voit attribuer une prominence sémantique et rythmique. Ce n'est pas du vers libre au sens occidental mais du vers <em>tonique accentuel</em> à nombre variable de syllabes inter-accentuelles, héritier du vers oral russe, des <em>chastouchki</em> et des rythmes de l'agitation publique — et non de la métrique syllabo-tonique classique (Pouchkine, Lermontov). La rime subsiste mais change de fonction : elle devient percussion, non ornementation. Maïakovski théorise ce geste dans <em>Comment faire des vers ?</em> (Как делать стихи, 1926), où il déclare explicitement ne rien connaître aux catégories prosodiques reçues (iambe, trochée, vers libre) et appelle à un « sentiment du rythme » propre à chaque situation concrète. La question de l'influence de Whitman est un débat critique : Korneï Tchoukovksi (traducteur de Whitman et ami de Maïakovski) a propagé l'idée d'une influence directe, mais Peterson (<em>Slavic Review</em>, 1969) a établi que Maïakovski ne savait pratiquement pas l'anglais et que la dimension « whitmanienne » relève davantage d'une projection de Tchoukovksi. Evich a précisé que Maïakovski avait « créativement absorbé et retravaillé » Whitman comme « destructeur de traditions littéraires » — mais sans emprunts directs ni influences stylistiques à proprement parler. Verhaeren, très présent en Russie symboliste et explicitement cité par Tchoukovksi aux côtés de Whitman, constitue probablement un maillon intermédiaire sous-estimé.",
+  "crossLink": "whitman",
+  "crossLinkTitle": "Whitman ··· Maïakovski · analogie fonctionnelle, pas filiation formelle",
+  "crossLinkDetail": "Peterson (1969) a solidement établi que la comparaison fonctionne mieux comme analogie fonctionnelle (mêmes ambitions orales, même « je » hyperbolique, même lyrique démocratique) que comme filiation formelle directe. Tchoukovksi lut ses traductions de Whitman à Maïakovski et clama que celui-ci avait « un sentiment instinctif » de la diction de l'Américain — mais cette opinion, propagée par le traducteur, relève de la projection. La rupture métrique de Maïakovski est d'abord endogène (cubo-futurisme, vers oral russe). Verhaeren, considéré comme un « poète russe d'adoption » dans la Russie symboliste, est peut-être le maillon intermédiaire sous-estimé. Lien en pointillés.",
+  "children": [
+    {
+    "id": "hikmet",
+    "label": "Nâzım Hikmet",
+    "year": "1929–",
+    "type": "main",
+    "detail": "Hikmet (1902–1963) adopte directement le vers-escalier de Maïakovski. Pendant ses études en Union soviétique (1921–1924, puis 1926), il est exposé à la poésie moderniste de Maïakovski et le rencontre personnellement lors de son second séjour (1926), où il travaille aussi avec Meyerhold. Ses « step-down lines » constituent la pièce centrale de la révolution formelle qu'il mène dans la poésie turque, selon la biographe Mutlu Konuk Blasing. La transmission est directe, personnelle, dans la langue source (Hikmet lit et parle le russe). Hikmet est le premier poète turc à écrire systématiquement en vers libre, rompant avec la prosodie arabo-persane (<em>aruz</em>) et le syllabisme populaire (<em>hece</em>). C'est l'une des rares circulations de forme avec transmission personnelle attestée.",
+    "linkTitle": "Maïakovski → Hikmet · adoption formelle directe et rencontre personnelle",
+    "linkDetail": "Le vecteur est l'infrastructure éducative soviétique (Université des travailleurs d'Orient à Moscou). La disposition typographique en marches est adoptée intégralement. La chaîne est : cubo-futurisme russe → Maïakovski (Moscou, 1923) → Hikmet (contact direct Moscou, 1926, puis pratique dans la poésie turque 1929–1936)."
+    },
+    {
+    "id": "evtouchenko",
+    "label": "Evtouchenko, Voznessenski — lesenka soviétique tardive",
+    "year": "1960–1970",
+    "type": "branch",
+    "detail": "Evgueni Evtouchenko et Andreï Voznessenski prolongent explicitement la <em>lesenka</em> maïakovskienne dans la poésie soviétique des années 1960–70. La forme est alors un marqueur de filiation politique autant que prosodique : se réclamer de Maïakovski, c'est revendiquer une légitimité révolutionnaire dans le système littéraire soviétique."
+    },
+    {
+    "id": "poeme-proletarien",
+    "label": "Poésie épique prolétarienne / communiste",
+    "year": "1930–1970",
+    "type": "stub",
+    "detail": "[À développer — voir arborescence dédiée.] Maïakovski → Hikmet → Neruda (<em>Canto general</em>, 1950) → poésie nord-coréenne d'État. Également Aragon et Johannes Becher (Allemagne), dont l'influence de Maïakovski est attestée — mais elle concerne davantage la voix oratorique et l'engagement que la <em>lesenka</em> comme dispositif typographique. Diffusion du vers libre par les réseaux politiques internationaux (Komintern, congrès d'écrivains). Question ouverte : le vers libre épique communiste constitue-t-il une forme autonome (avec ses propres contraintes : verset long, destinataire collectif, structure hymne/appel) ou une variante thématique du vers libre moderniste ?",
+    "crossLink": "poemeProletarien",
+    "crossLinkTitle": "→ Voir arborescence « Poème épique prolétarien »",
+    "crossLinkDetail": "Lien vers l'arborescence dédiée à la poésie épique prolétarienne (Maïakovski → Hikmet → Neruda → poésie nord-coréenne d'État), qui traite de la circulation via les réseaux politiques internationaux."
+    }
+  ]
+  }
+]
+}
+
+]
+},
+
+{
+"id": "traduction-savante",
+"label": "Vers libre en traduction savante et littéraire",
+"year": "1907–",
+"type": "root",
+"detail": "Troisième tronc. Le vers libre naît aussi de la contrainte philologique, quand le mètre classique français (alexandrin) s'avère inapte à rendre les prosodies étrangères. Le traducteur invente un vers libre fonctionnel. Ce fil passe par la traduction de l'akkadien (R. P. Dhorme), du grec homérique (Jaccottet, Backès), du pentamètre iambique anglais (Bonnefoy) et de l'hébreu biblique (Meschonnic). Il croise le fil du vers libre littéraire en 1886 (Laforgue traduit Whitman) et en 1970 (Meschonnic théorise le rythme comme organisation du discours).",
+"children": [
+  {
+  "id": "dhorme",
+  "label": "R. P. Paul Dhorme — Gilgamesh",
+  "year": "1907",
+  "type": "branch",
+  "detail": "Le R. P. Paul Dhorme, o.p. (1881–1966), dominicain et assyriologue, publie la première traduction française de l'épopée de Gilgamesh. Vers libre savant né de la contrainte philologique : les parallélismes de la poésie akkadienne sont intraduisibles en mètre classique français. Disposition en courts segments mimant la structure originale. Le savant invente un vers libre fonctionnel avant que le terme soit pleinement légitimé en poésie."
+  },
+  {
+  "id": "jaccottet",
+  "label": "Philippe Jaccottet — Odyssée",
+  "year": "1955",
+  "type": "main",
+  "detail": "Traduction pour le Club français du livre. Vers libres de longueur variable (souvent 14 pieds). Choix délibéré de ne pas imposer l'alexandrin à Homère. Jaccottet théorise la nécessité de laisser la syntaxe grecque respirer dans la langue d'arrivée. Moment fondateur pour la traduction littéraire en vers libres en France : Jaccottet ouvre une voie que Backès et Cosnay prolongeront, chacun à sa manière, pour Homère et Ovide.",
+  "children": [
+    {
+    "id": "backes",
+    "label": "Jean-Louis Backès — Iliade",
+    "year": "2009",
+    "type": "branch",
+    "dottedLink": true,
+    "detail": "Gallimard. Vers libres au service d'une syntaxe homérique respectée. Rejets et enjambements fonctionnels : la coupure de ligne isole des mots-clés, crée des suspensions. Backès a théorisé dans l'<em>Histoire des traductions en langue française</em> (Verdier, XIXe s.) le rôle de la traduction comme vecteur d'introduction du vers libre en France. La filiation avec Jaccottet est moins une influence directe qu'une convergence de méthode : refus de l'alexandrin pour Homère, primat de la syntaxe sur le mètre.",
+    "linkTitle": "Jaccottet ··· Backès · convergence de méthode",
+    "linkDetail": "Pas de filiation directe attestée, mais une même position traductologique : le vers libre comme seule solution pour rendre l'hexamètre homérique sans le trahir par l'alexandrin. Jaccottet pose le geste en 1955 ; Backès le théorise et le prolonge un demi-siècle plus tard. Lien en pointillés."
+    },
+    {
+    "id": "cosnay",
+    "label": "Marie Cosnay — Métamorphoses d'Ovide",
+    "year": "2017",
+    "type": "branch",
+    "dottedLink": true,
+    "detail": "Éditions de l'Ogre. 10 ans de travail. 12 000 vers d'Ovide en vers libres d'une étrangeté assumée. Décrochages de registre, syntaxe proche du latin, mots d'Ovide parfois conservés. Prix Nelly-Sachs 2018. Le vers libre comme outil de restitution de la voix orale et plurielle d'Ovide. La filiation avec Jaccottet est celle d'une posture : le vers libre de traduction comme geste d'écriture et non comme pis-aller.",
+    "linkTitle": "Jaccottet ··· Cosnay · le vers libre de traduction comme geste d'écriture",
+    "linkDetail": "Cosnay prolonge le geste fondateur de Jaccottet (refus du mètre classique pour rendre une poésie antique), mais le radicalise : là où Jaccottet cherchait la transparence, Cosnay assume l'étrangeté et la violence de la langue latine dans le français. Lien en pointillés."
+    }
+  ]
+  },
+  {
+  "id": "bonnefoy",
+  "label": "Yves Bonnefoy — Shakespeare",
+  "year": "1962–",
+  "type": "branch",
+  "detail": "<em>Hamlet</em> (1962), <em>Jules César</em>, <em>Le Roi Lear</em>, <em>Macbeth</em>. Vers libres refusant de mimer le pentamètre iambique par l'alexandrin. Bonnefoy théorise la traduction comme geste d'écriture à part entière dans <em>L'acte et le lieu de la poésie</em> : le traducteur est auteur, et le vers libre est l'espace de cette co-création."
+  },
+  {
+  "id": "meschonnic",
+  "label": "Henri Meschonnic — Les cinq rouleaux / Bible",
+  "year": "1970–",
+  "type": "main",
+  "detail": "Bible en vers libres rythmés selon l'oralité hébraïque, sans ponctuation, en lignes calquées sur les accents du texte massorétique. Meschonnic théorise ce geste dans <em>Pour la poétique II</em> (1973) et <em>Critique du rythme</em> (1982) : le rythme n'est pas métrique mais organisation du discours. Ce nœud boucle la généalogie : le vers libre, parti du parallélisme biblique (racine du tronc 2), y revient par la traduction savante, conscient désormais de sa propre histoire.",
+  "crossLink": "bible-hebraique",
+  "crossLinkTitle": "Bible hébraïque ··· Meschonnic · boucle généalogique",
+  "crossLinkDetail": "Le parallélisme biblique, source inconsciente du vers libre via Lowth → Emerson → Whitman, devient chez Meschonnic un objet de traduction et de théorisation consciente. La boucle se ferme : le vers libre, né du parallélisme biblique importé en anglais au XIXe siècle, revient à la Bible hébraïque au XXe par la traduction en vers libres français."
+  }
+]
+}
+
+]
+}
 }
