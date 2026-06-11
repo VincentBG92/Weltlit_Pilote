@@ -132,15 +132,40 @@ header{text-align:center;padding:30px 20px 4px}
 .detail-text{font-size:1.03rem;color:var(--cream);line-height:1.7;opacity:.88}
 .detail-placeholder{font-style:italic;color:var(--text-faint);font-size:.95rem;padding:14px 0}
 
-.sources-bar{max-width:900px;margin:10px auto 0;padding:0 30px;
-  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
-  color:#c47a3a;text-align:right;min-height:20px}
-.moretti-note{max-width:860px;margin:24px auto 0;padding:0 30px;
-  font-style:italic;color:rgba(200,170,120,0.65);font-size:.88rem;line-height:1.6;text-align:center}
-.orn-div{display:flex;align-items:center;gap:18px;max-width:900px;margin:28px auto 0;padding:0 30px}
+.moretti-note{max-width:860px;margin:24px auto 0;padding:0 30px;color:rgba(200,170,120,0.65);font-size:.98rem;line-height:1.6;text-align:center}
+.orn-div{display:flex;align-items:center;gap:18px;max-width:900px;margin:0 auto;padding:0 30px}
 .orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.15),transparent)}
 .orn-text{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.26em;
   text-transform:uppercase;color:var(--text-faint);white-space:nowrap}
+
+/* ── Bibliographie ── */
+.biblio-tabs{display:flex;gap:0;flex-shrink:0}
+.biblio-tab{background:transparent;border:1px solid var(--border-subtle);
+  color:var(--text-dim);font-family:'Cinzel',serif;font-size:.66rem;
+  letter-spacing:.16em;text-transform:uppercase;padding:7px 18px;cursor:pointer;
+  transition:all .22s;outline:none;margin-right:-1px}
+.biblio-tab:hover{color:var(--gold-light);border-color:rgba(201,162,39,.5);
+  background:rgba(201,162,39,.05);z-index:1}
+.biblio-tab.active{background:var(--gold);border-color:var(--gold);
+  color:var(--bg);z-index:2}
+.biblio-panel{max-width:900px;margin:0 auto;padding:20px 30px 10px}
+.biblio-list-inner{display:flex;flex-direction:column;gap:14px}
+.biblio-entry{display:grid;grid-template-columns:auto 1fr;gap:0 16px;
+  padding-bottom:14px;border-bottom:1px solid rgba(201,162,39,.08)}
+.biblio-entry:last-child{border-bottom:none;padding-bottom:0}
+.biblio-num{font-family:'Cinzel',serif;font-size:.72rem;color:var(--text-faint);
+  padding-top:3px;min-width:22px;text-align:right}
+.biblio-text{font-size:1.05rem;color:var(--cream);line-height:1.65;opacity:.9}
+.biblio-text .b-author{font-variant-caps:small-caps}
+.biblio-text .b-title{font-style:italic}
+.biblio-text .b-title-article{}
+.biblio-text .b-container{font-style:italic}
+.biblio-text .b-doi{font-family:'Cinzel',serif;font-size:.7rem;
+  letter-spacing:.06em;color:var(--text-dim);margin-left:4px}
+.biblio-export{font-family:'Courier New',monospace;font-size:.8rem;
+  color:var(--cream);background:rgba(0,0,0,.35);border:1px solid var(--border-subtle);
+  padding:16px 20px;white-space:pre;overflow-x:auto;line-height:1.5;
+  max-height:420px;overflow-y:auto}
 footer{text-align:center;padding:30px 20px 24px;font-family:'Cinzel',serif;
   font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
   color:rgba(122,110,95,.32);border-top:1px solid var(--border-subtle);margin-top:40px}
@@ -203,12 +228,28 @@ footer{text-align:center;padding:30px 20px 24px;font-family:'Cinzel',serif;
     <p class="detail-placeholder">Cliquez sur un nœud pour afficher les détails.</p>
   </div>
 </div>
-<div class="sources-bar" id="sources-bar"></div>
+<!-- ── Section bibliographie ──────────────────────────────────────────── -->
+<div class="biblio-section" id="biblio-section" style="display:none">
+  <div class="orn-div" style="margin-top:36px">
+    <div class="orn-line"></div>
+    <div class="biblio-tabs">
+      <button class="biblio-tab active" id="btn-sources">Sources bibliographiques</button>
+      <button class="biblio-tab" id="btn-export">Exporter (CSL-JSON)</button>
+    </div>
+    <div class="orn-line"></div>
+  </div>
+  <div class="biblio-panel" id="biblio-list"></div>
+</div>
 
+<!-- ── Note méthodologique ────────────────────────────────────────────── -->
+<div class="orn-div" style="margin-top:40px">
+  <div class="orn-line"></div>
+  <span class="orn-text">Note méthodologique</span>
+  <div class="orn-line"></div>
+</div>
 <p class="moretti-note">
-  Ces arborescences s'inspirent de la méthode de Franco Moretti dans « The Slaughterhouse of Literature » (<em>MLQ</em>, 2000) et <em>Graphs, Maps, Trees</em> (2005) : les formes littéraires y sont traitées comme des espèces qui se ramifient, s'hybrident et parfois disparaissent. Les liens tiretés indiquent des hybridations ou emprunts documentés entre traditions distinctes ; les liens continus, des filiations génériques directes au sein d'une même tradition.
+  Ces arborescences s'inspirent de celles proposées par Franco Moretti dans « The Slaughterhouse of Literature » (<em>MLQ</em>, 2000) et <em>Graphs, Maps, Trees</em> (2005) : les formes littéraires y sont traitées comme des espèces qui se ramifient, et qui peuvent aussi s'hybrider. Les liens continus indiquent des filiations formelles directes et documentées ; les liens tiretés, des emprunts ou des filiations hypothétiques, ou des liens entre traditions nettement distinctes.
 </p>
-<div class="orn-div"><div class="orn-line"></div><span class="orn-text">Note méthodologique</span><div class="orn-line"></div></div>
 
 <footer>Données provisoires</footer>
 
@@ -339,6 +380,10 @@ async function switchTree(key) {
     document.getElementById("scroll-nav").style.display  = "";
     renderTree(tree);
   }
+
+  /* Bibliographie : reset tab puis charger */
+  biblioCurrent = "list";
+  renderBiblio(key);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -414,7 +459,7 @@ function renderTree(tree) {
   /* ── Liens parent→enfant ── */
   const linkGen = d3.linkHorizontal().x(d => d.y).y(d => d.x);
   g.selectAll(".tree-link")
-    .data(links.filter(d => !d.source.data.hidden))
+    .data(links)
     .join("path")
     .attr("class", d => {
       const has = d.target.data.linkDetail ? " has-detail" : "";
@@ -474,7 +519,6 @@ function renderTree(tree) {
     .on("click", (evt, d) => { evt.stopPropagation(); selectNode(d.data); });
 
   nodeG.each(function(d) {
-    if (d.data.hidden) return;
     const tc    = TYPE_COLOR[d.data.type] || TYPE_COLOR.branch;
     const sel   = d.data.id === selectedNodeId;
     const baseR = d.data.type === "root" ? 8 : (d.data.type === "main" ? 6 : 5);
@@ -488,13 +532,13 @@ function renderTree(tree) {
 
   const truncate = (s, n) => s && s.length > n ? s.slice(0, n - 1) + "…" : s;
 
-  nodeG.filter(d => !d.data.hidden).append("text")
+  nodeG.append("text")
     .attr("class", "node-label")
     .attr("x", 12).attr("y", -6)
     .attr("text-anchor", "start")
     .text(d => truncate(d.data.label, 40));
 
-  nodeG.filter(d => !d.data.hidden).append("text")
+  nodeG.append("text")
     .attr("class", "node-year")
     .attr("x", 12).attr("y", 7)
     .attr("text-anchor", "start")
@@ -611,9 +655,161 @@ function initScroll() {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
+   BIBLIOGRAPHIE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+let bibliocache = {};   /* key → tableau CSL-JSON */
+let biblioCurrent = "list";  /* "list" | "export" */
+
+/** Charge {key}-biblio.json si disponible, renvoie [] sinon. */
+async function loadBiblio(key) {
+  if (bibliocache[key] !== undefined) return bibliocache[key];
+  try {
+    const res = await fetch(`donnees-arbres/${key}-biblio.json`);
+    if (!res.ok) { bibliocache[key] = []; return []; }
+    bibliocache[key] = await res.json();
+  } catch { bibliocache[key] = []; }
+  return bibliocache[key];
+}
+
+/** Formate une entrée CSL-JSON en HTML bibliographique. */
+function formatEntry(e) {
+  /* Auteurs */
+  const authors = (e.author || []).map(a => {
+    if (!a.family) return a.given || "";
+    const fam = `<span class="b-author">${a.family}</span>`;
+    return a.given ? `${fam}, ${a.given[0]}.` : fam;
+  }).join(" ; ");
+
+  /* Date */
+  const year = e.issued?.["date-parts"]?.[0]?.[0] ?? "";
+
+  /* Titre selon le type */
+  let title = "";
+  if (e.type === "book" || e.type === "thesis") {
+    title = `<span class="b-title">${e.title}</span>`;
+  } else {
+    title = `« <span class="b-title-article">${e.title}</span> »`;
+  }
+
+  /* Container */
+  let container = "";
+  if (e["container-title"]) {
+    container = `, <span class="b-container">${e["container-title"]}</span>`;
+    if (e.volume)  container += `, ${e.volume}`;
+    if (e.issue)   container += `/${e.issue}`;
+    if (e.page)    container += `, p. ${e.page}`;
+  }
+
+  /* Éditeur */
+  let pub = "";
+  if (e.publisher) {
+    pub = `, ${e["publisher-place"] ? e["publisher-place"] + " : " : ""}${e.publisher}`;
+  }
+  if (e.genre) pub += ` (${e.genre})`;
+  if (e.edition && e.edition !== "1") pub += `, ${e.edition}e éd.`;
+
+  /* DOI */
+  const doi = e.DOI
+    ? ` <span class="b-doi">DOI: ${e.DOI}</span>`
+    : "";
+
+  return `${authors}${authors ? ", " : ""}${title}${container}${pub}${year ? ", " + year : ""}${doi}.`;
+}
+
+/** Rendu de la section biblio pour la clé courante. */
+async function renderBiblio(key) {
+  const entries = await loadBiblio(key);
+  const section = document.getElementById("biblio-section");
+
+  if (!entries.length) {
+    section.style.display = "none";
+    return;
+  }
+  section.style.display = "";
+
+  /* Tri auteur-année */
+  const sorted = [...entries].sort((a, b) => {
+    const fa = a.author?.[0]?.family || "";
+    const fb = b.author?.[0]?.family || "";
+    if (fa < fb) return -1; if (fa > fb) return 1;
+    const ya = a.issued?.["date-parts"]?.[0]?.[0] ?? 0;
+    const yb = b.issued?.["date-parts"]?.[0]?.[0] ?? 0;
+    return ya - yb;
+  });
+
+  showBiblioTab(biblioCurrent, sorted, key);
+}
+
+function showBiblioTab(mode, sorted, key) {
+  biblioCurrent = mode;
+  document.getElementById("btn-sources").classList.toggle("active", mode === "list");
+  document.getElementById("btn-export").classList.toggle("active",  mode === "export");
+
+  const panel = document.getElementById("biblio-list");
+
+  if (mode === "list") {
+    const rows = sorted.map((e, i) =>
+      `<div class="biblio-entry">
+        <div class="biblio-num">${i + 1}</div>
+        <div class="biblio-text">${formatEntry(e)}</div>
+      </div>`
+    ).join("");
+    panel.innerHTML = `<div class="biblio-list-inner">${rows}</div>`;
+  } else {
+    /* Export CSL-JSON brut + bouton téléchargement */
+    const raw = JSON.stringify(sorted, null, 2);
+    const blob = new Blob([raw], { type: "application/json" });
+    const url  = URL.createObjectURL(blob);
+    panel.innerHTML = `
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+        <a href="${url}" download="${key}-biblio.json"
+           style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.14em;
+                  text-transform:uppercase;color:var(--bg);background:var(--gold);
+                  border:1px solid var(--gold);padding:7px 18px;text-decoration:none;
+                  transition:background .2s"
+           onmouseover="this.style.background='#e8d078'"
+           onmouseout="this.style.background='var(--gold)'">
+          ↓ Télécharger ${key}-biblio.json
+        </a>
+        <span style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;
+                     text-transform:uppercase;color:var(--text-faint)">
+          Format CSL-JSON · compatible Zotero (Fichier → Importer)
+        </span>
+      </div>
+      <div class="biblio-export">${raw.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+    `;
+  }
+}
+
+function initBiblioTabs() {
+  document.getElementById("btn-sources").addEventListener("click", async () => {
+    if (!currentKey) return;
+    const entries = await loadBiblio(currentKey);
+    const sorted = [...entries].sort((a, b) => {
+      const fa = a.author?.[0]?.family || "", fb = b.author?.[0]?.family || "";
+      if (fa < fb) return -1; if (fa > fb) return 1;
+      return (a.issued?.["date-parts"]?.[0]?.[0] ?? 0) - (b.issued?.["date-parts"]?.[0]?.[0] ?? 0);
+    });
+    showBiblioTab("list", sorted, currentKey);
+  });
+  document.getElementById("btn-export").addEventListener("click", async () => {
+    if (!currentKey) return;
+    const entries = await loadBiblio(currentKey);
+    const sorted = [...entries].sort((a, b) => {
+      const fa = a.author?.[0]?.family || "", fb = b.author?.[0]?.family || "";
+      if (fa < fb) return -1; if (fa > fb) return 1;
+      return (a.issued?.["date-parts"]?.[0]?.[0] ?? 0) - (b.issued?.["date-parts"]?.[0]?.[0] ?? 0);
+    });
+    showBiblioTab("export", sorted, currentKey);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
    DÉMARRAGE
    ══════════════════════════════════════════════════════════════════════════ */
 initScroll();
+initBiblioTabs();
 init();
 </script>
 </body>
