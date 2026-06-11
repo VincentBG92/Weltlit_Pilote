@@ -1,0 +1,106 @@
+[
+  {
+    "id": "deweerdt2020",
+    "type": "article-journal",
+    "title": "Notebooks (Biji) and Shifting Boundaries of Knowledge in Song China",
+    "author": [{ "family": "De Weerdt", "given": "Hilde" }],
+    "container-title": "T'oung Pao",
+    "volume": "106",
+    "issue": "1–2",
+    "page": "1–66",
+    "issued": { "date-parts": [[2020]] },
+    "DOI": "10.1163/15685322-10612p01"
+  },
+  {
+    "id": "egan2013",
+    "type": "chapter",
+    "title": "Shen Kuo Chats with Ink Stone and Brush: The Mengxi bitan and Song Biji",
+    "author": [{ "family": "Egan", "given": "Ronald" }],
+    "container-title": "The Oxford Handbook of Classical Chinese Literature (1000 BCE–900 CE)",
+    "editor": [
+      { "family": "Owen", "given": "Stephen" },
+      { "family": "Tian", "given": "Xiaofei" }
+    ],
+    "publisher": "Oxford University Press",
+    "publisher-place": "Oxford",
+    "issued": { "date-parts": [[2013]] }
+  },
+  {
+    "id": "inglis2006",
+    "type": "book",
+    "title": "Hong Mai's Record of the Listener and Its Song Dynasty Context",
+    "author": [{ "family": "Inglis", "given": "Alister" }],
+    "publisher": "SUNY Press",
+    "publisher-place": "Albany",
+    "issued": { "date-parts": [[2006]] },
+    "ISBN": "978-0791467060"
+  },
+  {
+    "id": "liuyeqiu1980",
+    "type": "book",
+    "title": "歷代筆記概述 (Lidai biji gaishu)",
+    "author": [{ "family": "劉葉秋", "given": "" }],
+    "publisher": "中華書局",
+    "publisher-place": "北京",
+    "issued": { "date-parts": [[1980]] }
+  },
+  {
+    "id": "gangliu2023",
+    "type": "book",
+    "title": "The Poetics of Miscellaneousness: Biji Writing in Late Imperial China",
+    "author": [{ "family": "Liu", "given": "Gang" }],
+    "publisher": "University of Michigan Press",
+    "publisher-place": "Ann Arbor",
+    "issued": { "date-parts": [[2023]] }
+  },
+  {
+    "id": "chance1997",
+    "type": "book",
+    "title": "Formless in Form: Kenkō, 'Tsurezuregusa', and the Rhetoric of Japanese Fragmentary Prose",
+    "author": [{ "family": "Chance", "given": "Linda H." }],
+    "publisher": "Stanford University Press",
+    "publisher-place": "Stanford",
+    "issued": { "date-parts": [[1997]] },
+    "ISBN": "978-0804728362"
+  },
+  {
+    "id": "lee1989",
+    "type": "book",
+    "title": "A Korean Storyteller's Miscellany: The P'aegwan chapki of Ŏ Sukkwŏn",
+    "author": [{ "family": "Lee", "given": "Peter H." }],
+    "publisher": "Princeton University Press",
+    "publisher-place": "Princeton",
+    "issued": { "date-parts": [[1989]] },
+    "ISBN": "978-0691067520"
+  },
+  {
+    "id": "bol1995",
+    "type": "article-journal",
+    "title": "The Sung Examination System and the Shih",
+    "author": [{ "family": "Bol", "given": "Peter K." }],
+    "container-title": "Journal of Song-Yuan Studies",
+    "volume": "25",
+    "page": "1–35",
+    "issued": { "date-parts": [[1995]] }
+  },
+  {
+    "id": "carter2014",
+    "type": "book",
+    "title": "The Columbia Anthology of Japanese Essays: Zuihitsu from the Tenth to the Twenty-First Century",
+    "author": [{ "family": "Carter", "given": "Steven D." }],
+    "publisher": "Columbia University Press",
+    "publisher-place": "New York",
+    "issued": { "date-parts": [[2014]] },
+    "ISBN": "978-0231163279"
+  },
+  {
+    "id": "fu1993",
+    "type": "article-journal",
+    "title": "A Contextual and Taxonomic Study of the 'Divine Marvels' and 'Strange Occurrences' in the Mengxi bitan",
+    "author": [{ "family": "Fu", "given": "Daiwie" }],
+    "container-title": "Chinese Science",
+    "volume": "11",
+    "page": "3–35",
+    "issued": { "date-parts": [[1993]] }
+  }
+]
