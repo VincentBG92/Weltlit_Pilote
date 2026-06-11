@@ -414,7 +414,7 @@ function renderTree(tree) {
   /* ── Liens parent→enfant ── */
   const linkGen = d3.linkHorizontal().x(d => d.y).y(d => d.x);
   g.selectAll(".tree-link")
-    .data(links)
+    .data(links.filter(d => !d.source.data.hidden))
     .join("path")
     .attr("class", d => {
       const has = d.target.data.linkDetail ? " has-detail" : "";
@@ -474,6 +474,7 @@ function renderTree(tree) {
     .on("click", (evt, d) => { evt.stopPropagation(); selectNode(d.data); });
 
   nodeG.each(function(d) {
+    if (d.data.hidden) return;
     const tc    = TYPE_COLOR[d.data.type] || TYPE_COLOR.branch;
     const sel   = d.data.id === selectedNodeId;
     const baseR = d.data.type === "root" ? 8 : (d.data.type === "main" ? 6 : 5);
@@ -487,13 +488,13 @@ function renderTree(tree) {
 
   const truncate = (s, n) => s && s.length > n ? s.slice(0, n - 1) + "…" : s;
 
-  nodeG.append("text")
+  nodeG.filter(d => !d.data.hidden).append("text")
     .attr("class", "node-label")
     .attr("x", 12).attr("y", -6)
     .attr("text-anchor", "start")
     .text(d => truncate(d.data.label, 40));
 
-  nodeG.append("text")
+  nodeG.filter(d => !d.data.hidden).append("text")
     .attr("class", "node-year")
     .attr("x", 12).attr("y", 7)
     .attr("text-anchor", "start")
