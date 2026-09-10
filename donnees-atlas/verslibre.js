@@ -13,7 +13,7 @@ LITERARY_FORMS.versLibre = {
     /* ── Pseudotraductions romantiques ── */
     {year:1827, events:[
       {countryId:"250", title:"La Guzla — Prosper Mérimée (pseudotraduction)",
-        detail:"Poèmes illyriens fictifs présentés comme traduits de la Dalmatie. Style 'barbare', sans rime ni mètre régulier. Mystifie Goethe et Pouchkine. Selon Christine Lombez, la pseudotraduction est le vecteur clandestin d'introduction de formes prosodiques nouvelles : la tolérance du lectorat est plus grande pour une déviance attribuée à l'étranger.",
+        detail:"Poèmes illyriens fictifs présentés comme traduits du "morlaque". Les poèmes s'apparentent plutôt à une prose poétique, qui préfigure à certains égards le vers libre (se présentent comme des strophes brèves, d'une à trois phrases). Le canular a trompé diverses personnes, dont un savant anglais (Bowring), un allemand (Gerhart, qui affirme que "sous [l]a prose il avait découvert le mètre des vers illyriques"), et Pouchkine, comme le révèle Mérimée en 1840, dans l'avertissement qu'il ajoute à la réédition du recueil. Mérimée dit alors être revenu de son romantisme de jeunesse et de sa quête de la "couleur locale". Selon Christine Lombez, la pseudotraduction est le vecteur clandestin d'introduction de formes prosodiques nouvelles : la tolérance du lectorat est plus grande pour une déviance attribuée à l'étranger.",
         city:{lat:48.86,lon:2.35,nom_actuel:"Paris"}}
     ]},
     {year:1831, events:[
